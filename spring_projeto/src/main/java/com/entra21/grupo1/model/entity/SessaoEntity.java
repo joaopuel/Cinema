@@ -8,7 +8,25 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sessao")
 public class SessaoEntity {
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    //todo
+    @Column(name = "data_sessao")
+    private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "id_sala", referencedColumnName = "id")
+    private SalaEntity sala;
+
+    @ManyToOne
+    @JoinColumn(name = "id_filme", referencedColumnName = "id")
+    private FilmeEntity filme;
+
+    @Column(name = "valor_inteira")
+    private String valorInteira;
+
+    @Column(name = "valor_meia")
+    private String valorMeia;
 }
