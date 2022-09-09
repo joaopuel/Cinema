@@ -92,3 +92,5 @@ create table filme_genero(
 	foreign key (id_filme) references filme(id),
 	foreign key (id_genero) references genero(id)
 );
+
+ALTER TABLE cadeira RENAME COLUMN código TO codigo;
