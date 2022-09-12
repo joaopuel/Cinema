@@ -107,5 +107,12 @@ values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 19
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
 values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
 
+insert into cinema(nome, id_administrador, caixa)
+values("Cinema Teste", 1, 1500);
 
->>>>>>> 51289b1fb52dc95fcd1c68e8aded81a217fed26a
+insert into sala(nome, id_cinema)
+values("Sala1", 1);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-15 19:30:00', 1, 1, 45, 25);
+
