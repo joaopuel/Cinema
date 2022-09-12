@@ -30,7 +30,7 @@ create table sala(
 
 create table cadeira(
 	id bigint not null primary key auto_increment,
-	código varchar(250) not null,
+	codigo varchar(250) not null,
 	id_sala bigint not null,
 	tipo_cadeira varchar(45) not null,
 	fileira int not null,
@@ -93,6 +93,19 @@ create table filme_genero(
 	foreign key (id_genero) references genero(id)
 );
 
+<<<<<<< HEAD
 ALTER TABLE cadeira RENAME COLUMN código TO codigo;
 
  ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
+=======
+insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
+values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
+
+insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
+values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 1977);
+
+insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
+values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
+
+
+>>>>>>> 51289b1fb52dc95fcd1c68e8aded81a217fed26a

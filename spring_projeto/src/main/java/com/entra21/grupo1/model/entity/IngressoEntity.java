@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,19 +15,18 @@ public class IngressoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "id_sessao", referencedColumnName = "id")
-    private Long idSessao;
+    private Set<SessaoEntity> sessoes;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
-    private Long idPessoa;
+    private Set<PessoaEntity> pessoas;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "id_cadeira", referencedColumnName = "id")
-    private Long idCadeira;
+    private Set<CadeiraEntity> cadeiras;
 
-    @ManyToOne
-    @JoinColumn(name = "data_compra", referencedColumnName = "id")
+    @Column(name = "data_compra")
     private LocalDate dataCompra;
 }
