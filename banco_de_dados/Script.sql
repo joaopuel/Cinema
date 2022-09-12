@@ -94,3 +94,5 @@ create table filme_genero(
 );
 
 ALTER TABLE cadeira RENAME COLUMN código TO codigo;
+
+ ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
