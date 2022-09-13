@@ -37,7 +37,10 @@ public class FilmeService {
             filmeDTO.setSessoes(
                     f.getSessoes().stream().map( s -> {
                         SessaoDTO sessaoDTO = new SessaoDTO();
+                        sessaoDTO.setId(s.getId());
                         sessaoDTO.setDataSessao(s.getDataSessao());
+                        sessaoDTO.setValorMeia(s.getValorMeia());
+                        sessaoDTO.setValorInteira(s.getValorInteira());
                         return sessaoDTO;
                     }).collect(Collectors.toList())
             );

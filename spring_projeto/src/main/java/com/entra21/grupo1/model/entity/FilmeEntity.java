@@ -1,12 +1,10 @@
 package com.entra21.grupo1.model.entity;
 
-import com.entra21.grupo1.model.dto.SessaoDTO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -36,17 +34,8 @@ public class FilmeEntity {
     @Column(name = "cartaz")
     private String cartaz;
 
-    @OneToMany
-    @JoinColumn()
+    @OneToMany(mappedBy = "filme")
+    @EqualsAndHashCode.Exclude
     private Set<SessaoEntity> sessoes;
 
-//    public List<SessaoDTO> getSessoes(){
-//        List<SessaoDTO> list = new ArrayList<>();
-//        for(SessaoEntity sessao : this.sessoes){
-//            SessaoDTO sessaoDTO = new SessaoDTO();
-//            sessaoDTO.setDataSessao(sessao.getDataSessao());
-//            list.add(sessaoDTO);
-//        }
-//        return list;
-//    }
 }
