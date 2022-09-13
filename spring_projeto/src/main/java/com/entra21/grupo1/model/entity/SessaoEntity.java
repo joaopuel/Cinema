@@ -3,6 +3,7 @@ package com.entra21.grupo1.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -14,7 +15,7 @@ public class SessaoEntity {
     private Long id;
 
     @Column(name = "data_sessao")
-    private String nome;
+    private LocalDateTime dataSessao;
 
     @ManyToOne
     @JoinColumn(name = "id_sala", referencedColumnName = "id")

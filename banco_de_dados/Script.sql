@@ -116,3 +116,20 @@ values("Velozes e Furiosos 9", '2:23', "Cadê o Paul", "Justin", 2021,"https://p
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Velozes e Furiosos: Desafio em Tóquio", '1:44', "Uau, ele leu o manual", "Justin", 2006, "https://media.fstatic.com/xWSwYWLRUbBbjWvh-OUoDYjCPjE=/210x312/smart/media/movies/covers/2017/12/poster_opt_3_HMJwX5m.jpg");
 
+insert into cinema(nome, id_administrador, caixa)
+values("Cinema Teste", 1, 1500);
+
+insert into sala(nome, id_cinema)
+values("Sala1", 1);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-15 19:30:00', 1, 3, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-15 20:00:00', 1, 3, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-16 19:30:00', 1, 3, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-16 20:00:00', 1, 3, 45, 25);
