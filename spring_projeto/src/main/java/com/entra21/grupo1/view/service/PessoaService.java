@@ -7,10 +7,12 @@ import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +46,24 @@ public class PessoaService implements UserDetailsService {
         newEntity.setLogin(input.getLogin());
         newEntity.setSenha(input.getSenha());
         pessoaRepository.save(newEntity);
+    }
+
+    public PessoaDTO update(PessoaDTO newPessoa) {
+        PessoaEntity e = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
+
+        if(newPessoa.getNome() != null) e.setNome(newPessoa.getNome());
+        if(newPessoa.getSobrenome() != null) e.setSobrenome(newPessoa.getSobrenome());
+        if(newPessoa.getTelefone() != null) e.setTelefone(newPessoa.getTelefone());
+        if(newPessoa.getCpf() != null) e.setCpf(newPessoa.getCpf());
+        if(newPessoa.getNome() != null) e.setNome(newPessoa.getNome());
+        if(newPessoa.getSaldoCarteira() != null) e.setSaldoCarteira(newPessoa.getSaldoCarteira());
+        if(newPessoa.getSenha() != null) e.setSenha(newPessoa.getSenha());
+
+        pessoaRepository.save(e);
+        PessoaDTO dto = new PessoaDTO();
+        dto.setNome(e.getNome());
+        dto.setSobrenome(e.getSobrenome());
+        return dto;
     }
 
     @Override

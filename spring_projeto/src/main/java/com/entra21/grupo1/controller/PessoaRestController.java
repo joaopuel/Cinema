@@ -24,4 +24,9 @@ public class PessoaRestController {
         pessoaService.save(newPessoa);
     }
 
+    @PutMapping
+    public PessoaDTO updatePessoa(@RequestBody PessoaDTO newPessoa) {
+        return pessoaService.update(newPessoa);
+    }
+
 }
