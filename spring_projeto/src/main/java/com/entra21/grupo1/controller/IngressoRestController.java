@@ -19,7 +19,7 @@ public class IngressoRestController {
     private IngressoRepository ingressoRepository;
 
     @GetMapping
-    public List<IngressoEntity> getAllIngressos(){
+    public List<IngressoDTO> getAllIngressos(){
         return ingressoRepository.findAll();
     }
 
