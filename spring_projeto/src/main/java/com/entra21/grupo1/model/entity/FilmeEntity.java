@@ -1,9 +1,11 @@
 package com.entra21.grupo1.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,4 +30,12 @@ public class FilmeEntity {
 
     @Column(name = "ano_lancamento")
     private String anoLancamento;
+
+    @Column(name = "cartaz")
+    private String cartaz;
+
+    @OneToMany(mappedBy = "filme")
+    @EqualsAndHashCode.Exclude
+    private Set<SessaoEntity> sessoes;
+
 }

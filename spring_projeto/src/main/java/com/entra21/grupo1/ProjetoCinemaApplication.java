@@ -14,14 +14,4 @@ public class ProjetoCinemaApplication {
 		SpringApplication.run(ProjetoCinemaApplication.class, args);
 	}
 
-
-	@Configuration
-	public static class SecurityConfig {
-
-		@Bean
-		public static PasswordEncoder passwordEncoder() {
-			return NoOpPasswordEncoder.getInstance();
-		}
-	}
-
 }
