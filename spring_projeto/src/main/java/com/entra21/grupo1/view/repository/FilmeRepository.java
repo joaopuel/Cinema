@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface FilmeRepository extends JpaRepository<FilmeEntity, Long> {
-//    public List<FilmeEntity> findAllBySessao_Data_sessao(LocalDateTime dataSessao);
+
+    public List<FilmeEntity> findAllBySessoes_Id(Long dataSessao);
+    public List<FilmeEntity> findAllBySessoes_DataSessao(LocalDateTime dataSessao);
 }
