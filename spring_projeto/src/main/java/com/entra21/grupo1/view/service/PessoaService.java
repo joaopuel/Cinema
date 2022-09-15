@@ -25,6 +25,7 @@ public class PessoaService implements UserDetailsService {
     public List<PessoaDTO> getAll(){
         return pessoaRepository.findAll().stream().map( pessoa -> {
             PessoaDTO dto = new PessoaDTO();
+            dto.setId(pessoa.getId());
             dto.setNome(pessoa.getNome());
             dto.setSobrenome(pessoa.getSobrenome());
             dto.setTelefone(pessoa.getTelefone());
@@ -65,6 +66,8 @@ public class PessoaService implements UserDetailsService {
         dto.setSobrenome(e.getSobrenome());
         return dto;
     }
+
+    public void delete(Long id) {pessoaRepository.deleteById(id);}
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
