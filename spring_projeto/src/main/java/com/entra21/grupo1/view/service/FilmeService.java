@@ -19,12 +19,12 @@ public class FilmeService {
 
     public List<FilmeDTO> getAll(LocalDateTime dataSessao) {
         List<FilmeEntity> list;
-//        if(dataSessao == null){
+        if(dataSessao == null){
             list = filmeRepository.findAll();
-//        }else {
-//            list = filmeRepository.findAllBySessao_Data_sessao(dataSessao);
-//        }
-        return list.stream().map( f -> {
+        }else {
+            list = filmeRepository.findAllBySessoes_DataSessao(dataSessao);
+        }
+        return filmeRepository.findAll().stream().map( f -> {
             FilmeDTO filmeDTO = new FilmeDTO();
             filmeDTO.setId(f.getId());
             filmeDTO.setNome(f.getNome());
@@ -48,5 +48,4 @@ public class FilmeService {
             return filmeDTO;
         }).collect(Collectors.toList());
     }
-
 }
