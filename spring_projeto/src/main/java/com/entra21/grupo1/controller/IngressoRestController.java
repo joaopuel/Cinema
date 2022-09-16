@@ -20,9 +20,4 @@ public class IngressoRestController {
     @Autowired
     private IngressoRepository ingressoRepository;
 
-    @GetMapping
-    public List<IngressoDTO> getIngressosByIdPessoa(@RequestParam(name = "idPessoa") Long idPessoa){
-        return ingressoRepository.findAllByIdPessoa(idPessoa);
-    }
-
 }

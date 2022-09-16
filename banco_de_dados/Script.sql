@@ -45,6 +45,7 @@ create table filme(
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
 	ano_lancamento int not null
+	cartaz varchar(500) not null
 );
 
 create table sessao(
@@ -93,9 +94,6 @@ create table filme_genero(
 	foreign key (id_genero) references genero(id)
 );
 
-<<<<<<< HEAD
-ALTER TABLE cadeira RENAME COLUMN código TO codigo;
-
  ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
 =======
 insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
@@ -104,11 +102,9 @@ values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
 values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 1977);
 
-<<<<<<< HEAD
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000, "https://th.bing.com/th/id/R.7836a26a8af8e62de36d84216aaca7f7?rik=r6E4sJ12Oz%2bBBA&riu=http%3a%2f%2fbr.web.img3.acsta.net%2fmedias%2fnmedia%2f18%2f92%2f91%2f32%2f20224832.jpg&ehk=RUj44Sh2FpGHLd0Hxh9fmLNrCU1kn%2bf0AxWDyl7Ljl4%3d&risl=&pid=ImgRaw&r=0");
 
-<<<<<<< HEAD
 insert into cinema(nome, id_administrador, caixa)
 values("Cinema Teste", 1, 1500);
 
@@ -118,7 +114,6 @@ values("Sala1", 1);
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
 values('2022-09-15 19:30:00', 1, 1, 45, 25);
 
-=======
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Shrek", '1:29', "A gente já chegou?", "Fiona Burro da Silva", 2001,"https://cineclick-static.flixmedia.cloud/1280/69/1080x1620_1592580350.jpg");
 
@@ -130,10 +125,12 @@ values("Velozes e Furiosos 9", '2:23', "Cadê o Paul", "Justin", 2021,"https://p
 
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Velozes e Furiosos: Desafio em Tóquio", '1:44', "Uau, ele leu o manual", "Justin", 2006, "https://media.fstatic.com/xWSwYWLRUbBbjWvh-OUoDYjCPjE=/210x312/smart/media/movies/covers/2017/12/poster_opt_3_HMJwX5m.jpg");
-=======
+
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
 values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
->>>>>>> branch-security
+
+insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
+values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
 
 insert into cinema(nome, id_administrador, caixa)
 values("Cinema Teste", 1, 1500);
@@ -142,7 +139,6 @@ insert into sala(nome, id_cinema)
 values("Sala1", 1);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-<<<<<<< HEAD
 values('2022-09-15 19:30:00', 1, 6, 45, 25);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
@@ -150,13 +146,3 @@ values('2022-09-15 20:00:00', 1, 3, 45, 25);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
 values('2022-09-16 19:30:00', 1, 5, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-16 20:00:00', 1, 5, 45, 25);
-
-select sessoes0_.id_filme as id_filme5_11_0_, sessoes0_.id as id1_11_0_, sessoes0_.id as id1_11_1_, sessoes0_.data_sessao as data_ses2_11_1_, sessoes0_.id_filme as id_filme5_11_1_, sessoes0_.id_sala as id_sala6_11_1_, sessoes0_.valor_inteira as valor_in3_11_1_, sessoes0_.valor_meia as valor_me4_11_1_, salaentity1_.id as id1_10_2_, salaentity1_.id_cinema as id_cinem3_10_2_, salaentity1_.nome as nome2_10_2_, cinemaenti2_.id as id1_2_3_, cinemaenti2_.id_administrador as id_admin4_2_3_, cinemaenti2_.caixa as caixa2_2_3_, cinemaenti2_.nome as nome3_2_3_ from sessao sessoes0_ left outer join sala salaentity1_ on sessoes0_.id_sala=salaentity1_.id left outer join cinema cinemaenti2_ on salaentity1_.id_cinema=cinemaenti2_.id where sessoes0_.id_filme=1;
->>>>>>> main
-=======
-values('2022-09-15 19:30:00', 1, 1, 45, 25);
-
->>>>>>> branch-security
