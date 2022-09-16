@@ -93,3 +93,35 @@ create table filme_genero(
 	foreign key (id_filme) references filme(id),
 	foreign key (id_genero) references genero(id)
 );
+
+ALTER TABLE cadeira RENAME COLUMN código TO codigo;
+ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
+
+insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
+values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
+
+insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
+values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 1977);
+
+insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
+values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
+
+insert into cinema(nome, id_administrador, caixa)
+values("Cinema Teste", 1, 1500);
+
+insert into sala(nome, id_cinema)
+values("Sala1", 1);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+
+values('2022-09-15 19:30:00', 1, 1, 45, 25);
+values('2022-09-15 19:30:00', 1, 6, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-15 20:00:00', 1, 3, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-16 19:30:00', 1, 5, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-16 20:00:00', 1, 5, 45, 25);
