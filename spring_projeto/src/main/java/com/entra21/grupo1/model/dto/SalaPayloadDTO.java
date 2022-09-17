@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class SalaPayloadDTO {
     private String nome;
-    private CinemaDTO cinemaDTO;
+    private CinemaDTO cinema;
 }
