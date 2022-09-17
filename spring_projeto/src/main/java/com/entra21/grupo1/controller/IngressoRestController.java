@@ -1,5 +1,6 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.IngressoDTO;
 import com.entra21.grupo1.model.entity.FilmeEntity;
 import com.entra21.grupo1.model.entity.IngressoEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
@@ -17,10 +18,5 @@ public class IngressoRestController {
 
     @Autowired
     private IngressoRepository ingressoRepository;
-
-    @GetMapping
-    public List<IngressoDTO> getAllIngressos(){
-        return ingressoRepository.findAll();
-    }
 
 }
