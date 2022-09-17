@@ -28,9 +28,6 @@ public class FilmeEntity {
     @Column(name = "diretor")
     private String diretor;
 
-    @Column(name = "ano_lancamento")
-    private String anoLancamento;
-
     @Column(name = "cartaz")
     private String cartaz;
 

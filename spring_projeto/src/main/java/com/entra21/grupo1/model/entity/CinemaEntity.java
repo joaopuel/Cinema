@@ -1,8 +1,11 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.CinemaDTO;
+import com.entra21.grupo1.model.dto.PessoaDTO;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,6 +22,9 @@ public class CinemaEntity {
     @ManyToOne
     @JoinColumn(name = "id_administrador", referencedColumnName = "id")
     private PessoaEntity administrador;
+
+    @OneToMany(mappedBy = "cinema")
+    private List<SalaEntity> salas;
 
     @Column(name = "caixa")
     private Double caixa;
