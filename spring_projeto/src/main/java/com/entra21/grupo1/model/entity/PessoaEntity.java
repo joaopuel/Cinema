@@ -40,6 +40,9 @@ public class PessoaEntity implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
+    @OneToMany(mappedBy = "administrador")
+    private List<CinemaEntity> cinemas;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("USER"));

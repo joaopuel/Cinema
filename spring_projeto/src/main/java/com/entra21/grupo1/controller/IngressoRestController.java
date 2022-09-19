@@ -8,12 +8,13 @@ import com.entra21.grupo1.view.repository.IngressoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/ingress")
+@RequestMapping("/ingressos")
 public class IngressoRestController {
 
     @Autowired
