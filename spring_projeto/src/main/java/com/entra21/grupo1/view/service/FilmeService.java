@@ -22,16 +22,16 @@ public class FilmeService {
         if(dataSessao == null){
             list = filmeRepository.findAll();
         }else {
-            list = filmeRepository.findAllBySessoes_DataSessao(dataSessao);
+            list = filmeRepository.findAllFilmesComSessoesEntre(dataSessao.toLocalDate().atStartOfDay(), dataSessao.toLocalDate().plusDays(1).atStartOfDay());
         }
-        return filmeRepository.findAll().stream().map( f -> {
+
+        return list.stream().map( f -> {
             FilmeDTO filmeDTO = new FilmeDTO();
             filmeDTO.setId(f.getId());
             filmeDTO.setNome(f.getNome());
             filmeDTO.setDuracao(f.getDuracao());
             filmeDTO.setSinopse(f.getSinopse());
             filmeDTO.setDiretor(f.getDiretor());
-            filmeDTO.setAnoLancamento(f.getAnoLancamento());
             filmeDTO.setCartaz(f.getCartaz());
 
             filmeDTO.setSessoes(

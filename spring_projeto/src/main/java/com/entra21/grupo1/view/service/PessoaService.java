@@ -1,5 +1,6 @@
 package com.entra21.grupo1.view.service;
 
+import com.entra21.grupo1.model.dto.CinemaDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.model.dto.SessaoDTO;
@@ -25,6 +26,7 @@ public class PessoaService implements UserDetailsService {
     public List<PessoaDTO> getAll(){
         return pessoaRepository.findAll().stream().map( pessoa -> {
             PessoaDTO dto = new PessoaDTO();
+            dto.setId(pessoa.getId());
             dto.setNome(pessoa.getNome());
             dto.setSobrenome(pessoa.getSobrenome());
             dto.setTelefone(pessoa.getTelefone());
@@ -32,6 +34,16 @@ public class PessoaService implements UserDetailsService {
             dto.setSaldoCarteira(pessoa.getSaldoCarteira());
             dto.setLogin(pessoa.getLogin());
             dto.setSenha(pessoa.getSenha());
+            dto.setCinemas(pessoa.getCinemas().stream().map( cinemaEntity -> {
+                CinemaDTO cinemaDTO = new CinemaDTO();
+
+                cinemaDTO.setId(cinemaEntity.getId());
+                cinemaDTO.setNome(cinemaEntity.getNome());
+                cinemaDTO.setAdministrador((cinemaEntity.getAdministrador()).getId());
+                cinemaDTO.setCaixa(cinemaEntity.getCaixa());
+
+                return cinemaDTO;
+            }).collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
     }
@@ -65,6 +77,8 @@ public class PessoaService implements UserDetailsService {
         dto.setSobrenome(e.getSobrenome());
         return dto;
     }
+
+    public void delete(Long id) {pessoaRepository.deleteById(id);}
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
