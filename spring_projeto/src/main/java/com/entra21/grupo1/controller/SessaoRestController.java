@@ -1,8 +1,6 @@
 package com.entra21.grupo1.controller;
 
-import com.entra21.grupo1.model.dto.FilmeDTO;
 import com.entra21.grupo1.model.dto.SessaoDTO;
-import com.entra21.grupo1.view.service.FilmeService;
 import com.entra21.grupo1.view.service.SessaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -35,4 +35,7 @@ public class FilmeEntity {
     @EqualsAndHashCode.Exclude
     private Set<SessaoEntity> sessoes;
 
+    @OneToMany(mappedBy = "filme")
+    @EqualsAndHashCode.Exclude
+    private Set<AvaliacaoEntity> avaliacoes;
 }

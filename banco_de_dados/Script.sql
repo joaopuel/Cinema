@@ -44,7 +44,7 @@ create table filme(
 	duracao time not null,
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
-	ano_lancamento int not null
+	ano_lancamento int,
 	cartaz varchar(500) not null
 );
 
@@ -139,10 +139,16 @@ insert into sala(nome, id_cinema)
 values("Sala1", 1);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-15 19:30:00', 1, 6, 45, 25);
+values('2022-09-18 19:30:00', 1, 6, 45, 25);
+
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-15 20:00:00', 1, 3, 45, 25);
+values('2022-09-18 20:00:00', 1, 3, 45, 25);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-16 19:30:00', 1, 5, 45, 25);
+values('2022-09-17 19:30:00', 1, 5, 45, 25);
+
+insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
+values('2022-09-17 20:00:00', 1, 5, 45, 25);
+
+select distinct f.* from filme f join sessao s on s.id_filme = f.id where s.data_sessao >= "2022-09-12T21:26:00.0000";
