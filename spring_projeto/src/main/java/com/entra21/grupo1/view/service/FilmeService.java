@@ -32,7 +32,6 @@ public class FilmeService {
             filmeDTO.setDuracao(f.getDuracao());
             filmeDTO.setSinopse(f.getSinopse());
             filmeDTO.setDiretor(f.getDiretor());
-            filmeDTO.setAnoLancamento(f.getAnoLancamento());
             filmeDTO.setCartaz(f.getCartaz());
 
             filmeDTO.setSessoes(

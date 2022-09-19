@@ -6,5 +6,5 @@ import lombok.Data;
 public class SalaDTO {
     private Long id;
     private String nome;
-    private CinemaDTO cinema;
+    private Long cinema;
 }

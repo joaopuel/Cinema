@@ -1,5 +1,6 @@
 package com.entra21.grupo1.view.service;
 
+import com.entra21.grupo1.model.dto.SalaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.model.dto.SalaPayloadDTO;
 import com.entra21.grupo1.model.entity.PessoaEntity;

@@ -8,6 +8,4 @@ import java.util.List;
 
 @Repository
 public interface IngressoRepository extends JpaRepository<IngressoEntity, Long> {
-    public List<IngressoEntity> findAllByIdPessoa(Long idPessoa);
-    public List<IngressoEntity> findAllByIdSessao(Long idSessao);
 }
