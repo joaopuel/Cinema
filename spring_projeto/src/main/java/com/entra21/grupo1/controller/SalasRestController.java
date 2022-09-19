@@ -1,5 +1,6 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.SalaDTO;
 import com.entra21.grupo1.model.dto.SalaPayloadDTO;
 import com.entra21.grupo1.view.service.SalaService;
@@ -22,6 +23,11 @@ public class SalasRestController {
 
     @PostMapping
     public void addSala(@RequestBody SalaPayloadDTO newSala) {
-        salaService.save(newSala);
+        salaService.saveSala(newSala);
+    }
+
+    @PutMapping
+    public SalaDTO updateSala(@RequestBody SalaDTO newSala) {
+        return salaService.update(newSala);
     }
 }
