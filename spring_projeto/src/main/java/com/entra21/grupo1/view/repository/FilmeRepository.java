@@ -22,4 +22,6 @@ public interface FilmeRepository extends JpaRepository<FilmeEntity, Long> {
     List<FilmeEntity> findAllFilmesComSessoesEntre(LocalDateTime deData, LocalDateTime ateData);
 
     FilmeEntity findByNome(String nome);
+    @Query(value = "select distinct f.* from filme f join sessao s on s.id_filme  = f.id inner join filme_genero fg  on fg.id_filme = f.id   inner join genero g on g.id = fg.id_genero  where g.nome = :genero and s.data_sessao >= :data;", nativeQuery = true)
+    List<FilmeEntity> findAllByFilmeDeGeneroComSessoesDepois(@Param("genero") String genero, @Param("data") LocalDateTime data);
 }

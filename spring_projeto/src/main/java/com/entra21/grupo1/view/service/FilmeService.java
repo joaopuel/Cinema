@@ -1,14 +1,12 @@
 package com.entra21.grupo1.view.service;
 
-import com.entra21.grupo1.model.dto.AvaliacaoDTO;
-import com.entra21.grupo1.model.dto.FilmeDTO;
-import com.entra21.grupo1.model.dto.FilmeDetailsDTO;
-import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.FilmeEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -20,12 +18,12 @@ public class FilmeService {
     @Autowired
     private FilmeRepository filmeRepository;
 
-    public List<FilmeDTO> getAll(LocalDateTime dataSessao) {
+    public List<FilmeDTO> getAll(String genero) {
         List<FilmeEntity> list;
-        if(dataSessao == null){
+        if(genero != null){
+            list = filmeRepository.findAllByFilmeDeGeneroComSessoesDepois(genero, LocalDateTime.now());
+        } else {
             list = filmeRepository.findAllFilmesComSessoesDepois(LocalDateTime.now());
-        }else {
-            list = filmeRepository.findAllFilmesComSessoesEntre(dataSessao.toLocalDate().atStartOfDay(), dataSessao.toLocalDate().plusDays(1).atStartOfDay());
         }
 
         return list.stream().map( f -> {
@@ -34,7 +32,7 @@ public class FilmeService {
             filmeDTO.setNome(f.getNome());
             filmeDTO.setCartaz(f.getCartaz());
 
-            if (dataSessao == null){
+//            if (dataSessao == null){
                 filmeDTO.setSessoes(
                         f.getSessoes().stream().map( s -> {
                             SessaoDTO sessaoDTO = new SessaoDTO();
@@ -49,28 +47,28 @@ public class FilmeService {
                             }
                         }).filter(Objects::nonNull).collect(Collectors.toList())
                 );
-            } else {
-                filmeDTO.setSessoes(
-                        f.getSessoes().stream().map( s -> {
-                            SessaoDTO sessaoDTO = new SessaoDTO();
-                            sessaoDTO.setId(s.getId());
-                            sessaoDTO.setDataSessao(s.getDataSessao());
-                            sessaoDTO.setValorMeia(s.getValorMeia());
-                            sessaoDTO.setValorInteira(s.getValorInteira());
-                            if(dataSessao.toLocalDate().equals(s.getDataSessao().toLocalDate())){
-                                return sessaoDTO;
-                            }else{
-                                return null;
-                            }
-                        }).filter(Objects::nonNull).collect(Collectors.toList())
-                );
-            }
+//            } else {
+//                filmeDTO.setSessoes(
+//                        f.getSessoes().stream().map( s -> {
+//                            SessaoDTO sessaoDTO = new SessaoDTO();
+//                            sessaoDTO.setId(s.getId());
+//                            sessaoDTO.setDataSessao(s.getDataSessao());
+//                            sessaoDTO.setValorMeia(s.getValorMeia());
+//                            sessaoDTO.setValorInteira(s.getValorInteira());
+//                            if(dataSessao.equals(s.getDataSessao().toLocalDate())){
+//                                return sessaoDTO;
+//                            }else{
+//                                return null;
+//                            }
+//                        }).filter(Objects::nonNull).collect(Collectors.toList())
+//                );
+//            }
 
             return filmeDTO;
         }).collect(Collectors.toList());
     }
 
-    public FilmeDetailsDTO getByNome(String nome, LocalDateTime dataSessao) {
+    public FilmeDetailsDTO getByNome(String nome, LocalDate dataSessao) {
         FilmeEntity f = filmeRepository.findByNome(nome);
         FilmeDetailsDTO filmeDetailsDTO = new FilmeDetailsDTO();
         filmeDetailsDTO.setId(f.getId());
@@ -79,6 +77,15 @@ public class FilmeService {
         filmeDetailsDTO.setDuracao(f.getDuracao());
         filmeDetailsDTO.setDiretor(f.getDiretor());
         filmeDetailsDTO.setCartaz(f.getCartaz());
+
+        filmeDetailsDTO.setGeneros(
+                f.getGeneros().stream().map( g -> {
+                    GeneroDTO generoDTO = new GeneroDTO();
+                    generoDTO.setId(g.getId());
+                    generoDTO.setNome(g.getNome());
+                    return generoDTO;
+                }).collect(Collectors.toList())
+        );
 
         if (dataSessao == null){
             filmeDetailsDTO.setSessoes(
@@ -103,7 +110,7 @@ public class FilmeService {
                         sessaoDTO.setDataSessao(s.getDataSessao());
                         sessaoDTO.setValorMeia(s.getValorMeia());
                         sessaoDTO.setValorInteira(s.getValorInteira());
-                        if(dataSessao.toLocalDate().equals(s.getDataSessao().toLocalDate())){
+                        if(dataSessao.equals(s.getDataSessao().toLocalDate())){
                             return sessaoDTO;
                         }else{
                             return null;
@@ -127,4 +134,5 @@ public class FilmeService {
 
         return filmeDetailsDTO;
     }
+
 }

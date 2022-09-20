@@ -38,4 +38,13 @@ public class FilmeEntity {
     @OneToMany(mappedBy = "filme")
     @EqualsAndHashCode.Exclude
     private Set<AvaliacaoEntity> avaliacoes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "filme_genero",
+            joinColumns = @JoinColumn(name = "id_filme"),
+            inverseJoinColumns = @JoinColumn(name = "id_genero")
+    )
+    @EqualsAndHashCode.Exclude
+    private Set<GeneroEntity> generos;
 }

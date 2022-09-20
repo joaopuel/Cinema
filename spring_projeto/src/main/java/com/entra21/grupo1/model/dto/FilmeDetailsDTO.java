@@ -13,6 +13,7 @@ public class FilmeDetailsDTO {
     private String sinopse;
     private String diretor;
     private String cartaz;
+    private List<GeneroDTO> generos;
     private List<SessaoDTO> sessoes;
     private List<AvaliacaoDTO> avaliacoes;
 }
