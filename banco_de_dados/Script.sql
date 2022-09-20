@@ -94,6 +94,8 @@ create table filme_genero(
 	foreign key (id_genero) references genero(id)
 );
 
+ alter table cadeira rename column código to codigo;
+
  ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
 =======
 insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
