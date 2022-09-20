@@ -29,4 +29,9 @@ public class PessoaRestController {
         return pessoaService.update(newPessoa);
     }
 
+    @DeleteMapping
+    public void deletePessoa(@RequestParam(name = "idPessoa") Long idPessoa) {
+        pessoaService.delete(idPessoa);
+    }
+
 }

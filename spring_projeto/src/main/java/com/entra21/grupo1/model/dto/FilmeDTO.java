@@ -12,7 +12,6 @@ public class FilmeDTO {
     private LocalTime duracao;
     private String sinopse;
     private String diretor;
-    private String anoLancamento;
     private String cartaz;
     private List<SessaoDTO> sessoes;
 }
