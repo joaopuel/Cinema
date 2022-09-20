@@ -20,8 +20,8 @@ public class PessoaRestController {
     }
 
     @PostMapping
-    public void addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
-        pessoaService.save(newPessoa);
+    public PessoaDTO addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
+        return pessoaService.save(newPessoa);
     }
 
     @PutMapping

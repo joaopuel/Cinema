@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.dto;
 
+import com.entra21.grupo1.model.entity.PessoaEntity;
 import lombok.Data;
 
 @Data
