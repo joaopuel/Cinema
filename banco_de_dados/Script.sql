@@ -126,4 +126,12 @@ values('2022-09-17 20:00:00', 1, 5, 45, 25);
 
 select distinct f.* from filme f join sessao s on s.id_filme = f.id where s.data_sessao >= "2022-09-12T21:26:00.0000";
 
-select distinct f.* from filme f join sessao s on s.id_filme  = f.id inner join filme_genero fg  on fg.id_filme = f.id   inner join genero g on g.id = fg.id_genero  where g.nome = "Fantasia" and s.data_sessao >= "2022-09-19T20:00:00.0000";
+select distinct f.* from filme f join sessao s on s.id_filme  = f.id inner join filme_genero fg  on fg.id_filme = f.id   inner join genero g on g.id = fg.id_genero  where g.nome = "Aventura" and s.data_sessao >= "2022-09-19T20:00:00.0000";
+
+select * from (select distinct f.*, avg(a.rating) as avg_rat from filme f join sessao s on s.id_filme = f.id join avaliacao a on a.id_filme = f.id where s.data_sessao >= "2022-09-19T20:00:00.0000" group by f.id, f.nome) x where x.avg_rat >= 4.0;
+
+select f.id from filme f join avaliacao a on a.id_filme = f.id where avg(a.rating) >= 4.0 group by f.id;
+
+select f.* from filme f join avaliacao a on a.id_filme = f.id where a.rating in (select a2.rating from avaliacao a2 where a2.rating = a.rating having avg(a2.rating)>=4.0);
+
+select * from(select f.*, avg(a.rating) as avg_rat from filme f join avaliacao a on a.id_filme = f.id where f.nome = "Shrek" group by f.id, f.nome) x where x.avg_rat >= 4.0;

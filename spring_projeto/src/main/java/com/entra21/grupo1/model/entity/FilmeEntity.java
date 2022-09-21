@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.time.LocalTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -47,4 +48,16 @@ public class FilmeEntity {
     )
     @EqualsAndHashCode.Exclude
     private Set<GeneroEntity> generos;
+
+    public Double getMedia(){
+        Double soma = 0.0;
+        if(!this.avaliacoes.isEmpty()){
+            for(AvaliacaoEntity avaliacao : this.avaliacoes){
+                soma += avaliacao.getRating();
+            }
+            return soma/avaliacoes.toArray().length;
+        }else {
+            return null;
+        }
+    }
 }

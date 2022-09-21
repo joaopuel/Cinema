@@ -4,16 +4,13 @@ import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.view.service.SessaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/sessoes")
+@RequestMapping("/filmes/sessoes")
 public class SessaoRestController {
 
     @Autowired
@@ -23,5 +20,4 @@ public class SessaoRestController {
     public List<SessaoDTO> getAllSessoes(@RequestParam(name = "dataSessao", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataSessao) {
         return sessaoService.getAll(dataSessao);
     }
-
 }
