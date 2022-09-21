@@ -20,7 +20,7 @@ public class PessoaService implements UserDetailsService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public List<PessoaDTO> getAll(){
+    public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map( pessoa -> {
             PessoaDTO dto = new PessoaDTO();
             dto.setId(pessoa.getId());
@@ -40,6 +40,12 @@ public class PessoaService implements UserDetailsService {
             }).collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    public List<IngressoDTO> meusingressos(Long id) {
+        return pessoaRepository.findAll().stream().map( ingresso -> {
+
+        })
     }
 
     public PessoaDTO save(PessoaPayloadDTO input) {

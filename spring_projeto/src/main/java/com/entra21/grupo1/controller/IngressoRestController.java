@@ -20,4 +20,5 @@ public class IngressoRestController {
     @Autowired
     private IngressoRepository ingressoRepository;
 
+    //todo usuário comprar ingresso
 }
