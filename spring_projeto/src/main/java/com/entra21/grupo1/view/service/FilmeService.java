@@ -1,15 +1,15 @@
 package com.entra21.grupo1.view.service;
 
-import com.entra21.grupo1.model.dto.AvaliacaoDTO;
-import com.entra21.grupo1.model.dto.FilmeDTO;
-import com.entra21.grupo1.model.dto.FilmeDetailsDTO;
-import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.FilmeEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -20,12 +20,14 @@ public class FilmeService {
     @Autowired
     private FilmeRepository filmeRepository;
 
-    public List<FilmeDTO> getAll(LocalDateTime dataSessao) {
+    public List<FilmeDTO> getAll(String genero, Double nota) {
         List<FilmeEntity> list;
-        if(dataSessao == null){
+        if(nota != null){
+            list = filmeRepository.findAllFilmesDeNotaComSessoesDepois(nota, LocalDateTime.now());
+        }else if(genero != null){
+            list = filmeRepository.findAllFilmesDeGeneroComSessoesDepois(genero, LocalDateTime.now());
+        } else {
             list = filmeRepository.findAllFilmesComSessoesDepois(LocalDateTime.now());
-        }else {
-            list = filmeRepository.findAllFilmesComSessoesEntre(dataSessao.toLocalDate().atStartOfDay(), dataSessao.toLocalDate().plusDays(1).atStartOfDay());
         }
 
         return list.stream().map( f -> {
@@ -34,54 +36,7 @@ public class FilmeService {
             filmeDTO.setNome(f.getNome());
             filmeDTO.setCartaz(f.getCartaz());
 
-            if (dataSessao == null){
-                filmeDTO.setSessoes(
-                        f.getSessoes().stream().map( s -> {
-                            SessaoDTO sessaoDTO = new SessaoDTO();
-                            sessaoDTO.setId(s.getId());
-                            sessaoDTO.setDataSessao(s.getDataSessao());
-                            sessaoDTO.setValorMeia(s.getValorMeia());
-                            sessaoDTO.setValorInteira(s.getValorInteira());
-                            if(s.getDataSessao().toLocalDate().isAfter(LocalDateTime.now().toLocalDate()) || s.getDataSessao().toLocalDate().equals(LocalDateTime.now().toLocalDate())){
-                                return sessaoDTO;
-                            }else{
-                                return null;
-                            }
-                        }).filter(Objects::nonNull).collect(Collectors.toList())
-                );
-            } else {
-                filmeDTO.setSessoes(
-                        f.getSessoes().stream().map( s -> {
-                            SessaoDTO sessaoDTO = new SessaoDTO();
-                            sessaoDTO.setId(s.getId());
-                            sessaoDTO.setDataSessao(s.getDataSessao());
-                            sessaoDTO.setValorMeia(s.getValorMeia());
-                            sessaoDTO.setValorInteira(s.getValorInteira());
-                            if(dataSessao.toLocalDate().equals(s.getDataSessao().toLocalDate())){
-                                return sessaoDTO;
-                            }else{
-                                return null;
-                            }
-                        }).filter(Objects::nonNull).collect(Collectors.toList())
-                );
-            }
-
-            return filmeDTO;
-        }).collect(Collectors.toList());
-    }
-
-    public FilmeDetailsDTO getByNome(String nome, LocalDateTime dataSessao) {
-        FilmeEntity f = filmeRepository.findByNome(nome);
-        FilmeDetailsDTO filmeDetailsDTO = new FilmeDetailsDTO();
-        filmeDetailsDTO.setId(f.getId());
-        filmeDetailsDTO.setNome(f.getNome());
-        filmeDetailsDTO.setSinopse(f.getSinopse());
-        filmeDetailsDTO.setDuracao(f.getDuracao());
-        filmeDetailsDTO.setDiretor(f.getDiretor());
-        filmeDetailsDTO.setCartaz(f.getCartaz());
-
-        if (dataSessao == null){
-            filmeDetailsDTO.setSessoes(
+            filmeDTO.setSessoes(
                     f.getSessoes().stream().map( s -> {
                         SessaoDTO sessaoDTO = new SessaoDTO();
                         sessaoDTO.setId(s.getId());
@@ -95,22 +50,48 @@ public class FilmeService {
                         }
                     }).filter(Objects::nonNull).collect(Collectors.toList())
             );
-        } else {
-            filmeDetailsDTO.setSessoes(
-                    f.getSessoes().stream().map( s -> {
-                        SessaoDTO sessaoDTO = new SessaoDTO();
-                        sessaoDTO.setId(s.getId());
-                        sessaoDTO.setDataSessao(s.getDataSessao());
-                        sessaoDTO.setValorMeia(s.getValorMeia());
-                        sessaoDTO.setValorInteira(s.getValorInteira());
-                        if(dataSessao.toLocalDate().equals(s.getDataSessao().toLocalDate())){
-                            return sessaoDTO;
-                        }else{
-                            return null;
-                        }
-                    }).filter(Objects::nonNull).collect(Collectors.toList())
-            );
+
+            return filmeDTO;
+        }).collect(Collectors.toList());
+    }
+
+    public FilmeDetailsDTO getByNome(String nome) {
+        if(nome.contains("_")) {
+            nome = nome.replaceAll("_", " ");
         }
+        FilmeEntity f = filmeRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
+        FilmeDetailsDTO filmeDetailsDTO = new FilmeDetailsDTO();
+        filmeDetailsDTO.setId(f.getId());
+        filmeDetailsDTO.setNome(f.getNome());
+        filmeDetailsDTO.setSinopse(f.getSinopse());
+        filmeDetailsDTO.setDuracao(f.getDuracao());
+        filmeDetailsDTO.setDiretor(f.getDiretor());
+        filmeDetailsDTO.setCartaz(f.getCartaz());
+        filmeDetailsDTO.setMediaNotas(f.getMedia());
+
+        filmeDetailsDTO.setGeneros(
+                f.getGeneros().stream().map( g -> {
+                    GeneroDTO generoDTO = new GeneroDTO();
+                    generoDTO.setId(g.getId());
+                    generoDTO.setNome(g.getNome());
+                    return generoDTO;
+                }).collect(Collectors.toList())
+        );
+
+        filmeDetailsDTO.setSessoes(
+                f.getSessoes().stream().map( s -> {
+                    SessaoDTO sessaoDTO = new SessaoDTO();
+                    sessaoDTO.setId(s.getId());
+                    sessaoDTO.setDataSessao(s.getDataSessao());
+                    sessaoDTO.setValorMeia(s.getValorMeia());
+                    sessaoDTO.setValorInteira(s.getValorInteira());
+                    if(s.getDataSessao().toLocalDate().isAfter(LocalDateTime.now().toLocalDate()) || s.getDataSessao().toLocalDate().equals(LocalDateTime.now().toLocalDate())){
+                        return sessaoDTO;
+                    }else{
+                        return null;
+                    }
+                }).filter(Objects::nonNull).collect(Collectors.toList())
+        );
 
         filmeDetailsDTO.setAvaliacoes(
                 f.getAvaliacoes().stream().map( a -> {
@@ -126,5 +107,16 @@ public class FilmeService {
         );
 
         return filmeDetailsDTO;
+    }
+
+    public FilmeDTO saveFilme(FilmePayLoadDTO input) {
+        FilmeEntity newfilme = new FilmeEntity();
+        newfilme.setNome(input.getNome());
+        newfilme.setDuracao(input.getDuracao());
+        newfilme.setDiretor(input.getDiretor());
+        newfilme.setCartaz(input.getCartaz());
+        newfilme.setSinopse(input.getSinopse());
+        filmeRepository.save(newfilme);
+        return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTO();
     }
 }

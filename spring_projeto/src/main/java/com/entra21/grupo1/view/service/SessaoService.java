@@ -1,10 +1,15 @@
 package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.SessaoPayLoadDTO;
 import com.entra21.grupo1.model.entity.SessaoEntity;
+import com.entra21.grupo1.view.repository.FilmeRepository;
+import com.entra21.grupo1.view.repository.SalaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +20,12 @@ public class SessaoService {
 
     @Autowired
     private SessaoRepository sessaoRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
+
+    @Autowired
+    private FilmeRepository filmeRepository;
 
     public List<SessaoDTO> getAll(LocalDateTime dataSessao){
         List<SessaoEntity> list;
@@ -29,7 +40,23 @@ public class SessaoService {
             dto.setDataSessao(sessao.getDataSessao());
             dto.setValorInteira(sessao.getValorInteira());
             dto.setValorMeia(sessao.getValorMeia());
+            dto.setTipoSessao(sessao.getTipoSessao());
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    public void saveSessao(SessaoPayLoadDTO newSessao) {
+        sessaoRepository.save(toEntity(newSessao));
+    }
+
+    public SessaoEntity toEntity(SessaoPayLoadDTO s){
+        SessaoEntity sessaoEntity = new SessaoEntity();
+        sessaoEntity.setDataSessao(s.getDataSessao());
+        sessaoEntity.setValorInteira(s.getValorInteira());
+        sessaoEntity.setValorMeia(s.getValorMeia());
+        sessaoEntity.setTipoSessao(s.getTipoSessao());
+        sessaoEntity.setSala(salaRepository.findById(s.getIdSala()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")));
+        sessaoEntity.setFilme(filmeRepository.findById(s.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")));
+        return sessaoEntity;
     }
 }

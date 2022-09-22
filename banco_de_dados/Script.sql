@@ -44,7 +44,6 @@ create table filme(
 	duracao time not null,
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
-	ano_lancamento int,
 	cartaz varchar(500) not null
 );
 
@@ -55,6 +54,7 @@ create table sessao(
 	id_filme bigint not null,
 	valor_inteira decimal(8,2) not null,
 	valor_meia decimal(8,2) not null,
+	tipo_sessao varchar(45) not null,
 	foreign key (id_sala) references sala(id),
 	foreign key (id_filme) references filme(id)
 );
@@ -94,61 +94,7 @@ create table filme_genero(
 	foreign key (id_genero) references genero(id)
 );
 
- ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
-=======
-insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
-values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
-values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 1977);
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
-values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000, "https://th.bing.com/th/id/R.7836a26a8af8e62de36d84216aaca7f7?rik=r6E4sJ12Oz%2bBBA&riu=http%3a%2f%2fbr.web.img3.acsta.net%2fmedias%2fnmedia%2f18%2f92%2f91%2f32%2f20224832.jpg&ehk=RUj44Sh2FpGHLd0Hxh9fmLNrCU1kn%2bf0AxWDyl7Ljl4%3d&risl=&pid=ImgRaw&r=0");
-
-insert into cinema(nome, id_administrador, caixa)
-values("Cinema Teste", 1, 1500);
-
-insert into sala(nome, id_cinema)
-values("Sala1", 1);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-15 19:30:00', 1, 1, 45, 25);
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
-values("Shrek", '1:29', "A gente já chegou?", "Fiona Burro da Silva", 2001,"https://cineclick-static.flixmedia.cloud/1280/69/1080x1620_1592580350.jpg");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
-values("Shrek Terceiro", '1:33', "E agora, já chegamos?", "Fiona Burro da Silva Pereira", 2007, "https://static.wikia.nocookie.net/vvikipedia/images/6/6b/Shrek_Terceiro.jpg/revision/latest?cb=20200413041407&path-prefix=pt");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
-values("Velozes e Furiosos 9", '2:23', "Cadê o Paul", "Justin", 2021,"https://p2.trrsf.com/image/fget/cf/1200/1200/filters:quality(85)/images.terra.com/2021/06/03/1745111479-fastandfurious9johncena.jpeg");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
-values("Velozes e Furiosos: Desafio em Tóquio", '1:44', "Uau, ele leu o manual", "Justin", 2006, "https://media.fstatic.com/xWSwYWLRUbBbjWvh-OUoDYjCPjE=/210x312/smart/media/movies/covers/2017/12/poster_opt_3_HMJwX5m.jpg");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
-values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
-values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
-
-insert into cinema(nome, id_administrador, caixa)
-values("Cinema Teste", 1, 1500);
-
-insert into sala(nome, id_cinema)
-values("Sala1", 1);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-18 19:30:00', 1, 6, 45, 25);
-
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-18 20:00:00', 1, 3, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-17 19:30:00', 1, 5, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-17 20:00:00', 1, 5, 45, 25);
-
-select distinct f.* from filme f join sessao s on s.id_filme = f.id where s.data_sessao >= "2022-09-12T21:26:00.0000";
+ALTER TABLE cadeira RENAME COLUMN código TO codigo;
+alter table filme add column cartaz varchar(500) not null;
+alter table filme drop column ano_lancamento;
+alter table sessao add column tipo_sessao varchar(45) not null;

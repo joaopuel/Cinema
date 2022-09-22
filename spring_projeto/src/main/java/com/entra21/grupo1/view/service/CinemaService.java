@@ -23,13 +23,13 @@ public class CinemaService {
 
             dto.setId(cinema.getId());
             dto.setNome(cinema.getNome());
-            dto.setAdministrador(cinema.getAdministrador())
+//            dto.setAdministrador(cinema.getAdministrador());
 
             dto.setSalas(cinema.getSalas().stream().map(salaEntity -> {
                 SalaDTO salaDTO = new SalaDTO();
                 salaDTO.setId(salaEntity.getId());
                 salaDTO.setNome(salaEntity.getNome());
-                salaDTO.setCinema(salaEntity.getCinema().getId());
+//                salaDTO.setCinema(salaEntity.getCinema().getId());
                 return salaDTO;
             }).collect(Collectors.toList()));
             dto.setCaixa(cinema.getCaixa());

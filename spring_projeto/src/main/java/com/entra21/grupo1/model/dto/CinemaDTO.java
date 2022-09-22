@@ -10,19 +10,19 @@ import java.util.List;
 public class CinemaDTO {
     private Long id;
     private String nome;
-    private PessoaDTO administrador;
+    private Long administrador;
     private List<SalaDTO> salas;
     private Double caixa;
 
-    public CinemaDTO toDTO() {
-        CinemaDTO cinemaDTO = new CinemaDTO();
-
-        entity.setStudentId(this.studentId);
-        entity.setFirstName(this.firstName);
-        entity.setLastName(this.lastName);
-        entity.setYear(this.year);
-
-        return cinemaDTO;
-    }
+//    public CinemaDTO toDTO() {
+//        CinemaDTO cinemaDTO = new CinemaDTO();
+//
+//        entity.setStudentId(this.studentId);
+//        entity.setFirstName(this.firstName);
+//        entity.setLastName(this.lastName);
+//        entity.setYear(this.year);
+//
+//        return cinemaDTO;
+//    }
 
 }
