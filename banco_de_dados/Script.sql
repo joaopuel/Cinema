@@ -44,7 +44,6 @@ create table filme(
 	duracao time not null,
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
-	ano_lancamento int,
 	cartaz varchar(500) not null
 );
 
@@ -55,6 +54,7 @@ create table sessao(
 	id_filme bigint not null,
 	valor_inteira decimal(8,2) not null,
 	valor_meia decimal(8,2) not null,
+	tipo_sessao varchar(45) not null,
 	foreign key (id_sala) references sala(id),
 	foreign key (id_filme) references filme(id)
 );
@@ -95,43 +95,6 @@ create table filme_genero(
 );
 
 ALTER TABLE cadeira RENAME COLUMN código TO codigo;
-ALTER TABLE INGRESSO ADD COLUMN id BIGINT NOT NULL primary key AUTO_INCREMENT;
-
-insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
-values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
-values("Star Wars", '1:29', "Uma aventura espacial malucona", "George Lucas", 1977);
-
-insert into filme(nome, duracao, sinopse, diretor, ano_lancamento)
-values("Senhor dos Aneis", '2:45', "Meu precioso", "Alguém aí", 2000);
-
-insert into cinema(nome, id_administrador, caixa)
-values("Cinema Teste", 1, 1500);
-
-insert into sala(nome, id_cinema)
-values("Sala1", 1);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-18 19:30:00', 1, 6, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-18 20:00:00', 1, 3, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-17 19:30:00', 1, 5, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-17 20:00:00', 1, 5, 45, 25);
-
-select distinct f.* from filme f join sessao s on s.id_filme = f.id where s.data_sessao >= "2022-09-12T21:26:00.0000";
-
-select distinct f.* from filme f join sessao s on s.id_filme  = f.id inner join filme_genero fg  on fg.id_filme = f.id   inner join genero g on g.id = fg.id_genero  where g.nome = "Aventura" and s.data_sessao >= "2022-09-19T20:00:00.0000";
-
-select * from (select distinct f.*, avg(a.rating) as avg_rat from filme f join sessao s on s.id_filme = f.id join avaliacao a on a.id_filme = f.id where s.data_sessao >= "2022-09-19T20:00:00.0000" group by f.id, f.nome) x where x.avg_rat >= 4.0;
-
-select f.id from filme f join avaliacao a on a.id_filme = f.id where avg(a.rating) >= 4.0 group by f.id;
-
-select f.* from filme f join avaliacao a on a.id_filme = f.id where a.rating in (select a2.rating from avaliacao a2 where a2.rating = a.rating having avg(a2.rating)>=4.0);
-
-select * from(select f.*, avg(a.rating) as avg_rat from filme f join avaliacao a on a.id_filme = f.id where f.nome = "Shrek" group by f.id, f.nome) x where x.avg_rat >= 4.0;
+alter table filme add column cartaz varchar(500) not null;
+alter table filme drop column ano_lancamento;
+alter table sessao add column tipo_sessao varchar(45) not null;

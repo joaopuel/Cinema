@@ -19,7 +19,7 @@ public class FilmeRestController {
     @Autowired
     private FilmeService filmeService;
 
-    @GetMapping()
+    @GetMapping
     public List<FilmeDTO> getAllFilmes(@RequestParam(name = "genero", required = false) String genero, @RequestParam(name = "nota", required = false) Double nota) {
         return filmeService.getAll(genero, nota);
     }

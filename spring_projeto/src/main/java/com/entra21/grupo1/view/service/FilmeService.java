@@ -2,7 +2,6 @@ package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.FilmeEntity;
-import com.entra21.grupo1.model.entity.SessaoEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -116,7 +116,7 @@ public class FilmeService {
         newfilme.setDiretor(input.getDiretor());
         newfilme.setCartaz(input.getCartaz());
         newfilme.setSinopse(input.getSinopse());
-        //todo
-        return null;
+        filmeRepository.save(newfilme);
+        return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTO();
     }
 }

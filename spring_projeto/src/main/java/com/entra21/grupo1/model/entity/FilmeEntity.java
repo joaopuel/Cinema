@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.FilmeDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -59,5 +60,13 @@ public class FilmeEntity {
         }else {
             return null;
         }
+    }
+
+    public FilmeDTO toDTO() {
+        FilmeDTO filmeDTO = new FilmeDTO();
+        filmeDTO.setId(this.id);
+        filmeDTO.setNome(this.nome);
+        filmeDTO.setCartaz(this.cartaz);
+        return filmeDTO;
     }
 }
