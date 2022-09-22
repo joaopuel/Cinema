@@ -13,5 +13,4 @@ public class CinemaDTO {
     private PessoaDTO administrador;
     private Double caixa;
     private List<SalaDTO> salas;
-    private Double caixa;
 }

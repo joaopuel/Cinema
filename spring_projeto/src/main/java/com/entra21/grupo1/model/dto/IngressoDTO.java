@@ -8,5 +8,5 @@ import java.time.LocalDateTime;
 @Data
 public class IngressoDTO {
     private LocalDateTime dataCompra;
-    private 
+
 }
