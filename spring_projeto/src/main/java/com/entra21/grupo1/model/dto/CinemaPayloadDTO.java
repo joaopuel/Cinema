@@ -5,9 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FilmeDTO {
-    private Long id;
+public class CinemaPayloadDTO {
     private String nome;
-    private String cartaz;
-    private List<SessaoDTO> sessoes;
+    private PessoaDTO administrador;
+    private Double caixa;
 }

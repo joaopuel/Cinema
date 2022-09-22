@@ -44,7 +44,7 @@ create table filme(
 	duracao time not null,
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
-	ano_lancamento int not null
+	cartaz varchar(500) not null
 );
 
 create table sessao(
@@ -54,6 +54,7 @@ create table sessao(
 	id_filme bigint not null,
 	valor_inteira decimal(8,2) not null,
 	valor_meia decimal(8,2) not null,
+	tipo_sessao varchar(45) not null,
 	foreign key (id_sala) references sala(id),
 	foreign key (id_filme) references filme(id)
 );
@@ -93,10 +94,10 @@ create table filme_genero(
 	foreign key (id_genero) references genero(id)
 );
 
-alter table filme add column cartaz varchar(500) not null; 
-
-insert into pessoa(nome, sobrenome, telefone, cpf, saldo_carteira, login, senha)
-values("Admin", "Admin", "4755964152", "12345678", 1544, "admin", "admin");
+ALTER TABLE cadeira RENAME COLUMN código TO codigo;
+alter table filme add column cartaz varchar(500) not null;
+alter table filme drop column ano_lancamento;
+alter table sessao add column tipo_sessao varchar(45) not null;
 
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Star Wars: O Despertar da Força", '1:29', "A queda de Darth Vader e do Império levou ao surgimento de uma nova força sombria: a Primeira Ordem. Eles procuram o jedi Luke Skywalker, desaparecido. A resistência tenta desesperadamente encontrá-lo antes para salvar a galáxia.
@@ -200,21 +201,3 @@ values("Se7en - Os Sete Crimes Capitais", '2:07', "A ponto de se aposentar, o de
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Forrest Gump - O Contador de Histórias", '2:22', "Mesmo com o raciocínio lento, Forrest Gump nunca se sentiu desfavorecido. Graças ao apoio da mãe, ele teve uma vida normal. Seja no campo de futebol como um astro do esporte, lutando no Vietnã ou como capitão de um barco de pesca de camarão, Forrest inspira a todos com seu otimismo. Mas a pessoa que Forrest mais ama pode ser a mais difícil de salvar: seu amor de infância, a doce e perturbada Jenny.
 ", "Robert Zemeckis",1944 , "https://cinegarimpo.com.br/wp/content/uploads/2009/11/cinegarimpo_forrest-gump-movie_poster.jpg");
-
-insert into cinema(nome, id_administrador, caixa)
-values("Cinema Teste", 1, 1500);
-
-insert into sala(nome, id_cinema)
-values("Sala1", 1);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-15 19:30:00', 1, 3, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-15 20:00:00', 1, 3, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-16 19:30:00', 1, 3, 45, 25);
-
-insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia)
-values('2022-09-16 20:00:00', 1, 3, 45, 25);

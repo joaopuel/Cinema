@@ -3,7 +3,7 @@ package com.entra21.grupo1.model.dto;
 import lombok.Data;
 
 @Data
-public class SalaDTO {
-    private Long id;
+public class SalaPayloadDTO {
     private String nome;
+    private Long idCinema;
 }

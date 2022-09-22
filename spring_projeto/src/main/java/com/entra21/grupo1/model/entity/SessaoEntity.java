@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,4 +37,17 @@ public class SessaoEntity {
 
     @Column(name = "valor_meia")
     private String valorMeia;
+
+    @Column(name = "tipo_sessao")
+    private String tipoSessao;
+
+    public SessaoDTO toDTO(){
+        SessaoDTO sessaoDTO = new SessaoDTO();
+        sessaoDTO.setId(this.getId());
+        sessaoDTO.setDataSessao(this.getDataSessao());
+        sessaoDTO.setValorInteira(this.getValorInteira());
+        sessaoDTO.setValorMeia(this.getValorMeia());
+        sessaoDTO.setTipoSessao(this.getTipoSessao());
+        return sessaoDTO;
+    }
 }
