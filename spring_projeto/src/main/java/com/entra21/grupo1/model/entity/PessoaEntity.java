@@ -1,5 +1,7 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.CinemaDTO;
+import com.entra21.grupo1.model.dto.PessoaDTO;
 import jdk.jfr.DataAmount;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,6 +47,19 @@ public class PessoaEntity implements UserDetails {
     @OneToMany(mappedBy = "administrador")
     @EqualsAndHashCode.Exclude
     private Set<CinemaEntity> cinemas;
+
+    public PessoaDTO toPessoaDTO() {
+        PessoaDTO pessoaDTO = new PessoaDTO();
+        pessoaDTO.setId(getId());
+        pessoaDTO.setNome(getNome());
+        pessoaDTO.setSobrenome(getSobrenome());
+        pessoaDTO.setTelefone(getTelefone());
+        pessoaDTO.setCpf(getCpf());
+        pessoaDTO.setSaldoCarteira(getSaldoCarteira());
+        pessoaDTO.setLogin(getLogin());
+        pessoaDTO.setSenha(getSenha());
+        return pessoaDTO;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -8,4 +8,5 @@ import java.util.List;
 
 @Repository
 public interface IngressoRepository extends JpaRepository<IngressoEntity, Long> {
+    IngressoEntity findByPessoa(Long idPessoa);
 }

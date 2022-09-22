@@ -1,10 +1,8 @@
 package com.entra21.grupo1.view.service;
 
-import com.entra21.grupo1.model.dto.CinemaDTO;
-import com.entra21.grupo1.model.dto.PessoaDTO;
-import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
-import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.PessoaEntity;
+import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,10 @@ import java.util.stream.Collectors;
 public class PessoaService implements UserDetailsService {
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private IngressoRepository ingressoRepository;
 
-    public List<PessoaDTO> getAll(){
+    public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map( pessoa -> {
             PessoaDTO dto = new PessoaDTO();
             dto.setId(pessoa.getId());
@@ -36,18 +36,20 @@ public class PessoaService implements UserDetailsService {
             dto.setSenha(pessoa.getSenha());
             dto.setCinemas(pessoa.getCinemas().stream().map( cinemaEntity -> {
                 CinemaDTO cinemaDTO = new CinemaDTO();
-
                 cinemaDTO.setId(cinemaEntity.getId());
                 cinemaDTO.setNome(cinemaEntity.getNome());
                 cinemaDTO.setCaixa(cinemaEntity.getCaixa());
-
                 return cinemaDTO;
             }).collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());
     }
 
-    public void save(PessoaPayloadDTO input) {
+    public List<IngressoDTO> meusIngressos(Long id) {
+
+    }
+
+    public PessoaDTO save(PessoaPayloadDTO input) {
         PessoaEntity newEntity = new PessoaEntity();
         newEntity.setNome(input.getNome());
         newEntity.setSobrenome(input.getSobrenome());
@@ -57,6 +59,7 @@ public class PessoaService implements UserDetailsService {
         newEntity.setLogin(input.getLogin());
         newEntity.setSenha(input.getSenha());
         pessoaRepository.save(newEntity);
+        return pessoaRepository.findByLogin(newEntity.getLogin()).toPessoaDTO();
     }
 
     public PessoaDTO update(PessoaDTO newPessoa) {
@@ -69,12 +72,9 @@ public class PessoaService implements UserDetailsService {
         if(newPessoa.getNome() != null) e.setNome(newPessoa.getNome());
         if(newPessoa.getSaldoCarteira() != null) e.setSaldoCarteira(newPessoa.getSaldoCarteira());
         if(newPessoa.getSenha() != null) e.setSenha(newPessoa.getSenha());
-
         pessoaRepository.save(e);
-        PessoaDTO dto = new PessoaDTO();
-        dto.setNome(e.getNome());
-        dto.setSobrenome(e.getSobrenome());
-        return dto;
+
+        return newPessoa;
     }
 
     public void delete(Long id) {pessoaRepository.deleteById(id);}

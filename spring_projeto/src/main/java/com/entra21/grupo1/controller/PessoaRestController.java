@@ -1,5 +1,6 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.IngressoDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.view.service.PessoaService;
@@ -19,9 +20,12 @@ public class PessoaRestController {
         return pessoaService.getAll();
     }
 
+    @GetMapping("/meusingressos")
+    public List<IngressoDTO> meusIngressos(@RequestParam(name = "id") Long id) {return pessoaService.meusIngressos(id);}
+
     @PostMapping
-    public void addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
-        pessoaService.save(newPessoa);
+    public PessoaDTO addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
+        return pessoaService.save(newPessoa);
     }
 
     @PutMapping
@@ -30,8 +34,8 @@ public class PessoaRestController {
     }
 
     @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "idPessoa") Long idPessoa) {
-        pessoaService.delete(idPessoa);
+    public void deletePessoa(@RequestParam(name = "id") Long id) {
+        pessoaService.delete(id);
     }
 
 }
