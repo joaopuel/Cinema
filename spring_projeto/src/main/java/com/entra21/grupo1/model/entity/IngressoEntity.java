@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.IngressoDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,18 +16,25 @@ public class IngressoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "id_sessao", referencedColumnName = "id")
-    private Set<SessaoEntity> sessoes;
+    private SessaoEntity sessao;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
-    private Set<PessoaEntity> pessoas;
+    private PessoaEntity pessoa;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "id_cadeira", referencedColumnName = "id")
-    private Set<CadeiraEntity> cadeiras;
+    private CadeiraEntity cadeira;
 
     @Column(name = "data_compra")
     private LocalDate dataCompra;
+
+    public IngressoDTO toIngressoDTO() {
+        IngressoDTO ingressoDTO = new IngressoDTO();
+        ingressoDTO.setIdPessoa(getPessoa().toPessoaDTO());
+        ingressoDTO.setDataCompra(getDataCompra());
+        return ingressoDTO;
+    }
 }

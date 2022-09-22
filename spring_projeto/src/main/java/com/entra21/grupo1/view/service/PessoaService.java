@@ -2,6 +2,7 @@ package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.PessoaEntity;
+import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class PessoaService implements UserDetailsService {
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private IngressoRepository ingressoRepository;
 
     public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map( pessoa -> {
@@ -42,10 +45,8 @@ public class PessoaService implements UserDetailsService {
         }).collect(Collectors.toList());
     }
 
-    public List<IngressoDTO> meusingressos(Long id) {
-        return pessoaRepository.findAll().stream().map( ingresso -> {
+    public List<IngressoDTO> meusIngressos(Long id) {
 
-        })
     }
 
     public PessoaDTO save(PessoaPayloadDTO input) {
