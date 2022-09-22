@@ -4,6 +4,7 @@ import com.entra21.grupo1.model.dto.CinemaDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import jdk.jfr.DataAmount;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -43,7 +45,8 @@ public class PessoaEntity implements UserDetails {
     private String senha;
 
     @OneToMany(mappedBy = "administrador")
-    private List<CinemaEntity> cinemas;
+    @EqualsAndHashCode.Exclude
+    private Set<CinemaEntity> cinemas;
 
     public PessoaDTO toPessoaDTO() {
         PessoaDTO pessoaDTO = new PessoaDTO();
