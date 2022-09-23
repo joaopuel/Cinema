@@ -59,7 +59,7 @@ public class PessoaService implements UserDetailsService {
         newEntity.setLogin(input.getLogin());
         newEntity.setSenha(input.getSenha());
         pessoaRepository.save(newEntity);
-        return pessoaRepository.findByLogin(newEntity.getLogin()).toPessoaDTO();
+        return pessoaRepository.findByLogin(newEntity.getLogin()).toDTO();
     }
 
     public PessoaDTO update(PessoaDTO newPessoa) {
@@ -74,7 +74,7 @@ public class PessoaService implements UserDetailsService {
         if(newPessoa.getSenha() != null) e.setSenha(newPessoa.getSenha());
         pessoaRepository.save(e);
 
-        return newPessoa;
+        return e.toDTO();
     }
 
     public void delete(Long id) {pessoaRepository.deleteById(id);}

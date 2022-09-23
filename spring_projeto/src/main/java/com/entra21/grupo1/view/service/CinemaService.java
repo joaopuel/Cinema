@@ -25,7 +25,7 @@ public class CinemaService {
 
             dto.setId(cinema.getId());
             dto.setNome(cinema.getNome());
-            dto.setAdministrador(cinema.getAdministrador().toPessoaDTO());
+            dto.setAdministrador(cinema.getAdministrador().toDTO());
             dto.setCaixa(cinema.getCaixa());
             dto.setSalas(cinema.getSalas().stream().map(salaEntity -> {
                 SalaDTO salaDTO = new SalaDTO();
@@ -49,7 +49,7 @@ public class CinemaService {
         c.setId(cinemaRepository.findByNome(cinemaEntity.getNome()).getId());
         c.setNome(cinemaEntity.getNome());
         c.setCaixa(cinemaEntity.getCaixa());
-        c.setAdministrador(cinemaEntity.getAdministrador().toPessoaDTO());
+        c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
         return c;
     }
 
@@ -66,7 +66,7 @@ public class CinemaService {
         CinemaDTO c = new CinemaDTO();
         c.setId(cinemaEntity.getId());
         c.setNome(cinemaEntity.getNome());
-        c.setAdministrador(cinemaEntity.getAdministrador().toPessoaDTO());
+        c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
         c.setCaixa(cinemaEntity.getCaixa());
         return c;
     }

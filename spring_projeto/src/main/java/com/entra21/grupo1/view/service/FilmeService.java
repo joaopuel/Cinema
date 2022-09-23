@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -43,6 +45,21 @@ public class FilmeService {
 
     public FilmeDTO saveFilme(FilmePayLoadDTO input) {
         filmeRepository.save(input.toEntity());
-        return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTO();
+        return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
+    }
+
+    public FilmeDTO update(FilmeDTO newfilme) {
+        FilmeEntity filmeEntity = filmeRepository.findById(newfilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
+        if (newfilme.getNome() != null){ filmeEntity.setNome(newfilme.getNome());}
+        if (newfilme.getDuracao() != null){ filmeEntity.setDuracao(newfilme.getDuracao());}
+        if (newfilme.getSinopse() != null){ filmeEntity.setSinopse(newfilme.getSinopse());}
+        if (newfilme.getDiretor() != null){ filmeEntity.setDiretor(newfilme.getDiretor());}
+        if (newfilme.getCartaz() != null){ filmeEntity.setCartaz(newfilme.getCartaz());}
+        filmeRepository.save(filmeEntity);
+        return filmeEntity.toDTOWithDetails();
+    }
+
+    public void delete(Long id) {
+        filmeRepository.deleteById(id);
     }
 }

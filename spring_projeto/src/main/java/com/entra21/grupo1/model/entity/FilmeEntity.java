@@ -71,18 +71,16 @@ public class FilmeEntity {
         filmeDTO.setId(this.id);
         filmeDTO.setNome(this.nome);
         filmeDTO.setCartaz(this.cartaz);
-//        if(!this.getSessoes().isEmpty()){
-//            filmeDTO.setSessoes(
-//                    this.getSessoes().stream().map( s -> {
-//                        SessaoDTO sessaoDTO = s.toDTO();
-//                        if(s.getDataSessao().toLocalDate().isAfter(LocalDateTime.now().toLocalDate()) || s.getDataSessao().toLocalDate().equals(LocalDateTime.now().toLocalDate())){
-//                            return sessaoDTO;
-//                        }else{
-//                            return null;
-//                        }
-//                    }).filter(Objects::nonNull).collect(Collectors.toList())
-//            );
-//        }
+        if(this.getSessoes() != null){
+            filmeDTO.setSessoes(
+                    this.getSessoes().stream().map( s -> {
+                        if(s.getDataSessao().toLocalDate().isAfter(LocalDateTime.now().toLocalDate()) || s.getDataSessao().toLocalDate().equals(LocalDateTime.now().toLocalDate()))
+                            return s.toDTO();
+                        else
+                            return null;
+                    }).filter(Objects::nonNull).collect(Collectors.toList())
+            );
+        }
         return filmeDTO;
     }
 
@@ -91,13 +89,15 @@ public class FilmeEntity {
         filmeDTO.setDuracao(this.getDuracao());
         filmeDTO.setSinopse(this.getSinopse());
         filmeDTO.setDiretor(this.getDiretor());
-        filmeDTO.setMediaNotas(this.getMediaNotas());
-        filmeDTO.setGeneros(
-            this.getGeneros().stream().map(GeneroEntity::toDTO).collect(Collectors.toList())
-        );
-        filmeDTO.setAvaliacoes(
-                this.getAvaliacoes().stream().map(AvaliacaoEntity::toDTO).collect(Collectors.toList())
-        );
+        if(this.getAvaliacoes() != null && this.getGeneros() != null) {
+            filmeDTO.setMediaNotas(this.getMediaNotas());
+            filmeDTO.setGeneros(
+                    this.getGeneros().stream().map(GeneroEntity::toDTO).collect(Collectors.toList())
+            );
+            filmeDTO.setAvaliacoes(
+                    this.getAvaliacoes().stream().map(AvaliacaoEntity::toDTO).collect(Collectors.toList())
+            );
+        }
         return filmeDTO;
     }
 }

@@ -48,7 +48,7 @@ public class PessoaEntity implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Set<CinemaEntity> cinemas;
 
-    public PessoaDTO toPessoaDTO() {
+    public PessoaDTO toDTO() {
         PessoaDTO pessoaDTO = new PessoaDTO();
         pessoaDTO.setId(getId());
         pessoaDTO.setNome(getNome());
