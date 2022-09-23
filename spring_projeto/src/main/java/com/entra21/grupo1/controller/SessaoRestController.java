@@ -22,6 +22,11 @@ public class SessaoRestController {
         return sessaoService.getAll(dataSessao);
     }
 
+    @GetMapping("/{nome}")
+    public List<SessaoDTO> getAllSessoesByFilme(@PathVariable(name = "nome") String nome){
+        return sessaoService.getAllByFilme(nome);
+    }
+
     @PostMapping
     public void addSessao(@RequestBody SessaoPayLoadDTO newSessao){
         sessaoService.saveSessao(newSessao);

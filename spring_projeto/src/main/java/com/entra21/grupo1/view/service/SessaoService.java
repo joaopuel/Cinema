@@ -27,6 +27,9 @@ public class SessaoService {
     @Autowired
     private FilmeRepository filmeRepository;
 
+    @Autowired
+    private FilmeService filmeService;
+
     public List<SessaoDTO> getAll(LocalDateTime dataSessao){
         List<SessaoEntity> list;
         if(dataSessao == null){
@@ -34,15 +37,7 @@ public class SessaoService {
         }else{
             list = sessaoRepository.findAllByDataSessaoBetween(dataSessao.toLocalDate().atStartOfDay(), dataSessao.toLocalDate().plusDays(1).atStartOfDay());
         }
-        return list.stream().map( sessao -> {
-            SessaoDTO dto = new SessaoDTO();
-            dto.setId(sessao.getId());
-            dto.setDataSessao(sessao.getDataSessao());
-            dto.setValorInteira(sessao.getValorInteira());
-            dto.setValorMeia(sessao.getValorMeia());
-            dto.setTipoSessao(sessao.getTipoSessao());
-            return dto;
-        }).collect(Collectors.toList());
+        return list.stream().map(SessaoEntity::toDTO).collect(Collectors.toList());
     }
 
     public void saveSessao(SessaoPayLoadDTO newSessao) {
@@ -58,5 +53,9 @@ public class SessaoService {
         sessaoEntity.setSala(salaRepository.findById(s.getIdSala()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")));
         sessaoEntity.setFilme(filmeRepository.findById(s.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")));
         return sessaoEntity;
+    }
+
+    public List<SessaoDTO> getAllByFilme(String nome) {
+        return filmeService.getByNome(nome).getSessoes();
     }
 }

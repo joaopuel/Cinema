@@ -7,7 +7,6 @@ import lombok.Data;
 public class SalaDTO {
     private Long id;
     private String nome;
-
     public SalaEntity toEntity(){
         SalaEntity salaEntity = new SalaEntity();
         salaEntity.setId(this.getId());

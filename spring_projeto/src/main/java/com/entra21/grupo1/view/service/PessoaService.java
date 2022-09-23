@@ -1,7 +1,9 @@
 package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.*;
+import com.entra21.grupo1.model.entity.IngressoEntity;
 import com.entra21.grupo1.model.entity.PessoaEntity;
+import com.entra21.grupo1.view.repository.CadeiraRepository;
 import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
@@ -22,6 +24,11 @@ public class PessoaService implements UserDetailsService {
     private PessoaRepository pessoaRepository;
     @Autowired
     private IngressoRepository ingressoRepository;
+    @Autowired
+    private SessaoRepository sessaoRepository;
+    @Autowired
+    private CadeiraRepository cadeiraRepository;
+
 
     public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map( pessoa -> {
@@ -45,8 +52,12 @@ public class PessoaService implements UserDetailsService {
         }).collect(Collectors.toList());
     }
 
-    public List<IngressoDTO> meusIngressos(Long id) {
-        return null;
+
+    public List<IngressoDTO> meusIngressos(Long id) throws  ResponseStatusException {
+        List<IngressoEntity> ingressos = ingressoRepository.findMeuIngressos(id);
+        if (ingressos == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingressos não encontrados!");
+        } return ingressos.stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
     public PessoaDTO save(PessoaPayloadDTO input) {
@@ -59,7 +70,7 @@ public class PessoaService implements UserDetailsService {
         newEntity.setLogin(input.getLogin());
         newEntity.setSenha(input.getSenha());
         pessoaRepository.save(newEntity);
-        return pessoaRepository.findByLogin(newEntity.getLogin()).toPessoaDTO();
+        return pessoaRepository.findByLogin(newEntity.getLogin()).toDTO();
     }
 
     public PessoaDTO update(PessoaDTO newPessoa) {
@@ -74,7 +85,7 @@ public class PessoaService implements UserDetailsService {
         if(newPessoa.getSenha() != null) e.setSenha(newPessoa.getSenha());
         pessoaRepository.save(e);
 
-        return newPessoa;
+        return e.toDTO();
     }
 
     public void delete(Long id) {pessoaRepository.deleteById(id);}

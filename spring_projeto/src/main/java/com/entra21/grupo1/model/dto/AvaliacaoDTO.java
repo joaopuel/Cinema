@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @Data
 public class AvaliacaoDTO {
     private Long id;
-    private Double rating;
-    private String comentario;
-    private LocalDate dataAvaliacao;
     private String nomeUsuario;
     private String sobrenomeUsuario;
+    private LocalDate dataAvaliacao;
+    private Double rating;
+    private String comentario;
 }

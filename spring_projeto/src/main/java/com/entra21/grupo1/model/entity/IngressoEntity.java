@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -31,4 +32,11 @@ public class IngressoEntity {
     @Column(name = "data_compra")
     private LocalDate dataCompra;
 
+    public IngressoDTO toDTO() {
+        IngressoDTO ingressoDTO = new IngressoDTO();
+        ingressoDTO.setSessao(this.getSessao().toDTO());
+        ingressoDTO.setCadeira(this.getCadeira().toDTO());
+        ingressoDTO.setDataCompra(this.getDataCompra());
+        return ingressoDTO;
+    }
 }

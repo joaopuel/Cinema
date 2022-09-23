@@ -1,8 +1,8 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.FilmeDTO;
-import com.entra21.grupo1.model.dto.FilmeDetailsDTO;
 import com.entra21.grupo1.model.dto.FilmePayLoadDTO;
+import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.view.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,12 +25,22 @@ public class FilmeRestController {
     }
 
     @GetMapping("/{nome}")
-    public FilmeDetailsDTO getFilmeByNome(@PathVariable(name = "nome") String nome){
+    public FilmeDTO getFilmeByNome(@PathVariable(name = "nome") String nome){
         return filmeService.getByNome(nome);
     }
 
     @PostMapping
-    public FilmeDTO addFilme(@RequestBody FilmePayLoadDTO newfilme){
+    public FilmeDTO addFilme(@RequestBody FilmePayLoadDTO newfilme) {
         return filmeService.saveFilme(newfilme);
+    }
+
+    @PutMapping
+    public FilmeDTO updateFilme(@RequestBody FilmeDTO filmeDTO){
+        return filmeService.update(filmeDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFilme(@PathVariable(name = "id") Long id){
+        filmeService.delete(id);
     }
 }
