@@ -7,5 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class IngressoDTO {
+    private SessaoDTO sessao;
+    private CadeiraDTO cadeira;
     private LocalDateTime dataCompra;
 }

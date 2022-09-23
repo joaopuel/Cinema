@@ -21,7 +21,9 @@ public class PessoaRestController {
     }
 
     @GetMapping("/meusingressos")
-    public List<IngressoDTO> meusIngressos(@RequestParam(name = "id") Long id) {return pessoaService.meusIngressos(id);}
+    public List<IngressoDTO> meusIngressos(@RequestParam(name = "id") Long id) {
+        return pessoaService.meusIngressos(id);
+    }
 
     @PostMapping
     public PessoaDTO addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
