@@ -52,6 +52,7 @@ public class PessoaService implements UserDetailsService {
         }).collect(Collectors.toList());
     }
 
+
     public List<IngressoDTO> meusIngressos(Long id) throws  ResponseStatusException {
         List<IngressoEntity> ingressos = ingressoRepository.findMeuIngressos(id);
         if (ingressos == null) {
