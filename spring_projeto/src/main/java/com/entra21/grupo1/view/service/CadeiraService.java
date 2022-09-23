@@ -24,6 +24,7 @@ public class CadeiraService {
     @Autowired
     private SalaRepository salaRepository;
 
+    //Busca todas as cadeiras do banco de dados
     public List<CadeiraDTO> getAll(){
         return cadeiraRepository.findAll().stream().map( cadeira -> {
             CadeiraDTO cadeiraDTO= new CadeiraDTO();
@@ -36,7 +37,8 @@ public class CadeiraService {
         }).collect(Collectors.toList());
     }
 
-    public void saveSala(CadeiraPayloadDTO input) {
+    //Adiciona cadeira ao banco de dados
+    public void saveCadeira(CadeiraPayloadDTO input) {
         CadeiraEntity newCadeira = new CadeiraEntity();
         newCadeira.setCodigo(input.getCodigo());
         newCadeira.setTipoCadeira(input.getTipoCadeira());
@@ -47,6 +49,7 @@ public class CadeiraService {
         cadeiraRepository.save(newCadeira);
     }
 
+    //Atualiza cadeira já existentes do banco de dados
     public CadeiraDTO update(CadeiraDTO newCadeira) {
         CadeiraEntity e = cadeiraRepository.findById(newCadeira.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
 
@@ -60,5 +63,8 @@ public class CadeiraService {
 
         return newCadeira;
     }
+
+    //Deleta cadeiras do banco de dados
+    public void delete(Long id) {cadeiraRepository.deleteById(id);}
 
 }

@@ -18,19 +18,31 @@ public class CadeiraRestController {
     @Autowired
     private CadeiraService cadeiraService;
 
+    //Chama o método getAll do CadeiraService
     @GetMapping
     public List<CadeiraDTO> getCadeiras() {
         return cadeiraService.getAll();
     }
 
-    @PostMapping
-    public void addCadeira(@RequestBody CadeiraPayloadDTO newCadeira) {
-        cadeiraService.saveSala(newCadeira);
+    @GetMapping("/{id}")
+    public List<SessaoDTO> getAllSessoesByFilme(@PathVariable(name = "id") Long id){
+        //todo
+        return null;
     }
 
+    //Chama o método saveCadeira do CadeiraService
+    @PostMapping
+    public void addCadeira(@RequestBody CadeiraPayloadDTO newCadeira) {
+        cadeiraService.saveCadeira(newCadeira);
+    }
+
+    //Chama o método update do CadeiraService
     @PutMapping
     public CadeiraDTO updateCadeira(@RequestBody CadeiraDTO newCadeira) {
         return cadeiraService.update(newCadeira);
     }
+    //Chama o método delete do CadeiraService
+    @DeleteMapping
+    public void deletePessoa(@RequestParam(name = "id") Long id) {cadeiraService.delete(id);}
 }
 

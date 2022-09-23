@@ -36,7 +36,7 @@ public class IngressoEntity {
         IngressoDTO ingressoDTO = new IngressoDTO();
         ingressoDTO.setSessao(this.getSessao().toDTO());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
-        ingressoDTO.setDataCompra(this.getDataCompra());
+//        ingressoDTO.setDataCompra(this.getDataCompra());
         return ingressoDTO;
     }
 }

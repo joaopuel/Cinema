@@ -45,7 +45,7 @@ public class PessoaService implements UserDetailsService {
                 CinemaDTO cinemaDTO = new CinemaDTO();
                 cinemaDTO.setId(cinemaEntity.getId());
                 cinemaDTO.setNome(cinemaEntity.getNome());
-                cinemaDTO.setCaixa(cinemaEntity.getCaixa());
+//                cinemaDTO.setCaixa(cinemaEntity.getCaixa());
                 return cinemaDTO;
             }).collect(Collectors.toList()));
             return dto;
