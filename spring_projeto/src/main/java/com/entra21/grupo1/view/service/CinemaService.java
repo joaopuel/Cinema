@@ -19,6 +19,7 @@ public class CinemaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    //Busca todos os cinemas do bando de dados
     public List<CinemaDTO> getAll() {
         return cinemaRepository.findAll().stream().map( cinema -> {
             CinemaDTO dto = new CinemaDTO();
@@ -37,6 +38,7 @@ public class CinemaService {
         }).collect(Collectors.toList());
     }
 
+    //Adiciona cinemas ao banco de dados
     public CinemaDTO save(CinemaPayloadDTO cinemaPayloadDTO) {
         CinemaEntity cinemaEntity = new CinemaEntity();
         cinemaEntity.setNome(cinemaPayloadDTO.getNome());
@@ -53,6 +55,7 @@ public class CinemaService {
         return c;
     }
 
+    //Atualiza cinemas já existentes no banco de dados
     public CinemaDTO update(CinemaUpdateDTO cinemaUpdateDTO) {
         CinemaEntity cinemaEntity = cinemaRepository.findById(cinemaUpdateDTO.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
         if(cinemaUpdateDTO.getNome() != null) cinemaEntity.setNome(cinemaUpdateDTO.getNome());
@@ -71,5 +74,6 @@ public class CinemaService {
         return c;
     }
 
+    //Deleta cinemas do banco de dados
     public void delete(Long id) {cinemaRepository.deleteById(id);}
 }

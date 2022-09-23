@@ -49,7 +49,7 @@ public class CadeiraService {
         cadeiraRepository.save(newCadeira);
     }
 
-    //Atualiza cadeira já existentes do banco de dados
+    //Atualiza cadeiras já existentes do banco de dados
     public CadeiraDTO update(CadeiraDTO newCadeira) {
         CadeiraEntity e = cadeiraRepository.findById(newCadeira.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
 
