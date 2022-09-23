@@ -46,7 +46,7 @@ public class PessoaService implements UserDetailsService {
     }
 
     public List<IngressoDTO> meusIngressos(Long id) {
-
+        return null;
     }
 
     public PessoaDTO save(PessoaPayloadDTO input) {

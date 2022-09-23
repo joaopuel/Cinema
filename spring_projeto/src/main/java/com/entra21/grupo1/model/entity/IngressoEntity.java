@@ -30,11 +30,4 @@ public class IngressoEntity {
 
     @Column(name = "data_compra")
     private LocalDate dataCompra;
-
-    public IngressoDTO toIngressoDTO() {
-        IngressoDTO ingressoDTO = new IngressoDTO();
-        ingressoDTO.setIdPessoa(getPessoa().toPessoaDTO());
-        ingressoDTO.setDataCompra(getDataCompra());
-        return ingressoDTO;
-    }
 }

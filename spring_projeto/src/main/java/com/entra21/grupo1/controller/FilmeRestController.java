@@ -1,7 +1,6 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.FilmeDTO;
-import com.entra21.grupo1.model.dto.FilmeDetailsDTO;
 import com.entra21.grupo1.model.dto.FilmePayLoadDTO;
 import com.entra21.grupo1.view.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class FilmeRestController {
     }
 
     @GetMapping("/{nome}")
-    public FilmeDetailsDTO getFilmeByNome(@PathVariable(name = "nome") String nome){
+    public FilmeDTO getFilmeByNome(@PathVariable(name = "nome") String nome){
         return filmeService.getByNome(nome);
     }
 

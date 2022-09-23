@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.GeneroDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,4 +16,11 @@ public class GeneroEntity {
 
     @Column(name = "nome")
     private String nome;
+
+    public GeneroDTO toDTO(){
+        GeneroDTO generoDTO = new GeneroDTO();
+        generoDTO.setId(this.getId());
+        generoDTO.setNome(this.getNome());
+        return generoDTO;
+    }
 }
