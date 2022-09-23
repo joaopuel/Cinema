@@ -48,16 +48,16 @@ public class PessoaEntity implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Set<CinemaEntity> cinemas;
 
-    public PessoaDTO toPessoaDTO() {
+    public PessoaDTO toDTO() {
         PessoaDTO pessoaDTO = new PessoaDTO();
-        pessoaDTO.setId(getId());
-        pessoaDTO.setNome(getNome());
-        pessoaDTO.setSobrenome(getSobrenome());
-        pessoaDTO.setTelefone(getTelefone());
-        pessoaDTO.setCpf(getCpf());
-        pessoaDTO.setSaldoCarteira(getSaldoCarteira());
-        pessoaDTO.setLogin(getLogin());
-        pessoaDTO.setSenha(getSenha());
+        pessoaDTO.setId(this.getId());
+        pessoaDTO.setNome(this.getNome());
+        pessoaDTO.setSobrenome(this.getSobrenome());
+        pessoaDTO.setTelefone(this.getTelefone());
+        pessoaDTO.setCpf(this.getCpf());
+        pessoaDTO.setSaldoCarteira(this.getSaldoCarteira());
+        pessoaDTO.setLogin(this.getLogin());
+        pessoaDTO.setSenha(this.getSenha());
         return pessoaDTO;
     }
 

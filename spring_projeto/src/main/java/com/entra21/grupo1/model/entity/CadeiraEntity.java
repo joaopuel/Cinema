@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.CadeiraDTO;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,4 +29,14 @@ public class CadeiraEntity {
 
     @Column(name = "ordem_fileira")
     private Integer ordemFileira;
+
+    public CadeiraDTO toDTO() {
+        CadeiraDTO cadeiraDTO = new CadeiraDTO();
+        cadeiraDTO.setId(this.getId());
+        cadeiraDTO.setCodigo(this.getCodigo());
+        cadeiraDTO.setTipoCadeira(this.getTipoCadeira());
+        cadeiraDTO.setFileira(this.getFileira());
+        cadeiraDTO.setOrdemFileira(this.getOrdemFileira());
+        return cadeiraDTO;
+    }
 }
