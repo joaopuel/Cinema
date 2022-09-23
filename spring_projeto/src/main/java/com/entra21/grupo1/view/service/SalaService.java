@@ -28,6 +28,7 @@ public class SalaService {
     @Autowired
     private CinemaRepository cinemaRepository;
 
+    //Busca todos as salas do banco de dados
     public List<SalaDTO> getAll(){
         return salaRepository.findAll().stream().map( sala -> {
             SalaDTO salaDTO = new SalaDTO();
@@ -37,6 +38,7 @@ public class SalaService {
         }).collect(Collectors.toList());
     }
 
+    //Adiciona novas salas ao banco de dados
     public void saveSala(SalaPayloadDTO input) {
         SalaEntity newSala = new SalaEntity();
         newSala.setNome(input.getNome());
@@ -45,6 +47,7 @@ public class SalaService {
         salaRepository.save(newSala);
     }
 
+    //Atualiza salas já existentes no banco de dados
     public SalaDTO update(SalaDTO newSala) {
         SalaEntity e = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
         if(newSala.getNome() != null) e.setNome(newSala.getNome());
@@ -53,4 +56,7 @@ public class SalaService {
         salaDTO.setNome(e.getNome());
         return salaDTO;
     }
+
+    //Delete salas do banco de dados
+    public void delete(Long id) {salaRepository.deleteById(id);}
 }
