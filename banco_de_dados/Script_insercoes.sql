@@ -14,16 +14,16 @@ insert into sala(nome, id_cinema)
 values("Sala 01", 1);
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia, tipo_sessao)
-values('2022-10-10 19:30:00', 1, 3, 45, 25, "Dublado");
+values('2022-10-10 19:30:00', 1, 1, 45, 25, "Dublado");
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia, tipo_sessao)
-values('2022-10-10 20:00:00', 1, 4, 45, 25, "Dublado");
+values('2022-10-10 20:00:00', 1, 2, 45, 25, "Dublado");
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia, tipo_sessao)
-values('2022-10-11 19:30:00', 1, 3, 45, 25, "Legendado");
+values('2022-10-11 19:30:00', 1, 1, 45, 25, "Legendado");
 
 insert into sessao(data_sessao, id_sala, id_filme, valor_inteira, valor_meia, tipo_sessao)
-values('2022-10-11 20:00:00', 1, 4, 45, 25, "Legendado");
+values('2022-10-11 20:00:00', 1, 2, 45, 25, "Legendado");
 
 insert into filme(nome, duracao, sinopse, diretor, ano_lancamento, cartaz)
 values("Star Wars: O Despertar da Força", '1:29', "A queda de Darth Vader e do Império levou ao surgimento de uma nova força sombria: a Primeira Ordem. Eles procuram o jedi Luke Skywalker, desaparecido. A resistência tenta desesperadamente encontrá-lo antes para salvar a galáxia.

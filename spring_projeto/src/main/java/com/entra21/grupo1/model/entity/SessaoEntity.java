@@ -48,6 +48,7 @@ public class SessaoEntity {
         sessaoDTO.setValorInteira(this.getValorInteira());
         sessaoDTO.setValorMeia(this.getValorMeia());
         sessaoDTO.setTipoSessao(this.getTipoSessao());
+        sessaoDTO.setIdSala(this.getSala().getId());
         return sessaoDTO;
     }
 }

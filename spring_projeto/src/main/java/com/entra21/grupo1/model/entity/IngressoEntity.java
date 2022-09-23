@@ -30,7 +30,7 @@ public class IngressoEntity {
     private CadeiraEntity cadeira;
 
     @Column(name = "data_compra")
-    private LocalDateTime dataCompra;
+    private LocalDate dataCompra;
 
     public IngressoDTO toDTO() {
         IngressoDTO ingressoDTO = new IngressoDTO();

@@ -12,5 +12,4 @@ public class CinemaDTO {
     private String nome;
     private PessoaDTO administrador;
     private List<SalaDTO> salas;
-    private Double caixa;
 }
