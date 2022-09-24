@@ -2,6 +2,7 @@ package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoPayLoadDTO;
+import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.entra21.grupo1.view.service.SessaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,13 +23,23 @@ public class SessaoRestController {
         return sessaoService.getAll(dataSessao);
     }
 
-    @GetMapping("/{nome}")
-    public List<SessaoDTO> getAllSessoesByFilme(@PathVariable(name = "nome") String nome){
-        return sessaoService.getAllByFilme(nome);
+    @GetMapping("/{id}")
+    public SessaoDTOWithDetails getSessaoById(@PathVariable(name = "id") Long id){
+        return sessaoService.getById(id);
     }
 
     @PostMapping
     public void addSessao(@RequestBody SessaoPayLoadDTO newSessao){
         sessaoService.saveSessao(newSessao);
+    }
+
+    @PutMapping
+    public SessaoDTO updateSessao(@RequestBody SessaoDTO newSessao){
+        return sessaoService.update(newSessao);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteSessao(@PathVariable(name = "id") Long id){
+        sessaoService.delete(id);
     }
 }

@@ -11,11 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ProjetoCinemaApplication {
 
 	public static void main(String[] args) {
-		try {
 			SpringApplication.run(ProjetoCinemaApplication.class, args);
-		}catch (Exception ex){
-			System.out.println("Ocorre um erro!");
-		}
 	}
 
 }

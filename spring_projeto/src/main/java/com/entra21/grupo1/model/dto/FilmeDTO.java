@@ -18,15 +18,4 @@ public class FilmeDTO {
     private List<GeneroDTO> generos;
     private List<SessaoDTO> sessoes;
     private List<AvaliacaoDTO> avaliacoes;
-
-    public FilmeEntity toEntity(){
-        FilmeEntity filmeEntity = new FilmeEntity();
-        filmeEntity.setId(this.getId());
-        filmeEntity.setNome(this.getNome());
-        filmeEntity.setDuracao(this.getDuracao());
-        filmeEntity.setSinopse(this.getSinopse());
-        filmeEntity.setDiretor(this.getDiretor());
-        filmeEntity.setCartaz(this.getCartaz());
-        return filmeEntity;
-    }
 }

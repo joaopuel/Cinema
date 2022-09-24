@@ -3,6 +3,7 @@ package com.entra21.grupo1.view.service;
 import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.FilmeEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
+import com.entra21.grupo1.view.repository.GeneroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class FilmeService {
 
     @Autowired
     private FilmeRepository filmeRepository;
+
+    @Autowired
+    private GeneroRepository generoRepository;
 
     public List<FilmeDTO> getAll(String genero, Double nota) {
         List<FilmeEntity> list;
@@ -44,7 +48,7 @@ public class FilmeService {
     }
 
     public FilmeDTO saveFilme(FilmePayLoadDTO input) {
-        filmeRepository.save(input.toEntity());
+        filmeRepository.save(input.toEntity(generoRepository.findById(input.getIdGeneros()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero não encontrado!"))));
         return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 

@@ -24,12 +24,6 @@ public class CadeiraRestController {
         return cadeiraService.getAll();
     }
 
-    @GetMapping("/{id}")
-    public List<SessaoDTO> getAllSessoesByFilme(@PathVariable(name = "id") Long id){
-        //todo
-        return null;
-    }
-
     //Chama o método saveCadeira do CadeiraService
     @PostMapping
     public void addCadeira(@RequestBody CadeiraPayloadDTO newCadeira) {
