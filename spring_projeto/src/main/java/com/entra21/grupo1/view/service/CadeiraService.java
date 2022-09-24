@@ -26,7 +26,7 @@ public class CadeiraService {
     @Autowired
     private SalaRepository salaRepository;
 
-    public List<CadeiraDTO> getAll(){
+    public List<CadeiraDTO> getAll() {
         return cadeiraRepository.findAll().stream().map( cadeira -> {
             CadeiraDTO cadeiraDTO= new CadeiraDTO();
             cadeiraDTO.setId(cadeira.getId());

@@ -17,6 +17,4 @@ public class IngressoService {
 
     @Autowired
     private IngressoRepository ingressoRepository;
-
-    //todo
 }

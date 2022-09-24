@@ -33,10 +33,10 @@ public class SessaoEntity {
     private FilmeEntity filme;
 
     @Column(name = "valor_inteira")
-    private String valorInteira;
+    private Double valorInteira;
 
     @Column(name = "valor_meia")
-    private String valorMeia;
+    private Double valorMeia;
 
     @Column(name = "tipo_sessao")
     private String tipoSessao;

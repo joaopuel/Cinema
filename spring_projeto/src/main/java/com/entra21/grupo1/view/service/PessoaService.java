@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,11 +53,24 @@ public class PessoaService implements UserDetailsService {
         }).collect(Collectors.toList());
     }
 
-    public List<IngressoDTO> meusIngressos(Long id) throws  ResponseStatusException {
-        List<IngressoEntity> ingressos = ingressoRepository.findMeuIngressos(id);
-        if (ingressos == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingressos não encontrados!");
-        } return ingressos.stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
+    public List<MeusIngressosDTO> meusIngressos(Long id) {
+        return ingressoRepository.findMeuIngressos(id).stream().map( ingresso -> {
+            MeusIngressosDTO x = new MeusIngressosDTO();
+            x.setId(ingresso.getId());
+            x.setDataCompra(ingresso.getDataCompra());
+            x.setCodigo(ingresso.getCadeira().getCodigo());
+            x.setTipoCadeira(ingresso.getCadeira().getTipoCadeira());
+            x.setFileira(ingresso.getCadeira().getFileira());
+            x.setOrdemFileira(ingresso.getCadeira().getOrdemFileira());
+            x.setNomeSala(ingresso.getCadeira().getSala().getNome());
+            x.setNomeCinema(ingresso.getCadeira().getSala().getCinema().getNome());
+            x.setDataSessao(ingresso.getSessao().getDataSessao());
+            x.setValorInteira(ingresso.getSessao().getValorInteira());
+            x.setValorMeia(ingresso.getSessao().getValorMeia());
+            x.setTipoSessao(ingresso.getSessao().getTipoSessao());
+            x.setNomeFilme(ingresso.getSessao().getFilme().getNome());
+            return x;
+        }).collect(Collectors.toList());
     }
 
     public PessoaDTO save(PessoaPayloadDTO input) {
