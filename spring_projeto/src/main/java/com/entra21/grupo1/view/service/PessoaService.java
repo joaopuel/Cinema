@@ -30,6 +30,7 @@ public class PessoaService implements UserDetailsService {
     private CadeiraRepository cadeiraRepository;
 
 
+    //Busca todos os usuários do banco de dados
     public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map( pessoa -> {
             PessoaDTO dto = new PessoaDTO();
@@ -53,6 +54,7 @@ public class PessoaService implements UserDetailsService {
     }
 
 
+    //Busca todos os ingressos de um usuário
     public List<IngressoDTO> meusIngressos(Long id) throws  ResponseStatusException {
         List<IngressoEntity> ingressos = ingressoRepository.findMeuIngressos(id);
         if (ingressos == null) {
@@ -60,6 +62,7 @@ public class PessoaService implements UserDetailsService {
         } return ingressos.stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
+    //Adiciona novos usuários ao banco de dados
     public PessoaDTO save(PessoaPayloadDTO input) {
         PessoaEntity newEntity = new PessoaEntity();
         newEntity.setNome(input.getNome());
@@ -73,6 +76,7 @@ public class PessoaService implements UserDetailsService {
         return pessoaRepository.findByLogin(newEntity.getLogin()).toDTO();
     }
 
+    //Atualiza informações dos usuários no banco de dados
     public PessoaDTO update(PessoaDTO newPessoa) {
         PessoaEntity e = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
 
@@ -88,6 +92,7 @@ public class PessoaService implements UserDetailsService {
         return e.toDTO();
     }
 
+    //Deleta informações do usuário
     public void delete(Long id) {pessoaRepository.deleteById(id);}
 
     @Override
