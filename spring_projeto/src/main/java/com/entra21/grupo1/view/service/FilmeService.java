@@ -22,6 +22,8 @@ public class FilmeService {
     @Autowired
     private FilmeRepository filmeRepository;
 
+
+    //Busca todos os filmes do banco de dados
     public List<FilmeDTO> getAll(String genero, Double nota) {
         List<FilmeEntity> list;
         if(nota != null){
@@ -35,6 +37,7 @@ public class FilmeService {
         return list.stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
     }
 
+    //Busca os filmes por nome
     public FilmeDTO getByNome(String nome) {
         if(nome.contains("_")) {
             nome = nome.replaceAll("_", " ");
@@ -43,11 +46,13 @@ public class FilmeService {
         return f.toDTOWithDetails();
     }
 
+    //Adiciona filmes ao banco de dados
     public FilmeDTO saveFilme(FilmePayLoadDTO input) {
         filmeRepository.save(input.toEntity());
         return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 
+    //Atualiza filmes do banco de dados
     public FilmeDTO update(FilmeDTO newfilme) {
         FilmeEntity filmeEntity = filmeRepository.findById(newfilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
         if (newfilme.getNome() != null){ filmeEntity.setNome(newfilme.getNome());}
@@ -59,6 +64,7 @@ public class FilmeService {
         return filmeEntity.toDTOWithDetails();
     }
 
+    //Deleta filmes do banco de dados
     public void delete(Long id) {
         filmeRepository.deleteById(id);
     }

@@ -30,6 +30,7 @@ public class SessaoService {
     @Autowired
     private FilmeService filmeService;
 
+    //Busca todas as sessões do banco de dados
     public List<SessaoDTO> getAll(LocalDateTime dataSessao){
         List<SessaoEntity> list;
         if(dataSessao == null){
@@ -40,10 +41,12 @@ public class SessaoService {
         return list.stream().map(SessaoEntity::toDTO).collect(Collectors.toList());
     }
 
+    //Adiciona todas as sessões ao banco de dados
     public void saveSessao(SessaoPayLoadDTO newSessao) {
         sessaoRepository.save(toEntity(newSessao));
     }
 
+    //Método que transforma DTO em Entity
     public SessaoEntity toEntity(SessaoPayLoadDTO s){
         SessaoEntity sessaoEntity = new SessaoEntity();
         sessaoEntity.setDataSessao(s.getDataSessao());
@@ -55,6 +58,7 @@ public class SessaoService {
         return sessaoEntity;
     }
 
+    //Busca sessões por filme
     public List<SessaoDTO> getAllByFilme(String nome) {
         return filmeService.getByNome(nome).getSessoes();
     }

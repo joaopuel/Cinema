@@ -19,6 +19,7 @@ public class CinemaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    //Busca todos os cinemas do bando de dados
     public List<CinemaDTO> getAll() {
         return cinemaRepository.findAll().stream().map( cinema -> {
             CinemaDTO dto = new CinemaDTO();
@@ -26,7 +27,7 @@ public class CinemaService {
             dto.setId(cinema.getId());
             dto.setNome(cinema.getNome());
             dto.setAdministrador(cinema.getAdministrador().toDTO());
-            dto.setCaixa(cinema.getCaixa());
+//            dto.setCaixa(cinema.getCaixa());
             dto.setSalas(cinema.getSalas().stream().map(salaEntity -> {
                 SalaDTO salaDTO = new SalaDTO();
                 salaDTO.setId(salaEntity.getId());
@@ -37,6 +38,7 @@ public class CinemaService {
         }).collect(Collectors.toList());
     }
 
+    //Adiciona cinemas ao banco de dados
     public CinemaDTO save(CinemaPayloadDTO cinemaPayloadDTO) {
         CinemaEntity cinemaEntity = new CinemaEntity();
         cinemaEntity.setNome(cinemaPayloadDTO.getNome());
@@ -48,11 +50,12 @@ public class CinemaService {
         CinemaDTO c = new CinemaDTO();
         c.setId(cinemaRepository.findByNome(cinemaEntity.getNome()).getId());
         c.setNome(cinemaEntity.getNome());
-        c.setCaixa(cinemaEntity.getCaixa());
+//        c.setCaixa(cinemaEntity.getCaixa());
         c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
         return c;
     }
 
+    //Atualiza cinemas já existentes no banco de dados
     public CinemaDTO update(CinemaUpdateDTO cinemaUpdateDTO) {
         CinemaEntity cinemaEntity = cinemaRepository.findById(cinemaUpdateDTO.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
         if(cinemaUpdateDTO.getNome() != null) cinemaEntity.setNome(cinemaUpdateDTO.getNome());
@@ -67,9 +70,10 @@ public class CinemaService {
         c.setId(cinemaEntity.getId());
         c.setNome(cinemaEntity.getNome());
         c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
-        c.setCaixa(cinemaEntity.getCaixa());
+//        c.setCaixa(cinemaEntity.getCaixa());
         return c;
     }
 
+    //Deleta cinemas do banco de dados
     public void delete(Long id) {cinemaRepository.deleteById(id);}
 }
