@@ -23,11 +23,23 @@ public class AvaliacaoService {
     @Autowired
     private FilmeRepository filmeRepository;
 
+<<<<<<< Updated upstream
     public void saveAvaliacao(AvaliacaoPayloadDTO newAvaliacao) {
         avaliacaoRepository.save(newAvaliacao.toEntity(
                 pessoaRepository.findById(newAvaliacao.getIdUsuario()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")),
                 filmeRepository.findById(newAvaliacao.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"))
         ));
+=======
+    public AvaliacaoPayloadDTO salvarAvaliacao(AvaliacaoPayloadDTO avaliacaoPayloadDTO) {
+        AvaliacaoEntity avaliacaoEntity = new AvaliacaoEntity();
+        avaliacaoEntity.setUsuario(pessoaRepository.findByNome(avaliacaoPayloadDTO.getNomeUsuario()));
+        avaliacaoEntity.setFilme(filmeRepository.findByNome(avaliacaoPayloadDTO.getNomeFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")));
+        avaliacaoEntity.setRating(avaliacaoPayloadDTO.getRating());
+        avaliacaoEntity.setDataAvaliacao(avaliacaoPayloadDTO.getDataAvaliacao());
+        avaliacaoEntity.setComentario(avaliacaoPayloadDTO.getComentario());
+        avaliacaoRepository.save(avaliacaoEntity);
+        return avaliacaoPayloadDTO;
+>>>>>>> Stashed changes
     }
 
     public void delete(Long id) {
