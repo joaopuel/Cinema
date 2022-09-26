@@ -13,5 +13,4 @@ public class ProjetoCinemaApplication {
 	public static void main(String[] args) {
 			SpringApplication.run(ProjetoCinemaApplication.class, args);
 	}
-
 }

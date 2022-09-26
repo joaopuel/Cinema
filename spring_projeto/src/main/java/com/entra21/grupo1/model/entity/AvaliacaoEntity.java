@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "avaliacao")
 public class AvaliacaoEntity {@Column(name = "id")
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "rating")
     private Double rating;

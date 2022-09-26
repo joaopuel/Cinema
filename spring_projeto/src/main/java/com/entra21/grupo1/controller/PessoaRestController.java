@@ -1,6 +1,7 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.IngressoDTO;
+import com.entra21.grupo1.model.dto.MeusIngressosDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.view.service.PessoaService;
@@ -21,7 +22,7 @@ public class PessoaRestController {
     }
 
     @GetMapping("/meusingressos")
-    public List<IngressoDTO> meusIngressos(@RequestParam(name = "id") Long id) {
+    public List<MeusIngressosDTO> meusIngressos(@RequestParam(name = "id") Long id) {
         return pessoaService.meusIngressos(id);
     }
 

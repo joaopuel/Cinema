@@ -13,8 +13,8 @@ public class SessaoPayLoadDTO {
     private LocalDateTime dataSessao;
     private Long idFilme;
     private Long idSala;
-    private String valorInteira;
-    private String valorMeia;
+    private Double valorInteira;
+    private Double valorMeia;
     private String tipoSessao;
 
     public SessaoEntity toEntity(FilmeEntity filmeEntity, SalaEntity salaEntity){
