@@ -10,7 +10,7 @@ create table pessoa(
 	cpf char(11) not null,
 	saldo_carteira decimal(8,2),
 	login varchar(100) unique key not null,
-	senha varchar(50) not null
+	senha varchar(50) not null,
 );
 
 create table cinema(
@@ -18,14 +18,14 @@ create table cinema(
 	nome varchar(250) not null,
 	id_administrador bigint not null,
 	caixa decimal(8,2) not null,
-	foreign key (id_administrador) references pessoa(id)
+	foreign key (id_administrador) references pessoa(id) on delete cascade
 );
 
 create table sala(
 	id bigint not null primary key auto_increment,
 	nome varchar(250) not null,
 	id_cinema bigint not null,
-	foreign key (id_cinema) references cinema(id)
+	foreign key (id_cinema) references cinema(id) on delete cascade
 );
 
 create table cadeira(
@@ -35,7 +35,7 @@ create table cadeira(
 	tipo_cadeira varchar(45) not null,
 	fileira int not null,
 	ordem_fileira int not null,
-	foreign key (id_sala) references sala(id)
+	foreign key (id_sala) references sala(id) on delete cascade
 );
 
 create table filme(
@@ -60,11 +60,12 @@ create table sessao(
 );
 
 create table ingresso(
+	id bigint not null auto_increment,
 	id_sessao bigint not null,
 	id_pessoa bigint not null,
 	id_cadeira bigint not null,
 	data_compra datetime not null,
-	primary key(id_sessao, id_pessoa, id_cadeira),
+	primary key(id, id_sessao, id_pessoa, id_cadeira),
 	foreign key (id_sessao) references sessao(id),
 	foreign key (id_pessoa) references pessoa(id),
 	foreign key (id_cadeira) references cadeira(id)
