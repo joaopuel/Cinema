@@ -5,11 +5,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class SessaoDTO {
+public class SessaoDTOWithDetails {
     private Long id;
     private LocalDateTime dataSessao;
     private Double valorInteira;
     private Double valorMeia;
     private String tipoSessao;
-    private Long idSala;
+    private SalaDTO sala;
 }

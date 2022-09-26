@@ -1,6 +1,7 @@
 package com.entra21.grupo1.model.entity;
 
 import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,13 +24,11 @@ public class SessaoEntity {
     @ManyToOne
     @JoinColumn(name = "id_sala", referencedColumnName = "id")
     @JsonIgnore
-    @EqualsAndHashCode.Exclude
     private SalaEntity sala;
 
     @ManyToOne
     @JoinColumn(name = "id_filme", referencedColumnName = "id")
     @JsonIgnore
-    @EqualsAndHashCode.Exclude
     private FilmeEntity filme;
 
     @Column(name = "valor_inteira")
@@ -50,5 +49,16 @@ public class SessaoEntity {
         sessaoDTO.setTipoSessao(this.getTipoSessao());
         sessaoDTO.setIdSala(this.getSala().getId());
         return sessaoDTO;
+    }
+
+    public SessaoDTOWithDetails toDTOWithDetails(){
+        SessaoDTOWithDetails sessaoWithDetailsDTO = new SessaoDTOWithDetails();
+        sessaoWithDetailsDTO.setId(this.getId());
+        sessaoWithDetailsDTO.setDataSessao(this.getDataSessao());
+        sessaoWithDetailsDTO.setValorInteira(this.getValorInteira());
+        sessaoWithDetailsDTO.setValorMeia(this.getValorMeia());
+        sessaoWithDetailsDTO.setTipoSessao(this.getTipoSessao());
+        sessaoWithDetailsDTO.setSala(this.getSala().toDTO());
+        return sessaoWithDetailsDTO;
     }
 }

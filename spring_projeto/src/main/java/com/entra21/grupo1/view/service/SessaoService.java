@@ -2,6 +2,7 @@ package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoPayLoadDTO;
+import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.entra21.grupo1.model.entity.SessaoEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
@@ -43,23 +44,30 @@ public class SessaoService {
 
     //Adiciona todas as sessões ao banco de dados
     public void saveSessao(SessaoPayLoadDTO newSessao) {
-        sessaoRepository.save(toEntity(newSessao));
+        sessaoRepository.save(
+                newSessao.toEntity(
+                        filmeRepository.findById(newSessao.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")),
+                        salaRepository.findById(newSessao.getIdSala()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"))
+                )
+        );
     }
 
-    //Método que transforma DTO em Entity
-    public SessaoEntity toEntity(SessaoPayLoadDTO s){
-        SessaoEntity sessaoEntity = new SessaoEntity();
-        sessaoEntity.setDataSessao(s.getDataSessao());
-        sessaoEntity.setValorInteira(s.getValorInteira());
-        sessaoEntity.setValorMeia(s.getValorMeia());
-        sessaoEntity.setTipoSessao(s.getTipoSessao());
-        sessaoEntity.setSala(salaRepository.findById(s.getIdSala()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")));
-        sessaoEntity.setFilme(filmeRepository.findById(s.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")));
-        return sessaoEntity;
+    public SessaoDTO update(SessaoDTO newSessao) {
+        SessaoEntity sessaoEntity = sessaoRepository.findById(newSessao.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sessão não encontrada!"));
+        if(newSessao.getDataSessao() != null){ sessaoEntity.setDataSessao(newSessao.getDataSessao());}
+        if(newSessao.getValorInteira() != null){ sessaoEntity.setValorInteira(newSessao.getValorInteira());}
+        if(newSessao.getValorMeia() != null){ sessaoEntity.setValorMeia(newSessao.getValorMeia());}
+        if(newSessao.getTipoSessao() != null){ sessaoEntity.setTipoSessao(newSessao.getTipoSessao());}
+        sessaoRepository.save(sessaoEntity);
+        return sessaoEntity.toDTO();
     }
 
-    //Busca sessões por filme
-    public List<SessaoDTO> getAllByFilme(String nome) {
-        return filmeService.getByNome(nome).getSessoes();
+
+    public void delete(Long id) {
+        sessaoRepository.deleteById(id);
+    }
+
+    public SessaoDTOWithDetails getById(Long id) {
+        return sessaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sessão não encontrada!")).toDTOWithDetails();
     }
 }

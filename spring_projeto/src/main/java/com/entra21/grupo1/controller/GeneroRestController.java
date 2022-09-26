@@ -38,6 +38,6 @@ public class GeneroRestController {
     }
 
     //Chama o método delete do GeneroService
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {generoService.delete(id);}
+    @DeleteMapping("/{id}")
+    public void deletePessoa(@PathVariable(name = "id") Long id) {generoService.delete(id);}
 }

@@ -1,8 +1,7 @@
 package com.entra21.grupo1.model.entity;
 
 import com.entra21.grupo1.model.dto.FilmeDTO;
-import com.entra21.grupo1.model.dto.GeneroDTO;
-import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.FilmeDTOWithDetails;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -84,8 +83,21 @@ public class FilmeEntity {
         return filmeDTO;
     }
 
-    public FilmeDTO toDTOWithDetails() {
-        FilmeDTO filmeDTO = this.toDTO();
+    public FilmeDTOWithDetails toDTOWithDetails() {
+        FilmeDTOWithDetails filmeDTO = new FilmeDTOWithDetails();
+        filmeDTO.setId(this.id);
+        filmeDTO.setNome(this.nome);
+        filmeDTO.setCartaz(this.cartaz);
+        if(this.getSessoes() != null){
+            filmeDTO.setSessoes(
+                    this.getSessoes().stream().map( s -> {
+                        if(s.getDataSessao().toLocalDate().isAfter(LocalDateTime.now().toLocalDate()) || s.getDataSessao().toLocalDate().equals(LocalDateTime.now().toLocalDate()))
+                            return s.toDTO();
+                        else
+                            return null;
+                    }).filter(Objects::nonNull).collect(Collectors.toList())
+            );
+        }
         filmeDTO.setDuracao(this.getDuracao());
         filmeDTO.setSinopse(this.getSinopse());
         filmeDTO.setDiretor(this.getDiretor());

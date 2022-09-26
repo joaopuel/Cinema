@@ -7,7 +7,6 @@ import lombok.Data;
 public class CadeiraDTO {
     private Long id;
     private String codigo;
-    private SalaDTO sala;
     private String tipoCadeira;
     private Integer fileira;
     private Integer ordemFileira;

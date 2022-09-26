@@ -58,7 +58,6 @@ public class CadeiraService {
         if(newCadeira.getFileira() != null) e.setFileira(newCadeira.getFileira());
         if(newCadeira.getOrdemFileira() != null) e.setOrdemFileira(newCadeira.getOrdemFileira());
 
-        if(newCadeira.getSala() != null) e.setSala(newCadeira.getSala().toEntity());
         cadeiraRepository.save(e);
 
         return newCadeira;
@@ -66,5 +65,4 @@ public class CadeiraService {
 
     //Deleta cadeiras do banco de dados
     public void delete(Long id) {cadeiraRepository.deleteById(id);}
-
 }

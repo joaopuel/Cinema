@@ -1,5 +1,6 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.AvaliacaoDTO;
 import com.entra21.grupo1.model.dto.AvaliacaoPayloadDTO;
 import com.entra21.grupo1.view.service.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,15 @@ public class AvaliacaoRestController {
     private AvaliacaoService avaliacaoService;
 
     @PostMapping
-    public AvaliacaoPayloadDTO addAvaliacoes(@RequestBody AvaliacaoPayloadDTO avaliacaoPayloadDTO) {
-        return avaliacaoService.salvarAvaliacao(avaliacaoPayloadDTO);
+    public void addAvaliacao(@RequestBody AvaliacaoPayloadDTO newAvaliacao) {
+        avaliacaoService.saveAvaliacao(newAvaliacao);
     }
 
-    @DeleteMapping
-    public void deleteAvaliacao(@RequestParam(name = "id") Long id) {avaliacaoService.delete(id);}
+    @PutMapping
+    public AvaliacaoDTO updateAvaliacao(@RequestBody AvaliacaoDTO newAvaliacao){
+        return avaliacaoService.update(newAvaliacao);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAvaliacao(@PathVariable(name = "id") Long id) {avaliacaoService.delete(id);}
 }

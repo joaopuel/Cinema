@@ -25,30 +25,20 @@ public class GeneroService {
 
     //Busca todos os generos do banco de dados
     public List<GeneroDTO> getAll(){
-        return generoRepository.findAll().stream().map( genero -> {
-            GeneroDTO generoDTO = new GeneroDTO();
-            generoDTO.setId(genero.getId());
-            generoDTO.setNome(genero.getNome());
-            return generoDTO;
-        }).collect(Collectors.toList());
+        return generoRepository.findAll().stream().map(GeneroEntity::toDTO).collect(Collectors.toList());
     }
 
     //Adiciona novos generos ao banco de dados
     public void saveGenero(GeneroPayloadDTO input) {
-        GeneroEntity newGenero = new GeneroEntity();
-        newGenero.setNome(input.getNome());
-        generoRepository.save(newGenero);
+        generoRepository.save(input.toEntity());
     }
 
     //Atualiza generos já existentes no banco de dados
     public GeneroDTO update(GeneroDTO newGenero) {
-        GeneroEntity e = generoRepository.findById(newGenero.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero não encontrado!"));
-        if(newGenero.getNome() != null) e.setNome(newGenero.getNome());
-        generoRepository.save(e);
-        GeneroDTO generoDTO = new GeneroDTO();
-        generoDTO.setId(e.getId());
-        generoDTO.setNome(e.getNome());
-        return generoDTO;
+        GeneroEntity generoEntity = generoRepository.findById(newGenero.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero não encontrado!"));
+        if(newGenero.getNome() != null) generoEntity.setNome(newGenero.getNome());
+        generoRepository.save(generoEntity);
+        return generoEntity.toDTO();
     }
 
     //Delete generos do banco de dados

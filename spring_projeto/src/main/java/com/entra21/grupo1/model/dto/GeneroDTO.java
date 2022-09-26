@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.dto;
 
+import com.entra21.grupo1.model.entity.GeneroEntity;
 import lombok.Data;
 
 import java.time.LocalTime;
