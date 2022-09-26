@@ -24,13 +24,11 @@ public class SessaoEntity {
     @ManyToOne
     @JoinColumn(name = "id_sala", referencedColumnName = "id")
     @JsonIgnore
-    @EqualsAndHashCode.Exclude
     private SalaEntity sala;
 
     @ManyToOne
     @JoinColumn(name = "id_filme", referencedColumnName = "id")
     @JsonIgnore
-    @EqualsAndHashCode.Exclude
     private FilmeEntity filme;
 
     @Column(name = "valor_inteira")

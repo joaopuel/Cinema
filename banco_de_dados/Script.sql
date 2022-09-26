@@ -55,8 +55,8 @@ create table sessao(
 	valor_inteira decimal(8,2) not null,
 	valor_meia decimal(8,2) not null,
 	tipo_sessao varchar(45) not null,
-	foreign key (id_sala) references sala(id),
-	foreign key (id_filme) references filme(id)
+	foreign key (id_sala) references sala(id) on delete cascade,
+	foreign key (id_filme) references filme(id) on delete cascade
 );
 
 create table ingresso(

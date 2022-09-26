@@ -10,11 +10,4 @@ import java.util.List;
 public class GeneroDTO {
     private Long id;
     private String nome;
-
-    public GeneroEntity toEntity() {
-        GeneroEntity generoEntity = new GeneroEntity();
-        generoEntity.setId(this.getId());
-        generoEntity.setNome(this.getNome());
-        return generoEntity;
-    }
 }

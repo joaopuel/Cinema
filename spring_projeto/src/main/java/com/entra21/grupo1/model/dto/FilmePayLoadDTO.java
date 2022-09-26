@@ -19,9 +19,9 @@ public class FilmePayLoadDTO {
     private String sinopse;
     private String diretor;
     private String cartaz;
-    private Long idGeneros;
+    private List<Long> idGeneros;
 
-    public FilmeEntity toEntity(GeneroEntity generoEntity){
+    public FilmeEntity toEntity(){
         FilmeEntity filmeEntity = new FilmeEntity();
         filmeEntity.setNome(this.getNome());
         filmeEntity.setDuracao(this.getDuracao());

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/filmes/sessoes")
+@RequestMapping("/sessoes")
 public class SessaoRestController {
 
     @Autowired

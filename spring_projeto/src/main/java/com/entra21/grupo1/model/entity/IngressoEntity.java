@@ -34,9 +34,11 @@ public class IngressoEntity {
 
     public IngressoDTO toDTO() {
         IngressoDTO ingressoDTO = new IngressoDTO();
+        ingressoDTO.setId(this.getId());
         ingressoDTO.setSessao(this.getSessao().toDTO());
+        ingressoDTO.setPessoa(this.getPessoa().toDTO());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
-//        ingressoDTO.setDataCompra(this.getDataCompra());
+        ingressoDTO.setDataCompra(this.getDataCompra());
         return ingressoDTO;
     }
 }

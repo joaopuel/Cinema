@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class SessaoDTOWithDetails {
     private Long id;
     private LocalDateTime dataSessao;
-    private String valorInteira;
-    private String valorMeia;
+    private Double valorInteira;
+    private Double valorMeia;
     private String tipoSessao;
     private SalaDTO sala;
 }

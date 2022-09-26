@@ -1,15 +1,13 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.FilmeDTO;
+import com.entra21.grupo1.model.dto.FilmeDTOWithDetails;
 import com.entra21.grupo1.model.dto.FilmePayLoadDTO;
-import com.entra21.grupo1.model.dto.SessaoDTO;
+import com.entra21.grupo1.model.dto.GenerosFilmeDTO;
 import com.entra21.grupo1.view.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,17 +23,22 @@ public class FilmeRestController {
     }
 
     @GetMapping("/{nome}")
-    public FilmeDTO getFilmeByNome(@PathVariable(name = "nome") String nome){
+    public FilmeDTOWithDetails getFilmeByNome(@PathVariable(name = "nome") String nome){
         return filmeService.getByNome(nome);
     }
 
     @PostMapping
-    public FilmeDTO addFilme(@RequestBody FilmePayLoadDTO newfilme) {
+    public FilmeDTOWithDetails addFilme(@RequestBody FilmePayLoadDTO newfilme) {
         return filmeService.saveFilme(newfilme);
     }
 
+    @PostMapping("/generos")
+    public void addGenerosdeFilme(@RequestBody GenerosFilmeDTO generos){
+        filmeService.addGeneros(generos);
+    }
+
     @PutMapping
-    public FilmeDTO updateFilme(@RequestBody FilmeDTO filmeDTO){
+    public FilmeDTOWithDetails updateFilme(@RequestBody FilmeDTOWithDetails filmeDTO){
         return filmeService.update(filmeDTO);
     }
 

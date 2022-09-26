@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaRepository extends JpaRepository<PessoaEntity, Long> {
     PessoaEntity findByLogin(String login);
-    PessoaEntity findByName(String nome);
+    PessoaEntity findByNome(String nome);
 }

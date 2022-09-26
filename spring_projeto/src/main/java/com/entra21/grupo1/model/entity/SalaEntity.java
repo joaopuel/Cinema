@@ -1,6 +1,7 @@
 package com.entra21.grupo1.model.entity;
 
 import com.entra21.grupo1.model.dto.SalaDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,7 @@ public class SalaEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_cinema", referencedColumnName = "id")
+    @JsonIgnore
     private CinemaEntity cinema;
 
     @OneToMany(mappedBy = "sala")
