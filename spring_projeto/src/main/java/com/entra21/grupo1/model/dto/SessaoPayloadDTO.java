@@ -5,11 +5,10 @@ import com.entra21.grupo1.model.entity.SalaEntity;
 import com.entra21.grupo1.model.entity.SessaoEntity;
 import lombok.Data;
 
-import java.security.PrivateKey;
 import java.time.LocalDateTime;
 
 @Data
-public class SessaoPayLoadDTO {
+public class SessaoPayloadDTO {
     private LocalDateTime dataSessao;
     private Long idFilme;
     private Long idSala;
