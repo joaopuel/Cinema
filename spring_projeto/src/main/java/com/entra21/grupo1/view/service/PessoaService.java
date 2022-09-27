@@ -1,6 +1,7 @@
 package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.*;
+import com.entra21.grupo1.model.entity.CinemaEntity;
 import com.entra21.grupo1.model.entity.IngressoEntity;
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.view.repository.CadeiraRepository;
@@ -15,7 +16,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,83 +33,46 @@ public class PessoaService implements UserDetailsService {
 
     //Busca todos os usuários do banco de dados
     public List<PessoaDTO> getAll() {
-        return pessoaRepository.findAll().stream().map( pessoa -> {
-            PessoaDTO dto = new PessoaDTO();
-            dto.setId(pessoa.getId());
-            dto.setNome(pessoa.getNome());
-            dto.setSobrenome(pessoa.getSobrenome());
-            dto.setTelefone(pessoa.getTelefone());
-            dto.setCpf(pessoa.getCpf());
-            dto.setSaldoCarteira(pessoa.getSaldoCarteira());
-            dto.setLogin(pessoa.getLogin());
-            dto.setSenha(pessoa.getSenha());
-            dto.setCinemas(pessoa.getCinemas().stream().map( cinemaEntity -> {
-                CinemaDTO cinemaDTO = new CinemaDTO();
-                cinemaDTO.setId(cinemaEntity.getId());
-                cinemaDTO.setNome(cinemaEntity.getNome());
-//                cinemaDTO.setCaixa(cinemaEntity.getCaixa());
-                return cinemaDTO;
-            }).collect(Collectors.toList()));
-            return dto;
-        }).collect(Collectors.toList());
+        return pessoaRepository.findAll().stream().map(PessoaEntity::toDTO).collect(Collectors.toList());
     }
 
-    public List<MeusIngressosDTO> meusIngressos(Long id) {
-        return ingressoRepository.findMeuIngressos(id).stream().map( ingresso -> {
-            MeusIngressosDTO x = new MeusIngressosDTO();
-            x.setId(ingresso.getId());
-            x.setDataCompra(ingresso.getDataCompra());
-            x.setCodigo(ingresso.getCadeira().getCodigo());
-            x.setTipoCadeira(ingresso.getCadeira().getTipoCadeira());
-            x.setFileira(ingresso.getCadeira().getFileira());
-            x.setOrdemFileira(ingresso.getCadeira().getOrdemFileira());
-            x.setNomeSala(ingresso.getCadeira().getSala().getNome());
-            x.setNomeCinema(ingresso.getCadeira().getSala().getCinema().getNome());
-            x.setDataSessao(ingresso.getSessao().getDataSessao());
-            x.setValorInteira(ingresso.getSessao().getValorInteira());
-            x.setValorMeia(ingresso.getSessao().getValorMeia());
-            x.setTipoSessao(ingresso.getSessao().getTipoSessao());
-            x.setNomeFilme(ingresso.getSessao().getFilme().getNome());
-            return x;
-        }).collect(Collectors.toList());
+    public List<IngressoDTO> getIngressos(String nome) {
+        return pessoaRepository.findByNome(nome).orElseThrow().getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
     //Adiciona novos usuários ao banco de dados
-    public PessoaDTO save(PessoaPayloadDTO input) {
-        PessoaEntity newEntity = new PessoaEntity();
-        newEntity.setNome(input.getNome());
-        newEntity.setSobrenome(input.getSobrenome());
-        newEntity.setTelefone(input.getTelefone());
-        newEntity.setCpf(input.getCpf());
-        newEntity.setSaldoCarteira(input.getSaldoCarteira());
-        newEntity.setLogin(input.getLogin());
-        newEntity.setSenha(input.getSenha());
-        pessoaRepository.save(newEntity);
-        return pessoaRepository.findByLogin(newEntity.getLogin()).toDTO();
+    public PessoaDTO save(PessoaPayloadDTO newPessoa) {
+        pessoaRepository.save(newPessoa.toEntity());
+        return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
     }
 
     //Atualiza informações dos usuários no banco de dados
     public PessoaDTO update(PessoaDTO newPessoa) {
-        PessoaEntity e = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
-
-        if(newPessoa.getNome() != null) e.setNome(newPessoa.getNome());
-        if(newPessoa.getSobrenome() != null) e.setSobrenome(newPessoa.getSobrenome());
-        if(newPessoa.getTelefone() != null) e.setTelefone(newPessoa.getTelefone());
-        if(newPessoa.getCpf() != null) e.setCpf(newPessoa.getCpf());
-        if(newPessoa.getNome() != null) e.setNome(newPessoa.getNome());
-        if(newPessoa.getSaldoCarteira() != null) e.setSaldoCarteira(newPessoa.getSaldoCarteira());
-        if(newPessoa.getSenha() != null) e.setSenha(newPessoa.getSenha());
-        pessoaRepository.save(e);
-
-        return e.toDTO();
+        PessoaEntity pessoaEntity = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
+        if(newPessoa.getNome() != null) pessoaEntity.setNome(newPessoa.getNome());
+        if(newPessoa.getSobrenome() != null) pessoaEntity.setSobrenome(newPessoa.getSobrenome());
+        if(newPessoa.getTelefone() != null) pessoaEntity.setTelefone(newPessoa.getTelefone());
+        if(newPessoa.getCpf() != null) pessoaEntity.setCpf(newPessoa.getCpf());
+        if(newPessoa.getSaldoCarteira() != null) pessoaEntity.setSaldoCarteira(newPessoa.getSaldoCarteira());
+        if(newPessoa.getSenha() != null) pessoaEntity.setSenha(newPessoa.getSenha());
+        pessoaRepository.save(pessoaEntity);
+        return pessoaEntity.toDTO();
     }
 
     //Deleta informações do usuário
     public void delete(Long id) {pessoaRepository.deleteById(id);}
 
+    public PessoaDTO getDados(String nome) {
+        return pessoaRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
+    }
+
+    public List<CinemaDTO> getCinemas(String nome) {
+        return pessoaRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getCinemas().stream().map(CinemaEntity::toDTO).collect(Collectors.toList());
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        PessoaEntity user = pessoaRepository.findByLogin(username);
+        PessoaEntity user = pessoaRepository.findByLogin(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }

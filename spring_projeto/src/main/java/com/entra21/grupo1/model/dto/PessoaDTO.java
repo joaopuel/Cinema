@@ -14,5 +14,4 @@ public class PessoaDTO {
     private Double saldoCarteira;
     private String login;
     private String senha;
-    private List<CinemaDTO> cinemas;
 }

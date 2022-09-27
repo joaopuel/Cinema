@@ -2,7 +2,6 @@ package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.IngressoDTO;
 import com.entra21.grupo1.model.dto.IngressoPayLoadDTO;
-import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.entity.IngressoEntity;
 import com.entra21.grupo1.view.repository.CadeiraRepository;
 import com.entra21.grupo1.view.repository.IngressoRepository;
@@ -13,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

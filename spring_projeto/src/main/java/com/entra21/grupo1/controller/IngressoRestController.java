@@ -2,10 +2,6 @@ package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.IngressoDTO;
 import com.entra21.grupo1.model.dto.IngressoPayLoadDTO;
-import com.entra21.grupo1.model.entity.FilmeEntity;
-import com.entra21.grupo1.model.entity.IngressoEntity;
-import com.entra21.grupo1.view.repository.FilmeRepository;
-import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.service.IngressoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

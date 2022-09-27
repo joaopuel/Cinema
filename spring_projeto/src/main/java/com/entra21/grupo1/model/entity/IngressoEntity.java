@@ -4,9 +4,7 @@ import com.entra21.grupo1.model.dto.IngressoDTO;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Entity
@@ -36,9 +34,11 @@ public class IngressoEntity {
         IngressoDTO ingressoDTO = new IngressoDTO();
         ingressoDTO.setId(this.getId());
         ingressoDTO.setSessao(this.getSessao().toDTO());
-        ingressoDTO.setPessoa(this.getPessoa().toDTO());
+        ingressoDTO.setIdPessoa(this.getPessoa().getId());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
         ingressoDTO.setDataCompra(this.getDataCompra());
+        ingressoDTO.setNomeCinema(this.getCadeira().getSala().getCinema().getNome());
+        ingressoDTO.setNomeFilme(this.getSessao().getFilme().getNome());
         return ingressoDTO;
     }
 }

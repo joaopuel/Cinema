@@ -25,10 +25,10 @@ public class CinemaRestController {
     }
 
     @PutMapping
-    public CinemaDTO updateCinema(@RequestBody CinemaUpdateDTO cinema) {
-        return cinemaService.update(cinema);
+    public CinemaDTO updateCinema(@RequestBody CinemaDTO newCinema) {
+        return cinemaService.update(newCinema);
     }
 
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {cinemaService.delete(id);}
+    @DeleteMapping("/{id}")
+    public void deletePessoa(@PathVariable(name = "id") Long id) {cinemaService.delete(id);}
 }

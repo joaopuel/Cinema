@@ -30,31 +30,21 @@ public class SalaService {
 
     //Busca todos as salas do banco de dados
     public List<SalaDTO> getAll(){
-        return salaRepository.findAll().stream().map( sala -> {
-            SalaDTO salaDTO = new SalaDTO();
-            salaDTO.setId(sala.getId());
-            salaDTO.setNome(sala.getNome());
-            return salaDTO;
-        }).collect(Collectors.toList());
+        return salaRepository.findAll().stream().map(SalaEntity::toDTO).collect(Collectors.toList());
     }
 
     //Adiciona novas salas ao banco de dados
-    public void saveSala(SalaPayloadDTO input) {
-        SalaEntity newSala = new SalaEntity();
-        newSala.setNome(input.getNome());
-        CinemaEntity cinemaEntity = cinemaRepository.findById(input.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
-        newSala.setCinema(cinemaEntity);
-        salaRepository.save(newSala);
+    public SalaDTO saveSala(SalaPayloadDTO newSala) {
+        salaRepository.save(newSala.toEntity(cinemaRepository.findById(newSala.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"))));
+        return salaRepository.findByNomeByCinema(newSala.getIdCinema(), newSala.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")).toDTO();
     }
 
     //Atualiza salas já existentes no banco de dados
     public SalaDTO update(SalaDTO newSala) {
-        SalaEntity e = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
-        if(newSala.getNome() != null) e.setNome(newSala.getNome());
-        salaRepository.save(e);
-        SalaDTO salaDTO = new SalaDTO();
-        salaDTO.setNome(e.getNome());
-        return salaDTO;
+        SalaEntity salaEntity = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
+        if(newSala.getNome() != null) salaEntity.setNome(newSala.getNome());
+        salaRepository.save(salaEntity);
+        return salaEntity.toDTO();
     }
 
     //Delete salas do banco de dados

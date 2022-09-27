@@ -10,7 +10,7 @@ import java.util.List;
 public class CinemaDTO {
     private Long id;
     private String nome;
-    private PessoaDTO administrador;
+    private Long idAdministrador;
     private Double caixa;
     private List<SalaDTO> salas;
 }

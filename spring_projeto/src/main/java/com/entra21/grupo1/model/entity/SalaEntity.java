@@ -34,7 +34,9 @@ public class SalaEntity {
         SalaDTO salaDTO = new SalaDTO();
         salaDTO.setId(this.getId());
         salaDTO.setNome(this.getNome());
-        salaDTO.setCadeiras(this.getCadeiras().stream().map(CadeiraEntity::toDTO).collect(Collectors.toList()));
+        if(this.getCadeiras() != null){
+            salaDTO.setCadeiras(this.getCadeiras().stream().map(CadeiraEntity::toDTO).collect(Collectors.toList()));
+        }
         return salaDTO;
     }
 }

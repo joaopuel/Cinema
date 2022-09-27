@@ -1,7 +1,7 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.CinemaDTO;
 import com.entra21.grupo1.model.dto.IngressoDTO;
-import com.entra21.grupo1.model.dto.MeusIngressosDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.view.service.PessoaService;
@@ -21,9 +21,19 @@ public class PessoaRestController {
         return pessoaService.getAll();
     }
 
-    @GetMapping("/meusingressos")
-    public List<MeusIngressosDTO> meusIngressos(@RequestParam(name = "id") Long id) {
-        return pessoaService.meusIngressos(id);
+    @GetMapping("/{nome}/meusdados")
+    public PessoaDTO getDadosPessoa(@PathVariable(name = "nome") String nome){
+        return pessoaService.getDados(nome);
+    }
+
+    @GetMapping("/{nome}/meusingressos")
+    public List<IngressoDTO> getIngressosPessoa(@PathVariable(name = "nome") String nome) {
+        return pessoaService.getIngressos(nome);
+    }
+
+    @GetMapping("/{nome}/meuscinemas")
+    public List<CinemaDTO> getCinemasPessoa(@PathVariable(name = "nome") String nome) {
+        return pessoaService.getCinemas(nome);
     }
 
     @PostMapping
@@ -36,8 +46,8 @@ public class PessoaRestController {
         return pessoaService.update(newPessoa);
     }
 
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {
+    @DeleteMapping("/{id}")
+    public void deletePessoa(@PathVariable(name = "id") Long id) {
         pessoaService.delete(id);
     }
 

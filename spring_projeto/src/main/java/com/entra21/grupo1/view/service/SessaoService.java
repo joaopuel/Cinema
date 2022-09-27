@@ -62,7 +62,6 @@ public class SessaoService {
         return sessaoEntity.toDTO();
     }
 
-
     public void delete(Long id) {
         sessaoRepository.deleteById(id);
     }

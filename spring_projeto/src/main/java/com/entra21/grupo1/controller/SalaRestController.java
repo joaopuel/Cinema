@@ -23,8 +23,8 @@ public class SalaRestController {
 
     //Chama o método saveSala do SalaService
     @PostMapping
-    public void addSala(@RequestBody SalaPayloadDTO newSala) {
-        salaService.saveSala(newSala);
+    public SalaDTO addSala(@RequestBody SalaPayloadDTO newSala) {
+        return salaService.saveSala(newSala);
     }
 
     //Chama o método update do SalaService
@@ -34,6 +34,6 @@ public class SalaRestController {
     }
 
     //Chama o método delete do SalaService
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {salaService.delete(id);}
+    @DeleteMapping("/{id}")
+    public void deletePessoa(@PathVariable(name = "id") Long id) {salaService.delete(id);}
 }
