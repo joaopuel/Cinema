@@ -38,3 +38,5 @@ values("O Senhor dos Anéis: A Sociedade do Anel", '2:45', "Em uma terra fantás
 
 
 SELECT id_pessoa FROM ingresso WHERE id_pessoa = 1;
+
+SELECT * FROM (SELECT DISTINCT f.*, avg(a.rating) as avg_rat FROM filme f JOIN sessao s ON s.id_filme = f.id INNER JOIN filme_genero fg ON fg.id_filme = f.id INNER JOIN genero g ON g.id = fg.id_genero JOIN avaliacao a ON a.id_filme = f.id WHERE g.nome = :genero AND s.data_sessao >= :data group by f.id, f.nome) x where x.avg_rat >= :nota;

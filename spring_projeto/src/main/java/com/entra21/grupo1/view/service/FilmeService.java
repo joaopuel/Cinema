@@ -28,7 +28,9 @@ public class FilmeService {
     //Busca todos os filmes do banco de dados
     public List<FilmeDTO> getAll(String genero, Double nota) {
         List<FilmeEntity> list;
-        if(nota != null){
+        if(genero != null && nota != null){
+            list = filmeRepository.findAllFilmesDeGeneroENotaComSessoesDepois(genero, nota, LocalDateTime.now());
+        }else if(nota != null){
             list = filmeRepository.findAllFilmesDeNotaComSessoesDepois(nota, LocalDateTime.now());
         }else if(genero != null){
             list = filmeRepository.findAllFilmesDeGeneroComSessoesDepois(genero, LocalDateTime.now());
