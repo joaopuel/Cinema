@@ -4,6 +4,7 @@ import com.entra21.grupo1.model.entity.CinemaEntity;
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.PessoaRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ public class CinemaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    //Busca todos os cinemas do bando de dados
+    /**Busca todos os cinemas do banco de dados.
+     * @return List<CinemaDTO> - Retorna uma lista de DTO de todos os cinemas existentes.
+     */
     public List<CinemaDTO> getAll() {
         return cinemaRepository.findAll().stream().map( cinema -> {
             CinemaDTO dto = new CinemaDTO();
@@ -27,7 +30,7 @@ public class CinemaService {
             dto.setId(cinema.getId());
             dto.setNome(cinema.getNome());
             dto.setAdministrador(cinema.getAdministrador().toDTO());
-//            dto.setCaixa(cinema.getCaixa());
+            dto.setCaixa(cinema.getCaixa());
             dto.setSalas(cinema.getSalas().stream().map(salaEntity -> {
                 SalaDTO salaDTO = new SalaDTO();
                 salaDTO.setId(salaEntity.getId());
@@ -38,8 +41,11 @@ public class CinemaService {
         }).collect(Collectors.toList());
     }
 
-    //Adiciona cinemas ao banco de dados
-    public CinemaDTO save(CinemaPayloadDTO cinemaPayloadDTO) {
+    /**Adiciona cinema ao banco de dados.
+     * @param cinemaPayloadDTO CinemaPayloadDTO - Dados de um novo cinema.
+     * @return CinemaDTO - Dados salvos do cinema.
+     */
+    public CinemaDTO save(@NotNull CinemaPayloadDTO cinemaPayloadDTO) {
         CinemaEntity cinemaEntity = new CinemaEntity();
         cinemaEntity.setNome(cinemaPayloadDTO.getNome());
         PessoaEntity pessoa = pessoaRepository.findById(cinemaPayloadDTO.getAdministrador()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
@@ -50,13 +56,16 @@ public class CinemaService {
         CinemaDTO c = new CinemaDTO();
         c.setId(cinemaRepository.findByNome(cinemaEntity.getNome()).getId());
         c.setNome(cinemaEntity.getNome());
-//        c.setCaixa(cinemaEntity.getCaixa());
+        c.setCaixa(cinemaEntity.getCaixa());
         c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
         return c;
     }
 
-    //Atualiza cinemas já existentes no banco de dados
-    public CinemaDTO update(CinemaUpdateDTO cinemaUpdateDTO) {
+    /**Atualiza cinema existente no banco de dados.
+     * @param cinemaUpdateDTO CinemaUpdateDTO - Dados de um cinema que será atualizado.
+     * @return CinemaDTO - Dados atualizados do cinema.
+     */
+    public CinemaDTO update(@NotNull CinemaUpdateDTO cinemaUpdateDTO) {
         CinemaEntity cinemaEntity = cinemaRepository.findById(cinemaUpdateDTO.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
         if(cinemaUpdateDTO.getNome() != null) cinemaEntity.setNome(cinemaUpdateDTO.getNome());
         if(cinemaUpdateDTO.getAdministrador() != null) {
@@ -70,10 +79,12 @@ public class CinemaService {
         c.setId(cinemaEntity.getId());
         c.setNome(cinemaEntity.getNome());
         c.setAdministrador(cinemaEntity.getAdministrador().toDTO());
-//        c.setCaixa(cinemaEntity.getCaixa());
+        c.setCaixa(cinemaEntity.getCaixa());
         return c;
     }
 
-    //Deleta cinemas do banco de dados
-    public void delete(Long id) {cinemaRepository.deleteById(id);}
+    /**Deleta cinema do banco de dados.
+     * @param id Long - Identificador de um cinema existente.
+     */
+    public void delete(@NotNull Long id) {cinemaRepository.deleteById(id);}
 }

@@ -11,6 +11,7 @@ import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.model.entity.SalaEntity;
 import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,9 @@ public class SalaService {
     @Autowired
     private CinemaRepository cinemaRepository;
 
-    //Busca todos as salas do banco de dados
+    /**Busca todas as salas do banco de dados.
+     * @return List<SalaDTO> - Retorna uma lista de DTO de todas as salas existentes.
+     */
     public List<SalaDTO> getAll(){
         return salaRepository.findAll().stream().map( sala -> {
             SalaDTO salaDTO = new SalaDTO();
@@ -38,8 +41,10 @@ public class SalaService {
         }).collect(Collectors.toList());
     }
 
-    //Adiciona novas salas ao banco de dados
-    public void saveSala(SalaPayloadDTO input) {
+    /**Adiciona novas salas ao banco de dados.
+     * @param input SalaPayloadDTO - Dados de uma nova sala.
+     */
+    public void saveSala(@NotNull SalaPayloadDTO input) {
         SalaEntity newSala = new SalaEntity();
         newSala.setNome(input.getNome());
         CinemaEntity cinemaEntity = cinemaRepository.findById(input.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
@@ -47,8 +52,11 @@ public class SalaService {
         salaRepository.save(newSala);
     }
 
-    //Atualiza salas já existentes no banco de dados
-    public SalaDTO update(SalaDTO newSala) {
+    /**Atualiza salas já existentes no banco de dados.
+     * @param newSala SalaDTO - Dados de uma sala que será atualizada.
+     * @return SalaDTO - Dados atualizados da sala.
+     */
+    public SalaDTO update(@NotNull SalaDTO newSala) {
         SalaEntity e = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
         if(newSala.getNome() != null) e.setNome(newSala.getNome());
         salaRepository.save(e);
@@ -57,6 +65,8 @@ public class SalaService {
         return salaDTO;
     }
 
-    //Delete salas do banco de dados
-    public void delete(Long id) {salaRepository.deleteById(id);}
+    /**Deleta salas do banco de dados.
+     * @param id Long - identificador de uma sala existente.
+     */
+    public void delete(@NotNull Long id) {salaRepository.deleteById(id);}
 }

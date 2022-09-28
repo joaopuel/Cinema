@@ -9,7 +9,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class IngressoPayLoadDTO {
+public class IngressoPayloadDTO {
     private Long idSessao;
     private Long idPessoa;
     private Long idCadeira;

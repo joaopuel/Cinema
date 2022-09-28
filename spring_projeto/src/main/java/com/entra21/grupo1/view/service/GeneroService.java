@@ -10,6 +10,7 @@ import com.entra21.grupo1.model.entity.SalaEntity;
 import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.GeneroRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,24 +24,33 @@ public class GeneroService {
     @Autowired
     private GeneroRepository generoRepository;
 
-    //Busca todos os generos do banco de dados
+    /**Busca todos os gêneros do banco de dados.
+     * @return List<GeneroDTO> - Retorna uma lista de DTO de todos os gêneros existentes.
+     */
     public List<GeneroDTO> getAll(){
         return generoRepository.findAll().stream().map(GeneroEntity::toDTO).collect(Collectors.toList());
     }
 
-    //Adiciona novos generos ao banco de dados
-    public void saveGenero(GeneroPayloadDTO input) {
+    /**Adiciona um novo gênero ao banco de dados.
+     * @param input GeneroPayloadDTO - Dados de um novo gênero.
+     */
+    public void saveGenero(@NotNull GeneroPayloadDTO input) {
         generoRepository.save(input.toEntity());
     }
 
-    //Atualiza generos já existentes no banco de dados
-    public GeneroDTO update(GeneroDTO newGenero) {
+    /**Atualiza gênero já existentes no banco de dados.
+     * @param newGenero GeneroDTO - Dados de um gênero que será atualizado.
+     * @return GeneroDTO - Dados atualizados do gênero.
+     */
+    public GeneroDTO update(@NotNull GeneroDTO newGenero) {
         GeneroEntity generoEntity = generoRepository.findById(newGenero.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero não encontrado!"));
         if(newGenero.getNome() != null) generoEntity.setNome(newGenero.getNome());
         generoRepository.save(generoEntity);
         return generoEntity.toDTO();
     }
 
-    //Delete generos do banco de dados
-    public void delete(Long id) {generoRepository.deleteById(id);}
+    /**Deleta gênero do banco de dados.
+     * @param id Long - Identificador de um gênero existente.
+     */
+    public void delete(@NotNull Long id) {generoRepository.deleteById(id);}
 }
