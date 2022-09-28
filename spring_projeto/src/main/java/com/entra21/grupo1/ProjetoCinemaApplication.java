@@ -10,6 +10,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class ProjetoCinemaApplication {
 
+	/**
+	 * Rosas são vermelhas, violetas são azuis, caso ache algum erro, contate um suporte técnico.
+	 */
 	public static void main(String[] args) {
 			SpringApplication.run(ProjetoCinemaApplication.class, args);
 	}

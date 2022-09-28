@@ -8,6 +8,7 @@ import com.entra21.grupo1.view.repository.CadeiraRepository;
 import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.entra21.grupo1.view.repository.SessaoRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,23 +32,35 @@ public class PessoaService implements UserDetailsService {
     private CadeiraRepository cadeiraRepository;
 
 
-    //Busca todos os usuários do banco de dados
+    /**Busca todos os usuários do banco de dados.
+     * @return List<PessoaDTO> - Retorna uma lista de DTO de todas as pessoas existentes.
+     */
     public List<PessoaDTO> getAll() {
         return pessoaRepository.findAll().stream().map(PessoaEntity::toDTO).collect(Collectors.toList());
     }
 
-    public List<IngressoDTO> getIngressos(String nome) {
+    /**Busca todos os ingressos que o usuário em questão possui.
+     * @param nome Long - Identificador do usuário.
+     * @return List<MeusIngressosDTO> - Retorna uma lista de DTO de todos os ingressos do usuário.
+     */
+    public List<IngressoDTO> getIngressos(@NotNull String nome) {
         return pessoaRepository.findByNome(nome).orElseThrow().getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
-    //Adiciona novos usuários ao banco de dados
-    public PessoaDTO save(PessoaPayloadDTO newPessoa) {
+    /**Adiciona um novo usuário ao banco de dados.
+     * @param newPessoa PessoaPayloadDTO - Dados de um novo usuário
+     * @return PessoaDTO - Dados salvos do usuário
+     */
+    public PessoaDTO save(@NotNull PessoaPayloadDTO newPessoa) {
         pessoaRepository.save(newPessoa.toEntity());
         return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
     }
 
-    //Atualiza informações dos usuários no banco de dados
-    public PessoaDTO update(PessoaDTO newPessoa) {
+    /**Atualiza informações dos usuários no banco de dados.
+     * @param newPessoa PessoaDTO - Dados de um usuário que será atualizado.
+     * @return PessoaDTO - Dados atualizados do cinema.
+     */
+    public PessoaDTO update(@NotNull PessoaDTO newPessoa) {
         PessoaEntity pessoaEntity = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
         if(newPessoa.getNome() != null) pessoaEntity.setNome(newPessoa.getNome());
         if(newPessoa.getSobrenome() != null) pessoaEntity.setSobrenome(newPessoa.getSobrenome());
@@ -59,8 +72,10 @@ public class PessoaService implements UserDetailsService {
         return pessoaEntity.toDTO();
     }
 
-    //Deleta informações do usuário
-    public void delete(Long id) {pessoaRepository.deleteById(id);}
+    /**Deleta informações do usuário do banco de dados.
+     * @param id Long - Identificador de um cinema existente
+     */
+    public void delete(@NotNull Long id) {pessoaRepository.deleteById(id);}
 
     public PessoaDTO getDados(String nome) {
         return pessoaRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();

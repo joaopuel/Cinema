@@ -1,7 +1,7 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.SessaoDTO;
-import com.entra21.grupo1.model.dto.SessaoPayLoadDTO;
+import com.entra21.grupo1.model.dto.SessaoPayloadDTO;
 import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.entra21.grupo1.view.service.SessaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class SessaoRestController {
     }
 
     @PostMapping
-    public void addSessao(@RequestBody SessaoPayLoadDTO newSessao){
+    public void addSessao(@RequestBody SessaoPayloadDTO newSessao){
         sessaoService.saveSessao(newSessao);
     }
 
