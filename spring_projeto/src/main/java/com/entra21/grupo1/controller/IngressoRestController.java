@@ -1,7 +1,7 @@
 package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.IngressoDTO;
-import com.entra21.grupo1.model.dto.IngressoPayLoadDTO;
+import com.entra21.grupo1.model.dto.IngressoPayloadDTO;
 import com.entra21.grupo1.view.service.IngressoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class IngressoRestController {
     }
 
     @PostMapping
-    public void addIngresso(@RequestBody IngressoPayLoadDTO newIngresso){
+    public void addIngresso(@RequestBody IngressoPayloadDTO newIngresso){
         ingressoService.saveIngresso(newIngresso);
     }
 

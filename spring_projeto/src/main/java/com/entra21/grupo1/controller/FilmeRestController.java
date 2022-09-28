@@ -2,7 +2,7 @@ package com.entra21.grupo1.controller;
 
 import com.entra21.grupo1.model.dto.FilmeDTO;
 import com.entra21.grupo1.model.dto.FilmeDTOWithDetails;
-import com.entra21.grupo1.model.dto.FilmePayLoadDTO;
+import com.entra21.grupo1.model.dto.FilmePayloadDTO;
 import com.entra21.grupo1.model.dto.GenerosFilmeDTO;
 import com.entra21.grupo1.view.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class FilmeRestController {
     }
 
     @PostMapping
-    public FilmeDTOWithDetails addFilme(@RequestBody FilmePayLoadDTO newfilme) {
+    public FilmeDTOWithDetails addFilme(@RequestBody FilmePayloadDTO newfilme) {
         return filmeService.saveFilme(newfilme);
     }
 

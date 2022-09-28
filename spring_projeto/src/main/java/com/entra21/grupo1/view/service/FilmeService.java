@@ -5,6 +5,7 @@ import com.entra21.grupo1.model.entity.FilmeEntity;
 import com.entra21.grupo1.model.entity.GeneroEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import com.entra21.grupo1.view.repository.GeneroRepository;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,12 @@ public class FilmeService {
     @Autowired
     private GeneroRepository generoRepository;
 
-    //Busca todos os filmes do banco de dados
+    /**Método retornará todos os filmes a partir da data atual. Caso receba um parâmetro gênero, os filmes serão filtrados de acordo com o gênero, e caso receba um parâmetro nota, serão filtrados por nota.
+     * Caso receba os dois parâmetros, será filtrado apenas por nota.
+     * @param genero String - Gênero do filme.
+     * @param nota Double - Nota do filme.
+     * @return List<FilmeDTO> - Retorna uma lista de DTO de todos os filmes.
+     */
     public List<FilmeDTO> getAll(String genero, Double nota) {
         List<FilmeEntity> list;
         if(genero != null && nota != null){
@@ -41,8 +47,11 @@ public class FilmeService {
         return list.stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
     }
 
-    //Busca os filmes por nome
-    public FilmeDTOWithDetails getByNome(String nome) {
+    /**Busca um filme pelo seu nome completo.
+     * @param nome String - Nome do filme.
+     * @return FilmeDTOWithDetails - Dados do filme.
+     */
+    public FilmeDTOWithDetails getByNome(@NotNull String nome) {
         if(nome.contains("_")) {
             nome = nome.replaceAll("_", " ");
         }
@@ -50,14 +59,20 @@ public class FilmeService {
         return f.toDTOWithDetails();
     }
 
-    //Adiciona filmes ao banco de dados
-    public FilmeDTOWithDetails saveFilme(FilmePayLoadDTO input) {
+    /**Adiciona filme ao banco de dados.
+     * @param input FilmePayloadDTO - Dados de um novo filme.
+     * @return FilmeDTOWithDetails - Dados salvos do filme com mais detalhes.
+     */
+    public FilmeDTOWithDetails saveFilme(@NotNull FilmePayloadDTO input) {
         filmeRepository.save(input.toEntity());
         return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 
-    //Atualiza filmes do banco de dados
-    public FilmeDTOWithDetails update(FilmeDTOWithDetails newfilme) {
+    /**Atualiza filme existente do banco de dados.
+     * @param newfilme FilmeDTOWithDetails - Dados de um filme que será atualizado.
+     * @return CinemaDTO - Dados atualizados do filme.
+     */
+    public FilmeDTOWithDetails update(@NotNull FilmeDTOWithDetails newfilme) {
         FilmeEntity filmeEntity = filmeRepository.findById(newfilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
         if (newfilme.getNome() != null){ filmeEntity.setNome(newfilme.getNome());}
         if (newfilme.getDuracao() != null){ filmeEntity.setDuracao(newfilme.getDuracao());}
@@ -68,12 +83,17 @@ public class FilmeService {
         return filmeEntity.toDTOWithDetails();
     }
 
-    //Deleta filmes do banco de dados
-    public void delete(Long id) {
+    /**Deleta filmes do banco de dados.
+     * @param id Long - Identificador de um filme existente.
+     */
+    public void delete(@NotNull Long id) {
         filmeRepository.deleteById(id);
     }
 
-    public void addGeneros(GenerosFilmeDTO generosFilmeDTO) {
+    /**Adiciona gêneros de um filme.
+     * @param generosFilmeDTO GenerosFilmeDTO - Gêneros que um filme pode ter.
+     */
+    public void addGeneros(@NotNull GenerosFilmeDTO generosFilmeDTO) {
         filmeRepository.findById(generosFilmeDTO.getIdFilme()).ifPresentOrElse(f -> {
             Set<GeneroEntity> generos = new HashSet<>(generoRepository.findAllById(generosFilmeDTO.getIdGeneros()));
             f.setGeneros(generos);
