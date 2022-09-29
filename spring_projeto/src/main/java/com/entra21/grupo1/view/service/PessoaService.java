@@ -11,6 +11,7 @@ import com.entra21.grupo1.view.repository.SessaoRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,59 +32,99 @@ public class PessoaService implements UserDetailsService {
     @Autowired
     private CadeiraRepository cadeiraRepository;
 
-
-    /**Busca todos os usuários do banco de dados.
-     * @return List<PessoaDTO> - Retorna uma lista de DTO de todas as pessoas existentes.
+    /**Busca os dados de um usuário.
+     * @param user Entidade do usuário que está acessando o método.
+     * @return DTO com dados do usuário.
      */
-    public List<PessoaDTO> getAll() {
-        return pessoaRepository.findAll().stream().map(PessoaEntity::toDTO).collect(Collectors.toList());
+    public PessoaDTO getDados(@NotNull PessoaEntity user) {
+        return user.toDTO();
     }
 
-    /**Busca todos os ingressos que o usuário em questão possui.
-     * @param nome Long - Identificador do usuário.
-     * @return List<MeusIngressosDTO> - Retorna uma lista de DTO de todos os ingressos do usuário.
+    /**Busca todos os ingressos que o usuário possuí.
+     * @param user Entidade do usuário que está acessando o método.
+     * @return Lista de todos os ingressos do usuário.
      */
-    public List<IngressoDTO> getIngressos(@NotNull String nome) {
-        return pessoaRepository.findByNome(nome).orElseThrow().getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
+    public List<IngressoDTO> getIngressos(@NotNull PessoaEntity user) {
+        return pessoaRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
+    }
+
+    /**Busca todos os cinemas que o respectivo proprietário possuí.
+     * @param user Entidade do usuário que está acessando o método.
+     * @return Lista de todos os cinemas do proprietário.
+     */
+    public List<CinemaDTO> getCinemas(@NotNull PessoaEntity user) {
+        if(!user.isAdministrador()){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para proprietários de cinemas!");
+        }else{
+            return pessoaRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getCinemas().stream().map(CinemaEntity::toDTO).collect(Collectors.toList());
+        }
     }
 
     /**Adiciona um novo usuário ao banco de dados.
-     * @param newPessoa PessoaPayloadDTO - Dados de um novo usuário
-     * @return PessoaDTO - Dados salvos do usuário
+     * @param newPessoa Dados do novo usuário.
+     * @return Dados salvos do novo usuário.
      */
-    public PessoaDTO save(@NotNull PessoaPayloadDTO newPessoa) {
-        pessoaRepository.save(newPessoa.toEntity());
+    public PessoaDTO savePessoa(@NotNull PessoaPayloadDTO newPessoa) {
+        pessoaRepository.findByLogin(newPessoa.getLogin()).ifPresentOrElse(p ->  {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Este login já está em uso");
+        }, () -> {
+            pessoaRepository.save(newPessoa.toEntity());
+        });
         return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
     }
 
-    /**Atualiza informações dos usuários no banco de dados.
-     * @param newPessoa PessoaDTO - Dados de um usuário que será atualizado.
-     * @return PessoaDTO - Dados atualizados do cinema.
+    /**Adiciona um novo usuário como prorietário de cinemas ao banco de dados.
+     * @param newPessoa Dados do novo usuário.
+     * @return Dados salvos do novo proprietário.
      */
-    public PessoaDTO update(@NotNull PessoaDTO newPessoa) {
-        PessoaEntity pessoaEntity = pessoaRepository.findById(newPessoa.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pessoa não encontrada!"));
-        if(newPessoa.getNome() != null) pessoaEntity.setNome(newPessoa.getNome());
-        if(newPessoa.getSobrenome() != null) pessoaEntity.setSobrenome(newPessoa.getSobrenome());
-        if(newPessoa.getTelefone() != null) pessoaEntity.setTelefone(newPessoa.getTelefone());
-        if(newPessoa.getCpf() != null) pessoaEntity.setCpf(newPessoa.getCpf());
-        if(newPessoa.getSaldoCarteira() != null) pessoaEntity.setSaldoCarteira(newPessoa.getSaldoCarteira());
-        if(newPessoa.getSenha() != null) pessoaEntity.setSenha(newPessoa.getSenha());
-        pessoaRepository.save(pessoaEntity);
-        return pessoaEntity.toDTO();
+    public PessoaDTO saveProprietario(@NotNull PessoaPayloadDTO newPessoa) {
+        pessoaRepository.findByLogin(newPessoa.getLogin()).ifPresentOrElse(p ->  {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Este login já está em uso");
+        }, () -> {
+            PessoaEntity pessoaEntity = newPessoa.toEntity();
+            pessoaEntity.setAdministrador(true);
+            pessoaRepository.save(pessoaEntity);
+        });
+        return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
+    }
+
+    /**Atualiza informações do usuário no banco de dados.
+     * @param user Entidade do usuário que está acessando o método.
+     * @param newPessoa Dados atualizados do usuário.
+     * @return Dados atualizados.
+     */
+    public PessoaDTO update(@NotNull PessoaEntity user, @NotNull PessoaPayloadDTO newPessoa) {
+        if(newPessoa.getNome() != null) user.setNome(newPessoa.getNome());
+        if(newPessoa.getSobrenome() != null) user.setSobrenome(newPessoa.getSobrenome());
+        if(newPessoa.getTelefone() != null) user.setTelefone(newPessoa.getTelefone());
+        if(newPessoa.getCpf() != null) user.setCpf(newPessoa.getCpf());
+        if(newPessoa.getSenha() != null) user.setSenha(newPessoa.getSenha());
+        pessoaRepository.save(user);
+        return user.toDTO();
+    }
+
+    /**Adiciona valor inserido na carteira do usuário.
+     * @param user Entidade do usuário que está acessando o método.
+     * @param valor Valor a ser depositado na carteira.
+     */
+    public void deposito(@NotNull PessoaEntity user, @NotNull Double valor) {
+        user.setSaldoCarteira(user.getSaldoCarteira() + valor);
+        pessoaRepository.save(user);
+    }
+
+    /**Adiciona valor retirado da carteira do usuário.
+     * @param user Entidade do usuário que está acessando o método.
+     * @param valor Valor a ser retirado da carteira.
+     */
+    public void retirada(@NotNull PessoaEntity user, @NotNull Double valor) {
+        user.setSaldoCarteira(user.getSaldoCarteira() - valor);
+        pessoaRepository.save(user);
     }
 
     /**Deleta informações do usuário do banco de dados.
-     * @param id Long - Identificador de um cinema existente
+     * @param user Entidade do usuário que está acessando o método.
      */
-    public void delete(@NotNull Long id) {pessoaRepository.deleteById(id);}
-
-    public PessoaDTO getDados(String nome) {
-        return pessoaRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
-    }
-
-    public List<CinemaDTO> getCinemas(String nome) {
-        return pessoaRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getCinemas().stream().map(CinemaEntity::toDTO).collect(Collectors.toList());
-    }
+    public void delete(@NotNull PessoaEntity user) {pessoaRepository.delete(user);}
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

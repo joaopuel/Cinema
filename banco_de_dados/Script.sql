@@ -11,6 +11,7 @@ create table pessoa(
 	saldo_carteira decimal(8,2),
 	login varchar(100) unique key not null,
 	senha varchar(50) not null,
+	administrador bit(1) not null default(b'0')
 );
 
 create table cinema(
@@ -99,3 +100,4 @@ ALTER TABLE cadeira RENAME COLUMN código TO codigo;
 alter table filme add column cartaz varchar(500) not null;
 alter table filme drop column ano_lancamento;
 alter table sessao add column tipo_sessao varchar(45) not null;
+alter table pessoa add column administrador bit(1) not null default(b'0');

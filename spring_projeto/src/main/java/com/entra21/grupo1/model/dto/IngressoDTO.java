@@ -6,22 +6,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class IngressoDTO {
-    //ingresso
     private Long id;
     private LocalDateTime dataCompra;
-
-    //Usuário
     private Long idPessoa;
-
-    //cadeira
-    private CadeiraDTO cadeira;
-
-    //cinema
-    private String nomeCinema;
-
-    //sessao
-    private SessaoDTO sessao;
-
-    //filme
     private String nomeFilme;
+    private String nomeCinema;
+    private SessaoDTO sessao;
+    private CadeiraDTO cadeira;
 }

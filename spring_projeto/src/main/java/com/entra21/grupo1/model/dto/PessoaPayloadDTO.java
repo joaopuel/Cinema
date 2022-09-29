@@ -9,7 +9,6 @@ public class PessoaPayloadDTO {
     private String sobrenome;
     private String telefone;
     private String cpf;
-    private Double saldoCarteira;
     private String login;
     private String senha;
 
@@ -19,9 +18,10 @@ public class PessoaPayloadDTO {
         pessoaEntity.setSobrenome(this.getSobrenome());
         pessoaEntity.setTelefone(this.getTelefone());
         pessoaEntity.setCpf(this.getCpf());
-        pessoaEntity.setSaldoCarteira(this.getSaldoCarteira());
+        pessoaEntity.setSaldoCarteira(0.0);
         pessoaEntity.setLogin(this.getLogin());
         pessoaEntity.setSenha(this.getSenha());
+        pessoaEntity.setAdministrador(false);
         return pessoaEntity;
     }
 }

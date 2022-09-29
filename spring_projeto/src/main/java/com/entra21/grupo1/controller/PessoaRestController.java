@@ -4,51 +4,63 @@ import com.entra21.grupo1.model.dto.CinemaDTO;
 import com.entra21.grupo1.model.dto.IngressoDTO;
 import com.entra21.grupo1.model.dto.PessoaDTO;
 import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
+import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.view.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/usuarios")
 public class PessoaRestController {
     @Autowired
     private PessoaService pessoaService;
 
-    @GetMapping
-    public List<PessoaDTO> getPessoas() {
-        return pessoaService.getAll();
+    @GetMapping("/meusdados")
+    public PessoaDTO getDadosPessoa(@AuthenticationPrincipal PessoaEntity user){
+        return pessoaService.getDados(user);
     }
 
-    @GetMapping("/{nome}/meusdados")
-    public PessoaDTO getDadosPessoa(@PathVariable(name = "nome") String nome){
-        return pessoaService.getDados(nome);
+    @GetMapping("/meusingressos")
+    public List<IngressoDTO> getIngressosPessoa(@AuthenticationPrincipal PessoaEntity user) {
+        return pessoaService.getIngressos(user);
     }
 
-    @GetMapping("/{nome}/meusingressos")
-    public List<IngressoDTO> getIngressosPessoa(@PathVariable(name = "nome") String nome) {
-        return pessoaService.getIngressos(nome);
+    @GetMapping("/meuscinemas")
+    public List<CinemaDTO> getCinemasPessoa(@AuthenticationPrincipal PessoaEntity user) {
+        return pessoaService.getCinemas(user);
     }
 
-    @GetMapping("/{nome}/meuscinemas")
-    public List<CinemaDTO> getCinemasPessoa(@PathVariable(name = "nome") String nome) {
-        return pessoaService.getCinemas(nome);
-    }
-
-    @PostMapping
+    @PostMapping("/criarusuario")
     public PessoaDTO addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
-        return pessoaService.save(newPessoa);
+        return pessoaService.savePessoa(newPessoa);
     }
 
-    @PutMapping
-    public PessoaDTO updatePessoa(@RequestBody PessoaDTO newPessoa) {
-        return pessoaService.update(newPessoa);
+    @PostMapping("/criarproprietario")
+    public PessoaDTO addProprietario(@RequestBody PessoaPayloadDTO newPessoa){
+        return pessoaService.saveProprietario(newPessoa);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePessoa(@PathVariable(name = "id") Long id) {
-        pessoaService.delete(id);
+    @PutMapping("/atualizardados")
+    public PessoaDTO updatePessoa(@AuthenticationPrincipal PessoaEntity user, @RequestBody PessoaPayloadDTO newPessoa) {
+        return pessoaService.update(user, newPessoa);
+    }
+
+    @PutMapping("/deposito")
+    public void addDeposito(@AuthenticationPrincipal PessoaEntity user, @RequestParam(name = "valor") Double valor) {
+        pessoaService.deposito(user, valor);
+    }
+
+    @PutMapping("/retirada")
+    public void addRetirada(@AuthenticationPrincipal PessoaEntity user, @RequestParam(name = "valor") Double valor) {
+        pessoaService.retirada(user, valor);
+    }
+
+    @DeleteMapping("/delete")
+    public void deletePessoa(@AuthenticationPrincipal PessoaEntity user) {
+        pessoaService.delete(user);
     }
 
 }

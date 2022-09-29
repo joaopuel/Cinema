@@ -44,6 +44,9 @@ public class PessoaEntity implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "administrador")
+    private Boolean administrador;
+
     @OneToMany(mappedBy = "administrador")
     @EqualsAndHashCode.Exclude
     private Set<CinemaEntity> cinemas;
@@ -63,6 +66,10 @@ public class PessoaEntity implements UserDetails {
         pessoaDTO.setLogin(this.getLogin());
         pessoaDTO.setSenha(this.getSenha());
         return pessoaDTO;
+    }
+
+    public Boolean isAdministrador(){
+        return this.administrador;
     }
 
     @Override
