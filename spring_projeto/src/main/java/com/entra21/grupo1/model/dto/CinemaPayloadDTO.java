@@ -9,14 +9,16 @@ import java.util.List;
 @Data
 public class CinemaPayloadDTO {
     private String nome;
-    private Long idAdministrador;
-    private Double caixa;
+    private String logradouro;
+    private Integer numero;
 
     public CinemaEntity toEntity(PessoaEntity administrador){
         CinemaEntity cinemaEntity = new CinemaEntity();
         cinemaEntity.setNome(this.getNome());
         cinemaEntity.setAdministrador(administrador);
-        cinemaEntity.setCaixa(this.getCaixa());
+        cinemaEntity.setLogradouro(this.getLogradouro());
+        cinemaEntity.setNumero(this.getNumero());
+        cinemaEntity.setCaixa(0.0);
         return cinemaEntity;
     }
 }

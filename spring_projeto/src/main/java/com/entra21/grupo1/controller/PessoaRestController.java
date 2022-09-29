@@ -7,8 +7,10 @@ import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.view.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,9 +40,13 @@ public class PessoaRestController {
         return pessoaService.savePessoa(newPessoa);
     }
 
-    @PostMapping("/criarproprietario")
-    public PessoaDTO addProprietario(@RequestBody PessoaPayloadDTO newPessoa){
-        return pessoaService.saveProprietario(newPessoa);
+    @PostMapping("/criaradministrador")
+    public PessoaDTO addAdministrador(@AuthenticationPrincipal PessoaEntity user, @RequestBody PessoaPayloadDTO newPessoa){
+        if(user.isAdministrador()){
+            return pessoaService.saveAdministrador(newPessoa);
+        }else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
+        }
     }
 
     @PutMapping("/atualizardados")
@@ -49,12 +55,12 @@ public class PessoaRestController {
     }
 
     @PutMapping("/deposito")
-    public void addDeposito(@AuthenticationPrincipal PessoaEntity user, @RequestParam(name = "valor") Double valor) {
+    public void addDeposito(@AuthenticationPrincipal PessoaEntity user, @RequestBody Double valor) {
         pessoaService.deposito(user, valor);
     }
 
     @PutMapping("/retirada")
-    public void addRetirada(@AuthenticationPrincipal PessoaEntity user, @RequestParam(name = "valor") Double valor) {
+    public void addRetirada(@AuthenticationPrincipal PessoaEntity user, @RequestBody Double valor) {
         pessoaService.retirada(user, valor);
     }
 

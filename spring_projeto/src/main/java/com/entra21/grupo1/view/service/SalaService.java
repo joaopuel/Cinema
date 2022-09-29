@@ -1,21 +1,13 @@
 package com.entra21.grupo1.view.service;
 
-import com.entra21.grupo1.model.dto.*;
-import com.entra21.grupo1.model.dto.CinemaDTO;
-import com.entra21.grupo1.model.dto.SalaDTO;
-import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
 import com.entra21.grupo1.model.dto.SalaDTO;
 import com.entra21.grupo1.model.dto.SalaPayloadDTO;
-import com.entra21.grupo1.model.entity.CinemaEntity;
-import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.model.entity.SalaEntity;
 import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,51 +24,36 @@ public class SalaService {
     private CinemaRepository cinemaRepository;
 
     /**Busca todas as salas do banco de dados.
-     * @return List<SalaDTO> - Retorna uma lista de DTO de todas as salas existentes.
+     * @return Lista de todas as salas existentes.
      */
-    public Object getAll(){
+    public List<SalaDTO> getAll(){
         return salaRepository.findAll().stream().map(SalaEntity::toDTO).collect(Collectors.toList());
     }
 
-    /**Adiciona nova sala ao banco de dados.
-     * @param user Entidade do usuário que está acessando o método.
+    /**Adiciona uma nova sala ao banco de dados.
      * @param newSala Dados de uma nova sala.
      * @return Dados da salvos da nova sala.
      */
-    public SalaDTO saveSala(@NotNull PessoaEntity user, @NotNull SalaPayloadDTO newSala) {
-        if(user.isAdministrador()){
-            salaRepository.save(newSala.toEntity(cinemaRepository.findById(newSala.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"))));
-            return salaRepository.findByNomeByCinema(newSala.getIdCinema(), newSala.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")).toDTO();
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para prorietários de cinemas!");
-        }
+    public SalaDTO saveSala(@NotNull SalaPayloadDTO newSala) {
+        salaRepository.save(newSala.toEntity(cinemaRepository.findById(newSala.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"))));
+        return salaRepository.findByNomeByCinema(newSala.getIdCinema(), newSala.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")).toDTO();
     }
 
-    /**Atualiza dados de sala já existente no banco de dados.
-     * @param user Entidade do usuário que está acessando o método.
-     * @param newSala Dados atualizados da sala.
-     * @return Dados atualizados.
+    /**Atualiza as informações de uma sala no banco de dados.
+     * @param newSala Dados da sala que devem ser atualizados.
+     * @return Dados atualizados da sala.
      */
-    public SalaDTO update(@NotNull PessoaEntity user, @NotNull SalaDTO newSala) {
-        if(user.isAdministrador()){
-            SalaEntity salaEntity = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
-            if(newSala.getNome() != null) salaEntity.setNome(newSala.getNome());
-            salaRepository.save(salaEntity);
-            return salaEntity.toDTO();
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para prorietários de cinemas!");
-        }
+    public SalaDTO update(@NotNull SalaDTO newSala) {
+        SalaEntity salaEntity = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
+        if(newSala.getNome() != null) salaEntity.setNome(newSala.getNome());
+        salaRepository.save(salaEntity);
+        return salaEntity.toDTO();
     }
 
-    /**Deleta sala do banco de dados.
-     * @param user Entidade do usuário que está acessando o método.
-     * @param id Código de identificação da sala que deve ser deletada.
+    /**Deleta uma sala do banco de dados.
+     * @param id Número de identificação da sala que deve ser deletada.
      */
-    public void delete(@NotNull PessoaEntity user, @NotNull Long id) {
-        if(user.isAdministrador()){
-            salaRepository.deleteById(id);
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para prorietários de cinemas!");
-        }
+    public void delete(@NotNull Long id) {
+        salaRepository.deleteById(id);
     }
 }

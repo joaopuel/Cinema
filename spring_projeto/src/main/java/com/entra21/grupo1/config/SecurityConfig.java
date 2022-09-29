@@ -25,8 +25,7 @@ public class SecurityConfig {
         http.csrf().disable().httpBasic()
                 .and()
                 .authorizeHttpRequests((req) -> req
-                        .antMatchers(HttpMethod.POST, "/pessoas/criar_usuario").permitAll()
-                        .antMatchers(HttpMethod.POST, "/pessoas/criar_empresa").permitAll()
+                        .antMatchers(HttpMethod.POST, "/usuarios/criarusuario").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes").permitAll()
                         .anyRequest().authenticated()
                 );

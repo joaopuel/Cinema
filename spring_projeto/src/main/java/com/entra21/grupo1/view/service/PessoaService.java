@@ -11,7 +11,6 @@ import com.entra21.grupo1.view.repository.SessaoRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,15 +31,15 @@ public class PessoaService implements UserDetailsService {
     @Autowired
     private CadeiraRepository cadeiraRepository;
 
-    /**Busca os dados de um usuário.
+    /**Busca as informações do respectivo usuário salvas no banco de dados.
      * @param user Entidade do usuário que está acessando o método.
-     * @return DTO com dados do usuário.
+     * @return Dados do usuário.
      */
     public PessoaDTO getDados(@NotNull PessoaEntity user) {
         return user.toDTO();
     }
 
-    /**Busca todos os ingressos que o usuário possuí.
+    /**Busca todos os ingressos que respectivo usuário possuí.
      * @param user Entidade do usuário que está acessando o método.
      * @return Lista de todos os ingressos do usuário.
      */
@@ -48,13 +47,13 @@ public class PessoaService implements UserDetailsService {
         return pessoaRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
-    /**Busca todos os cinemas que o respectivo proprietário possuí.
+    /**Busca todos os cinemas que o respectivo administrador possuí.
      * @param user Entidade do usuário que está acessando o método.
-     * @return Lista de todos os cinemas do proprietário.
+     * @return Lista de todos os cinemas do administrador.
      */
     public List<CinemaDTO> getCinemas(@NotNull PessoaEntity user) {
         if(!user.isAdministrador()){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para proprietários de cinemas!");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
         }else{
             return pessoaRepository.findByLogin(user.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getCinemas().stream().map(CinemaEntity::toDTO).collect(Collectors.toList());
         }
@@ -73,11 +72,11 @@ public class PessoaService implements UserDetailsService {
         return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
     }
 
-    /**Adiciona um novo usuário como prorietário de cinemas ao banco de dados.
+    /**Adiciona um novo usuário como administrador de cinemas ao banco de dados.
      * @param newPessoa Dados do novo usuário.
-     * @return Dados salvos do novo proprietário.
+     * @return Dados salvos do novo usuário.
      */
-    public PessoaDTO saveProprietario(@NotNull PessoaPayloadDTO newPessoa) {
+    public PessoaDTO saveAdministrador(@NotNull PessoaPayloadDTO newPessoa) {
         pessoaRepository.findByLogin(newPessoa.getLogin()).ifPresentOrElse(p ->  {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Este login já está em uso");
         }, () -> {
@@ -88,10 +87,10 @@ public class PessoaService implements UserDetailsService {
         return pessoaRepository.findByLogin(newPessoa.getLogin()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).toDTO();
     }
 
-    /**Atualiza informações do usuário no banco de dados.
+    /**Atualiza as informações do respectivo usuário no banco de dados.
      * @param user Entidade do usuário que está acessando o método.
-     * @param newPessoa Dados atualizados do usuário.
-     * @return Dados atualizados.
+     * @param newPessoa Dados do usuário que devem ser atualizados.
+     * @return Dados atualizados do usuário.
      */
     public PessoaDTO update(@NotNull PessoaEntity user, @NotNull PessoaPayloadDTO newPessoa) {
         if(newPessoa.getNome() != null) user.setNome(newPessoa.getNome());
@@ -103,7 +102,7 @@ public class PessoaService implements UserDetailsService {
         return user.toDTO();
     }
 
-    /**Adiciona valor inserido na carteira do usuário.
+    /**Adiciona valor na carteira do respectivo usuário.
      * @param user Entidade do usuário que está acessando o método.
      * @param valor Valor a ser depositado na carteira.
      */
@@ -112,7 +111,7 @@ public class PessoaService implements UserDetailsService {
         pessoaRepository.save(user);
     }
 
-    /**Adiciona valor retirado da carteira do usuário.
+    /**Subtrai valor da carteira do respectivo usuário.
      * @param user Entidade do usuário que está acessando o método.
      * @param valor Valor a ser retirado da carteira.
      */
@@ -121,7 +120,7 @@ public class PessoaService implements UserDetailsService {
         pessoaRepository.save(user);
     }
 
-    /**Deleta informações do usuário do banco de dados.
+    /**Deleta o respectivo usuário do banco de dados.
      * @param user Entidade do usuário que está acessando o método.
      */
     public void delete(@NotNull PessoaEntity user) {pessoaRepository.delete(user);}

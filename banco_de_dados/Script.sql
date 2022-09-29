@@ -19,6 +19,8 @@ create table cinema(
 	nome varchar(250) not null,
 	id_administrador bigint not null,
 	caixa decimal(8,2) not null,
+	logradouro varchar(250) not null,
+	numero int not null,
 	foreign key (id_administrador) references pessoa(id) on delete cascade
 );
 
@@ -101,3 +103,5 @@ alter table filme add column cartaz varchar(500) not null;
 alter table filme drop column ano_lancamento;
 alter table sessao add column tipo_sessao varchar(45) not null;
 alter table pessoa add column administrador bit(1) not null default(b'0');
+alter table cinema add column logradouro varchar(250) not null;
+alter table cinema add column numero int not null;

@@ -21,7 +21,7 @@ public class SalaRestController {
 
     //Chama o método getAll do SalaService
     @GetMapping
-    public Object getSalas(@AuthenticationPrincipal PessoaEntity user) {
+    public List<SalaDTO> getSalas(@AuthenticationPrincipal PessoaEntity user) {
         //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(user.isAdministrador()) {
             return salaService.getAll();
@@ -33,18 +33,30 @@ public class SalaRestController {
     //Chama o método saveSala do SalaService
     @PostMapping
     public SalaDTO addSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaPayloadDTO newSala) {
-        return salaService.saveSala(user, newSala);
+        if(user.isAdministrador()){
+            return salaService.saveSala(newSala);
+        }else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
+        }
     }
 
     //Chama o método update do SalaService
     @PutMapping
     public SalaDTO updateSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaDTO newSala) {
-        return salaService.update(user, newSala);
+        if(user.isAdministrador()){
+            return salaService.update(newSala);
+        }else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
+        }
     }
 
     //Chama o método delete do SalaService
     @DeleteMapping("/{id}")
     public void deletePessoa(@AuthenticationPrincipal PessoaEntity user, @PathVariable(name = "id") Long id) {
-        salaService.delete(user, id);
+        if(user.isAdministrador()){
+            salaService.delete(id);
+        }else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
+        }
     }
 }
