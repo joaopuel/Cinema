@@ -56,7 +56,7 @@ create table sessao(
 	id_sala bigint not null,
 	id_filme bigint not null,
 	valor_inteira decimal(8,2) not null,
-	valor_meia decimal(8,2) not null,
+	taxa_vip decimal(8,2) not null,
 	tipo_sessao varchar(45) not null,
 	foreign key (id_sala) references sala(id) on delete cascade,
 	foreign key (id_filme) references filme(id) on delete cascade
@@ -68,6 +68,8 @@ create table ingresso(
 	id_pessoa bigint not null,
 	id_cadeira bigint not null,
 	data_compra datetime not null,
+	meia_entrada bit(1) not null default(b'0'),
+	cadeira_vip bit(1) not null default(b'0'),
 	primary key(id, id_sessao, id_pessoa, id_cadeira),
 	foreign key (id_sessao) references sessao(id),
 	foreign key (id_pessoa) references pessoa(id),
@@ -105,3 +107,6 @@ alter table sessao add column tipo_sessao varchar(45) not null;
 alter table pessoa add column administrador bit(1) not null default(b'0');
 alter table cinema add column logradouro varchar(250) not null;
 alter table cinema add column numero int not null;
+alter table ingresso add column meia_entrada bit(1) not null default(b'0');
+alter table ingresso add column cadeira_vip bit(1) not null default(b'0');
+alter table sessao rename column valor_meia to taxa_vip;

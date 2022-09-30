@@ -7,6 +7,7 @@ import com.entra21.grupo1.view.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,8 +22,8 @@ public class SalaRestController {
 
     //Chama o método getAll do SalaService
     @GetMapping
-    public List<SalaDTO> getSalas(@AuthenticationPrincipal PessoaEntity user) {
-        //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    public List<SalaDTO> getSalas() {
+        PessoaEntity user = (PessoaEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(user.isAdministrador()) {
             return salaService.getAll();
         }else {
