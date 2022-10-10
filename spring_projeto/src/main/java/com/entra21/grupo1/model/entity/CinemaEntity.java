@@ -42,6 +42,10 @@ public class CinemaEntity {
     @EqualsAndHashCode.Exclude
     private Set<SalaEntity> salas;
 
+    @OneToMany(mappedBy = "cinema")
+    @EqualsAndHashCode.Exclude
+    private Set<RegistroCaixaEntity> registrosCaixa;
+
     public CinemaDTO toDTO(){
         CinemaDTO cinemaDTO = new CinemaDTO();
         cinemaDTO.setId(this.getId());
@@ -61,6 +65,9 @@ public class CinemaEntity {
         cinemaDTO.setNumero(this.getNumero());
         if(this.getSalas() != null) {
             cinemaDTO.setSalas(this.getSalas().stream().map(SalaEntity::toDTO).collect(Collectors.toList()));
+        }
+        if(this.getRegistrosCaixa() != null){
+            cinemaDTO.setRegistroCaixa(this.getRegistrosCaixa().stream().map(RegistroCaixaEntity::toDTO).collect(Collectors.toList()));
         }
         return cinemaDTO;
     }

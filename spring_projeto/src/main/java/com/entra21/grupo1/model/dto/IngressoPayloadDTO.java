@@ -14,6 +14,8 @@ public class IngressoPayloadDTO {
     private Long idPessoa;
     private Long idCadeira;
     private LocalDateTime dataCompra;
+    private Boolean meiaEntrada;
+    private Boolean cadeiraVip;
 
     public IngressoEntity toEntity(SessaoEntity sessaoEntity, PessoaEntity pessoaEntity, CadeiraEntity cadeiraEntity) {
         IngressoEntity ingressoEntity = new IngressoEntity();
@@ -21,6 +23,8 @@ public class IngressoPayloadDTO {
         ingressoEntity.setPessoa(pessoaEntity);
         ingressoEntity.setCadeira(cadeiraEntity);
         ingressoEntity.setDataCompra(this.getDataCompra());
+        ingressoEntity.setMeiaEntrada(this.getMeiaEntrada());
+        ingressoEntity.setCadeiraVip(this.getCadeiraVip());
         return ingressoEntity;
     }
 }

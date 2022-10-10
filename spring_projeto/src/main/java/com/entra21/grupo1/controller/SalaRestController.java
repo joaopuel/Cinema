@@ -21,43 +21,26 @@ public class SalaRestController {
     private SalaService salaService;
 
     //Chama o método getAll do SalaService
-    @GetMapping
-    public List<SalaDTO> getSalas() {
-        PessoaEntity user = (PessoaEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(user.isAdministrador()) {
-            return salaService.getAll();
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        }
+    @GetMapping("/{id}")
+    public SalaDTO getSalaById(@PathVariable(name = "id") Long id) {
+        return salaService.getById(id);
     }
 
     //Chama o método saveSala do SalaService
     @PostMapping
     public SalaDTO addSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaPayloadDTO newSala) {
-        if(user.isAdministrador()){
-            return salaService.saveSala(newSala);
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
-        }
+        return salaService.saveSala(newSala);
     }
 
     //Chama o método update do SalaService
     @PutMapping
-    public SalaDTO updateSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaDTO newSala) {
-        if(user.isAdministrador()){
-            return salaService.update(newSala);
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
-        }
+    public void updateSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaDTO newSala) throws NoSuchFieldException {
+        salaService.update(newSala);
     }
 
     //Chama o método delete do SalaService
     @DeleteMapping("/{id}")
     public void deletePessoa(@AuthenticationPrincipal PessoaEntity user, @PathVariable(name = "id") Long id) {
-        if(user.isAdministrador()){
-            salaService.delete(id);
-        }else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Apenas para administradores de cinemas!");
-        }
+        salaService.delete(id);
     }
 }

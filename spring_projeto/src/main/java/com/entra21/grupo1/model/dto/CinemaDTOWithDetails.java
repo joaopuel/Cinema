@@ -13,4 +13,5 @@ public class CinemaDTOWithDetails {
     private String logradouro;
     private Integer numero;
     private List<SalaDTO> salas;
+    private List<RegistroCaixaDTO> registroCaixa;
 }

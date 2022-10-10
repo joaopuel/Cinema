@@ -2,6 +2,13 @@ package com.entra21.grupo1.model.dto;
 
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.jar.Attributes;
 
 @Data
 public class PessoaPayloadDTO {
@@ -21,7 +28,6 @@ public class PessoaPayloadDTO {
         pessoaEntity.setSaldoCarteira(0.0);
         pessoaEntity.setLogin(this.getLogin());
         pessoaEntity.setSenha(this.getSenha());
-        pessoaEntity.setAdministrador(false);
         return pessoaEntity;
     }
 }

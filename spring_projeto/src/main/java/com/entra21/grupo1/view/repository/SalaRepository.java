@@ -16,5 +16,4 @@ public interface SalaRepository extends JpaRepository<SalaEntity, Long> {
     @Query(value = "select s.* from sala s join cinema c on s.id_cinema = c.id where c.id = :idCinema and s.nome  = :nome", nativeQuery = true)
     Optional<SalaEntity> findByNomeByCinema(@Param("idCinema") Long idCinema, @Param("nome") String nome);
 
-    List<SalaEntity> findAllByCinema_Id(Long id);
 }

@@ -27,6 +27,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((req) -> req
                         .antMatchers(HttpMethod.POST, "/usuarios/criarusuario").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes").permitAll()
+                        .antMatchers(HttpMethod.GET, "/cinemas").permitAll()
+                        .antMatchers(HttpMethod.GET, "/sessoes").permitAll()
+                        .antMatchers(HttpMethod.GET, "/sessoes/{id}").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

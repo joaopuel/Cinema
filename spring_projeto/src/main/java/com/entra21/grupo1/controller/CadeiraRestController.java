@@ -19,15 +19,6 @@ public class CadeiraRestController {
     private CadeiraService cadeiraService;
 
     /**
-     * Chama método getAll de CadeiraService
-     * @return List<CadeiraDTO>
-     */
-    @GetMapping
-    public List<CadeiraDTO> getCadeiras() {
-        return cadeiraService.getAll();
-    }
-
-    /**
      * Chama o método saveCAdeira de CadeiraService
      * @param newCadeira no formato CadeiraPayloadDTO
      */
@@ -39,18 +30,17 @@ public class CadeiraRestController {
     /**
      * Chama o método update de CadeiraService
      * @param newCadeira no formato CadeiraDTO
-     * @return retorna um objeto CadeiraDTO com todas as informaçoes finais.
      */
     @PutMapping
-    public CadeiraDTO updateCadeira(@RequestBody CadeiraDTO newCadeira) {
-        return cadeiraService.update(newCadeira);
+    public void updateCadeira(@RequestBody CadeiraDTO newCadeira) throws NoSuchFieldException {
+        cadeiraService.update(newCadeira);
     }
 
     /**
      * Chama o método delete de CadeiraService
      * @param id no formato Long
      */
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {cadeiraService.delete(id);}
+    @DeleteMapping("/{id}")
+    public void deletePessoa(@PathVariable(name = "id") Long id) {cadeiraService.delete(id);}
 }
 

@@ -13,14 +13,14 @@ public class SessaoPayloadDTO {
     private Long idFilme;
     private Long idSala;
     private Double valorInteira;
-    private Double valorMeia;
+    private Double taxaVip;
     private String tipoSessao;
 
     public SessaoEntity toEntity(FilmeEntity filmeEntity, SalaEntity salaEntity){
         SessaoEntity sessaoEntity = new SessaoEntity();
         sessaoEntity.setDataSessao(this.getDataSessao());
         sessaoEntity.setValorInteira(this.getValorInteira());
-        sessaoEntity.setValorMeia(this.getValorMeia());
+        sessaoEntity.setTaxaVip(this.getTaxaVip());
         sessaoEntity.setTipoSessao(this.getTipoSessao());
         sessaoEntity.setFilme(filmeEntity);
         sessaoEntity.setSala(salaEntity);

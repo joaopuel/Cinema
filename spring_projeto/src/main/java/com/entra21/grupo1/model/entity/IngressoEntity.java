@@ -30,6 +30,12 @@ public class IngressoEntity {
     @Column(name = "data_compra")
     private LocalDateTime dataCompra;
 
+    @Column(name = "meia_entrada")
+    private Boolean meiaEntrada;
+
+    @Column(name = "cadeira_vip")
+    private Boolean cadeiraVip;
+
     public IngressoDTO toDTO() {
         IngressoDTO ingressoDTO = new IngressoDTO();
         ingressoDTO.setId(this.getId());
@@ -37,8 +43,21 @@ public class IngressoEntity {
         ingressoDTO.setIdPessoa(this.getPessoa().getId());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
         ingressoDTO.setDataCompra(this.getDataCompra());
+        ingressoDTO.setMeiaEntrada(this.getMeiaEntrada());
+        ingressoDTO.setCadeiraVip(this.getCadeiraVip());
         ingressoDTO.setNomeCinema(this.getCadeira().getSala().getCinema().getNome());
         ingressoDTO.setNomeFilme(this.getSessao().getFilme().getNome());
+
+        if(this.getMeiaEntrada()){
+            ingressoDTO.setValorIngresso(this.getSessao().getValorInteira()/2);
+        } else {
+            ingressoDTO.setValorIngresso(this.getSessao().getValorInteira());
+        }
+
+        if(this.getCadeiraVip()){
+            ingressoDTO.setValorIngresso(ingressoDTO.getValorIngresso() + this.getSessao().getTaxaVip());
+        }
+
         return ingressoDTO;
     }
 }

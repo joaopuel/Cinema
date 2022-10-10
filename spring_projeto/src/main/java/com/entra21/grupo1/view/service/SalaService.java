@@ -3,16 +3,12 @@ package com.entra21.grupo1.view.service;
 import com.entra21.grupo1.model.dto.SalaDTO;
 import com.entra21.grupo1.model.dto.SalaPayloadDTO;
 import com.entra21.grupo1.model.entity.SalaEntity;
-import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SalaService {
@@ -21,13 +17,13 @@ public class SalaService {
     private SalaRepository salaRepository;
 
     @Autowired
-    private CinemaRepository cinemaRepository;
+    private CinemaService cinemaService;
 
-    /**Busca todas as salas do banco de dados.
-     * @return Lista de todas as salas existentes.
-     */
-    public List<SalaDTO> getAll(){
-        return salaRepository.findAll().stream().map(SalaEntity::toDTO).collect(Collectors.toList());
+    @Autowired
+    private PessoaService pessoaService;
+
+    public SalaDTO getById(Long idSala) {
+        return getSalaEntity(idSala).toDTO();
     }
 
     /**Adiciona uma nova sala ao banco de dados.
@@ -35,7 +31,16 @@ public class SalaService {
      * @return Dados da salvos da nova sala.
      */
     public SalaDTO saveSala(@NotNull SalaPayloadDTO newSala) {
-        salaRepository.save(newSala.toEntity(cinemaRepository.findById(newSala.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"))));
+        pessoaService.userIsAnAdministrador();
+        pessoaService.checkNullField(newSala);
+        salaRepository.findByNomeByCinema(newSala.getIdCinema(), newSala.getNome()).ifPresentOrElse(
+                (s) -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Esta sala já existe!");
+                },
+                () -> {
+                    salaRepository.save(newSala.toEntity(cinemaService.getCinemaEntity(newSala.getIdCinema())));
+                }
+        );
         return salaRepository.findByNomeByCinema(newSala.getIdCinema(), newSala.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!")).toDTO();
     }
 
@@ -43,17 +48,29 @@ public class SalaService {
      * @param newSala Dados da sala que devem ser atualizados.
      * @return Dados atualizados da sala.
      */
-    public SalaDTO update(@NotNull SalaDTO newSala) {
-        SalaEntity salaEntity = salaRepository.findById(newSala.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
-        if(newSala.getNome() != null) salaEntity.setNome(newSala.getNome());
-        salaRepository.save(salaEntity);
-        return salaEntity.toDTO();
+    public void update(@NotNull SalaDTO newSala) throws NoSuchFieldException {
+        pessoaService.checkNullId(newSala);
+        SalaEntity salaEntity = getSalaEntity(newSala.getId());
+        salaRepository.findByNomeByCinema(salaEntity.getCinema().getId(), newSala.getNome()).ifPresentOrElse(
+                (s) -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Esta sala já existe!");
+                },
+                () -> {
+                    if(newSala.getNome() != null) salaEntity.setNome(newSala.getNome());
+                    salaRepository.save(salaEntity);
+                }
+        );
     }
 
     /**Deleta uma sala do banco de dados.
-     * @param id Número de identificação da sala que deve ser deletada.
+     * @param idSala Número de identificação da sala que deve ser deletada.
      */
-    public void delete(@NotNull Long id) {
-        salaRepository.deleteById(id);
+    public void delete(@NotNull Long idSala) {
+        salaRepository.delete(getSalaEntity(idSala));
+    }
+
+    public SalaEntity getSalaEntity(@NotNull Long idSala){
+        pessoaService.userIsAnAdministrador();
+        return salaRepository.findById(idSala).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
     }
 }
