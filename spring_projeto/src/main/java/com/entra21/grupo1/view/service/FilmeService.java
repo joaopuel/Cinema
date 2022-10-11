@@ -35,7 +35,7 @@ public class FilmeService {
      * @param nota Double - Nota do filme.
      * @return List<FilmeDTO> - Retorna uma lista de DTO de todos os filmes.
      */
-    public List<FilmeDTO> getAll(String genero, Double nota) {
+    public List<FilmeDTO> getAll(String nome, String genero, Double nota) {
         List<FilmeEntity> list;
         if(genero != null && nota != null){
             list = filmeRepository.findAllFilmesDeGeneroENotaComSessoesDepois(genero, nota, LocalDateTime.now());
@@ -45,6 +45,10 @@ public class FilmeService {
             list = filmeRepository.findAllFilmesDeGeneroComSessoesDepois(genero, LocalDateTime.now());
         } else {
             list = filmeRepository.findAllFilmesComSessoesDepois(LocalDateTime.now());
+        }
+
+        if(nome != null){
+            list = list.stream().filter((f) -> f.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
         }
 
         return list.stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
@@ -97,6 +101,7 @@ public class FilmeService {
      * @return CinemaDTO - Dados atualizados do filme.
      */
     public void update(@NotNull FilmeDTOWithDetails newFilme) throws NoSuchFieldException {
+        pessoaService.userIsAnAdministrador();
         pessoaService.checkNullId(newFilme);
         FilmeEntity filmeEntity = filmeRepository.findById(newFilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
         if (newFilme.getNome() != null){ filmeEntity.setNome(newFilme.getNome());}

@@ -39,7 +39,7 @@ public class PessoaRestController {
     }
 
     @PutMapping("/movimentacao")
-    public void addMovimentacao(@RequestBody Long valor) {
+    public void addMovimentacao(@RequestBody Double valor) {
         pessoaService.movimentacao(valor);
     }
 

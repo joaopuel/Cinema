@@ -13,7 +13,6 @@ public class IngressoDTO {
     private String nomeCinema;
     private Double valorIngresso;
     private Boolean meiaEntrada;
-    private Boolean cadeiraVip;
     private SessaoDTO sessao;
     private CadeiraDTO cadeira;
 }

@@ -68,7 +68,6 @@ create table ingresso(
 	id_cadeira bigint not null,
 	data_compra datetime not null,
 	meia_entrada bit(1) not null default(b'0'),
-	cadeira_vip bit(1) not null default(b'0'),
 	primary key(id, id_sessao, id_pessoa, id_cadeira),
 	foreign key (id_sessao) references sessao(id),
 	foreign key (id_pessoa) references pessoa(id),
@@ -116,6 +115,6 @@ alter table sessao add column tipo_sessao varchar(45) not null;
 alter table cinema add column logradouro varchar(250) not null;
 alter table cinema add column numero int not null;
 alter table ingresso add column meia_entrada bit(1) not null default(b'0');
-alter table ingresso add column cadeira_vip bit(1) not null default(b'0');
 alter table sessao rename column valor_meia to taxa_vip;
 alter table pessoa drop column administrador;
+alter table ingresso drop column cadeira_vip;

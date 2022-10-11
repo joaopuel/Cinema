@@ -23,7 +23,7 @@ public class RegistroCaixaPayloadDTO {
         registroEntity.setDescricao(this.getDescricao());
         registroEntity.setCinema(cinema);
         registroEntity.setDataOperacao(LocalDateTime.now());
-        if(this.getOperacao() == null || !this.getOperacao().equals("Venda")){
+        if(this.getOperacao() == null || !this.getOperacao().equalsIgnoreCase("Venda")){
             if(this.getValor()>0) registroEntity.setOperacao("Depósito");
             else registroEntity.setOperacao("Retirada");
         }else {

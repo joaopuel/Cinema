@@ -42,8 +42,7 @@ public class RegistroCaixaService {
 
     public void addRegistro(RegistroCaixaPayloadDTO registro){
         checkNullField(registro);
-        pessoaService.userIsAnAdministrador();
-        PessoaEntity administrador = pessoaService.getUser();
+        PessoaEntity administrador = pessoaRepository.findByLogin("admin").orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
         administrador.setSaldoCarteira(administrador.getSaldoCarteira()+registro.getValor());
         CinemaEntity cinema = cinemaRepository.findById(registro.getIdCinema()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cinema não encontrado!"));
         cinema.setCaixa(cinema.getCaixa() + registro.getValor());
@@ -56,7 +55,7 @@ public class RegistroCaixaService {
         for (Field f : registro.getClass().getDeclaredFields()) {
             f.setAccessible(true);
             try {
-                if(!(f.getName().equals("operacao") || f.getName().equals("descricao")) && Objects.isNull(f.get(registro))){
+                if(!(f.getName().equalsIgnoreCase("operacao") || f.getName().equalsIgnoreCase("descricao")) && Objects.isNull(f.get(registro))){
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Há um campo obrigatório nulo!");
                 }
             } catch (Exception e) {

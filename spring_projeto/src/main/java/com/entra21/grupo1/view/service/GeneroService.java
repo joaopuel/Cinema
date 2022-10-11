@@ -2,14 +2,8 @@ package com.entra21.grupo1.view.service;
 
 import com.entra21.grupo1.model.dto.GeneroDTO;
 import com.entra21.grupo1.model.dto.GeneroPayloadDTO;
-import com.entra21.grupo1.model.dto.SalaDTO;
-import com.entra21.grupo1.model.dto.SalaPayloadDTO;
-import com.entra21.grupo1.model.entity.CinemaEntity;
 import com.entra21.grupo1.model.entity.GeneroEntity;
-import com.entra21.grupo1.model.entity.SalaEntity;
-import com.entra21.grupo1.view.repository.CinemaRepository;
 import com.entra21.grupo1.view.repository.GeneroRepository;
-import com.entra21.grupo1.view.repository.SalaRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

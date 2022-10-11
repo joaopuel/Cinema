@@ -38,12 +38,12 @@ public class PessoaService implements UserDetailsService {
      * @return Lista de todos os ingressos do usuário.
      */
     public List<IngressoDTO> getIngressos() {
-        return pessoaRepository.findById(getUser().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
+        return getUser().getIngressos().stream().map(IngressoEntity::toDTO).collect(Collectors.toList());
     }
 
     public List<CinemaDTOWithDetails> getCinemas(){
         userIsAnAdministrador();
-        return pessoaRepository.findById(getUser().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!")).getCinemas().stream().map(CinemaEntity::toDTOWithDetails).collect(Collectors.toList());
+        return getUser().getCinemas().stream().map(CinemaEntity::toDTOWithDetails).collect(Collectors.toList());
     }
 
     /**Adiciona um novo usuário ao banco de dados.
@@ -60,22 +60,24 @@ public class PessoaService implements UserDetailsService {
      * @param newPessoa Dados do usuário que devem ser atualizados.
      */
     public void update(@NotNull PessoaPayloadDTO newPessoa) {
-        if(newPessoa.getNome() != null) getUser().setNome(newPessoa.getNome());
-        if(newPessoa.getSobrenome() != null) getUser().setSobrenome(newPessoa.getSobrenome());
-        if(newPessoa.getTelefone() != null) getUser().setTelefone(newPessoa.getTelefone());
-        if(newPessoa.getCpf() != null) getUser().setCpf(newPessoa.getCpf());
-        if(newPessoa.getLogin() != null) getUser().setLogin(newPessoa.getLogin());
-        if(newPessoa.getSenha() != null) getUser().setSenha(newPessoa.getSenha());
-        pessoaRepository.save(getUser());
+        PessoaEntity user = getUser();
+        if(newPessoa.getNome() != null) user.setNome(newPessoa.getNome());
+        if(newPessoa.getSobrenome() != null) user.setSobrenome(newPessoa.getSobrenome());
+        if(newPessoa.getTelefone() != null) user.setTelefone(newPessoa.getTelefone());
+        if(newPessoa.getCpf() != null) user.setCpf(newPessoa.getCpf());
+        if(newPessoa.getLogin() != null) user.setLogin(newPessoa.getLogin());
+        if(newPessoa.getSenha() != null) user.setSenha(newPessoa.getSenha());
+        pessoaRepository.save(user);
     }
 
     /**Adiciona valor na carteira do respectivo usuário.
      * @param valor Valor a ser depositado na carteira.
      */
-    public void movimentacao(@NotNull Long valor) {
-        if(!getUser().getLogin().equals("admin")) {
-            getUser().setSaldoCarteira(getUser().getSaldoCarteira() + valor);
-            pessoaRepository.save(getUser());
+    public void movimentacao(@NotNull Double valor) {
+        if(!getUser().getLogin().equalsIgnoreCase("admin")) {
+            PessoaEntity user = getUser();
+            user.setSaldoCarteira(user.getSaldoCarteira() + valor);
+            pessoaRepository.save(user);
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas para usuários!");
         }
@@ -88,7 +90,7 @@ public class PessoaService implements UserDetailsService {
     }
 
     public void userIsAnAdministrador(){
-        if (!getUser().getLogin().equals("admin")){
+        if (!getUser().getLogin().equalsIgnoreCase("admin")){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Apenas para administradores de cinemas!");
         }
     }
@@ -119,7 +121,7 @@ public class PessoaService implements UserDetailsService {
     }
 
     public PessoaEntity getUser() {
-        return (PessoaEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return pessoaRepository.findById(((PessoaEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
     }
 
     @Override

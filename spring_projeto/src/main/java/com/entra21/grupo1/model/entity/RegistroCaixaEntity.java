@@ -6,7 +6,6 @@ import com.entra21.grupo1.model.dto.RegistroCaixaDTO;
 import com.entra21.grupo1.view.service.CinemaService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

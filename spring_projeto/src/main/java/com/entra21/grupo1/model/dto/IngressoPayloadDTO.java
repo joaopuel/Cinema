@@ -5,26 +5,23 @@ import com.entra21.grupo1.model.entity.IngressoEntity;
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import com.entra21.grupo1.model.entity.SessaoEntity;
 import lombok.Data;
+import net.bytebuddy.asm.Advice;
 
 import java.time.LocalDateTime;
 
 @Data
 public class IngressoPayloadDTO {
     private Long idSessao;
-    private Long idPessoa;
     private Long idCadeira;
-    private LocalDateTime dataCompra;
     private Boolean meiaEntrada;
-    private Boolean cadeiraVip;
 
     public IngressoEntity toEntity(SessaoEntity sessaoEntity, PessoaEntity pessoaEntity, CadeiraEntity cadeiraEntity) {
         IngressoEntity ingressoEntity = new IngressoEntity();
         ingressoEntity.setSessao(sessaoEntity);
-        ingressoEntity.setPessoa(pessoaEntity);
+        ingressoEntity.setUsuario(pessoaEntity);
         ingressoEntity.setCadeira(cadeiraEntity);
-        ingressoEntity.setDataCompra(this.getDataCompra());
+        ingressoEntity.setDataCompra(LocalDateTime.now());
         ingressoEntity.setMeiaEntrada(this.getMeiaEntrada());
-        ingressoEntity.setCadeiraVip(this.getCadeiraVip());
         return ingressoEntity;
     }
 }

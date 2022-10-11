@@ -21,8 +21,8 @@ public class IngressoRestController {
     }
 
     @PostMapping
-    public void addIngresso(@RequestBody IngressoPayloadDTO newIngresso){
-        ingressoService.saveIngresso(newIngresso);
+    public IngressoDTO addIngresso(@RequestBody IngressoPayloadDTO newIngresso){
+        return ingressoService.saveIngresso(newIngresso);
     }
 
     @DeleteMapping("/{id}")

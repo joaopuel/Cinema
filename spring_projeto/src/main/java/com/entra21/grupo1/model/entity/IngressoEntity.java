@@ -21,7 +21,7 @@ public class IngressoEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
-    private PessoaEntity pessoa;
+    private PessoaEntity usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_cadeira", referencedColumnName = "id")
@@ -33,29 +33,24 @@ public class IngressoEntity {
     @Column(name = "meia_entrada")
     private Boolean meiaEntrada;
 
-    @Column(name = "cadeira_vip")
-    private Boolean cadeiraVip;
-
     public IngressoDTO toDTO() {
         IngressoDTO ingressoDTO = new IngressoDTO();
         ingressoDTO.setId(this.getId());
         ingressoDTO.setSessao(this.getSessao().toDTO());
-        ingressoDTO.setIdPessoa(this.getPessoa().getId());
+        ingressoDTO.setIdPessoa(this.getUsuario().getId());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
         ingressoDTO.setDataCompra(this.getDataCompra());
         ingressoDTO.setMeiaEntrada(this.getMeiaEntrada());
-        ingressoDTO.setCadeiraVip(this.getCadeiraVip());
         ingressoDTO.setNomeCinema(this.getCadeira().getSala().getCinema().getNome());
         ingressoDTO.setNomeFilme(this.getSessao().getFilme().getNome());
+        ingressoDTO.setValorIngresso(this.getSessao().getValorInteira());
 
-        if(this.getMeiaEntrada()){
-            ingressoDTO.setValorIngresso(this.getSessao().getValorInteira()/2);
-        } else {
-            ingressoDTO.setValorIngresso(this.getSessao().getValorInteira());
+        if(this.getCadeira().getTipoCadeira().equalsIgnoreCase("VIP")){
+            ingressoDTO.setValorIngresso(ingressoDTO.getValorIngresso() + this.getSessao().getTaxaVip());
         }
 
-        if(this.getCadeiraVip()){
-            ingressoDTO.setValorIngresso(ingressoDTO.getValorIngresso() + this.getSessao().getTaxaVip());
+        if(this.getMeiaEntrada()){
+            ingressoDTO.setValorIngresso((ingressoDTO.getValorIngresso())/2);
         }
 
         return ingressoDTO;

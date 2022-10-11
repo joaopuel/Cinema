@@ -53,3 +53,5 @@ select x.* from sessao x join sala y on x.id_sala = y.id where x.data_sessao = (
 select x.* from sessao x join sala y on x.id_sala = y.id where x.data_sessao = (select min(s2.data_sessao) from (select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao > :data) s2) and y.id = :idSala;
 
 select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao BETWEEN :deData AND :ateData;
+
+select i.* from ingresso i join cadeira c on i.id_cadeira = c.id join sessao s on i.id_sessao = s.id where c.id = :idCadeira and s.id = :idSessao; 

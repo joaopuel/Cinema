@@ -57,7 +57,7 @@ public class FilmeEntity {
         Double soma = 0.0;
         if(!this.avaliacoes.isEmpty()){
             for(AvaliacaoEntity avaliacao : this.avaliacoes){
-                soma += avaliacao.getRating();
+                soma += avaliacao.getNota();
             }
             return soma/avaliacoes.toArray().length;
         }else {

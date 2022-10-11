@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,13 +17,13 @@ public class AvaliacaoEntity {@Column(name = "id")
     private Long id;
 
     @Column(name = "rating")
-    private Double rating;
+    private Double nota;
 
     @Column(name = "comentario")
     private String comentario;
 
     @Column(name = "data_avaliacao")
-    private LocalDate dataAvaliacao;
+    private LocalDateTime dataAvaliacao;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
@@ -43,7 +43,7 @@ public class AvaliacaoEntity {@Column(name = "id")
         avaliacaoDTO.setNomeUsuario(this.getUsuario().getNome());
         avaliacaoDTO.setSobrenomeUsuario(this.getUsuario().getSobrenome());
         avaliacaoDTO.setDataAvaliacao(this.getDataAvaliacao());
-        avaliacaoDTO.setRating(this.getRating());
+        avaliacaoDTO.setNota(this.getNota());
         avaliacaoDTO.setComentario(this.getComentario());
         return avaliacaoDTO;
     }

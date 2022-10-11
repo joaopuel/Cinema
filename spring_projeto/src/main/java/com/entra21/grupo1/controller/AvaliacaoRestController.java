@@ -29,8 +29,8 @@ public class AvaliacaoRestController {
      * @return - AaliacaoDTO - retorna as informacoes da avaliação.
      */
     @PutMapping
-    public AvaliacaoDTO updateAvaliacao(@RequestBody AvaliacaoDTO newAvaliacao){
-        return avaliacaoService.update(newAvaliacao);
+    public void updateAvaliacao(@RequestBody AvaliacaoDTO newAvaliacao) throws NoSuchFieldException {
+        avaliacaoService.update(newAvaliacao);
     }
 
     /**

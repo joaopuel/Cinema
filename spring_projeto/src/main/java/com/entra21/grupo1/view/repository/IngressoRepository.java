@@ -7,9 +7,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IngressoRepository extends JpaRepository<IngressoEntity, Long> {
-    @Query(value = "SELECT * FROM ingresso WHERE id_pessoa = :id", nativeQuery = true)
-    List<IngressoEntity> findMeuIngressos(@Param("id") Long id);
+    @Query(value = "select i.* from ingresso i join cadeira c on i.id_cadeira = c.id join sessao s on i.id_sessao = s.id where c.id = :idCadeira and s.id = :idSessao", nativeQuery = true)
+    Optional<IngressoEntity> findByCadeiraBySessao(@Param("idCadeira") Long idCadeira, @Param("idSessao") Long idSessao);
 }

@@ -49,6 +49,8 @@ public class SessaoEntity {
         sessaoDTO.setTipoSessao(this.getTipoSessao());
         sessaoDTO.setIdSala(this.getSala().getId());
         sessaoDTO.setNomeSala(this.getSala().getNome());
+        sessaoDTO.setIdCinema(this.getSala().getCinema().getId());
+        sessaoDTO.setNomeCinema(this.getSala().getCinema().getNome());
         return sessaoDTO;
     }
 
@@ -61,6 +63,8 @@ public class SessaoEntity {
         sessaoWithDetailsDTO.setTaxaVip(this.getTaxaVip());
         sessaoWithDetailsDTO.setTipoSessao(this.getTipoSessao());
         sessaoWithDetailsDTO.setSala(this.getSala().toDTO());
+        sessaoWithDetailsDTO.setIdCinema(this.getSala().getCinema().getId());
+        sessaoWithDetailsDTO.setNomeCinema(this.getSala().getCinema().getNome());
         return sessaoWithDetailsDTO;
     }
 }
