@@ -113,7 +113,6 @@ ALTER TABLE cadeira RENAME COLUMN código TO codigo;
 alter table filme add column cartaz varchar(500) not null;
 alter table filme drop column ano_lancamento;
 alter table sessao add column tipo_sessao varchar(45) not null;
-alter table pessoa add column administrador bit(1) not null default(b'0');
 alter table cinema add column logradouro varchar(250) not null;
 alter table cinema add column numero int not null;
 alter table ingresso add column meia_entrada bit(1) not null default(b'0');

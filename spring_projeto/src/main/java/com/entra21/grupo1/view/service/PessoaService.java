@@ -8,6 +8,7 @@ import com.entra21.grupo1.view.repository.PessoaRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -118,11 +119,7 @@ public class PessoaService implements UserDetailsService {
     }
 
     public PessoaEntity getUser() {
-        return user;
-    }
-
-    public void setUser(PessoaEntity user) {
-        this.user = user;
+        return (PessoaEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @Override
@@ -131,7 +128,6 @@ public class PessoaService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-        this.setUser(user);
         return user;
     }
 }

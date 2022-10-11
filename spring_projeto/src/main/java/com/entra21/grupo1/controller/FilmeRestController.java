@@ -38,8 +38,8 @@ public class FilmeRestController {
     }
 
     @PutMapping
-    public FilmeDTOWithDetails updateFilme(@RequestBody FilmeDTOWithDetails filmeDTO){
-        return filmeService.update(filmeDTO);
+    public void updateFilme(@RequestBody FilmeDTOWithDetails filmeDTO) throws NoSuchFieldException {
+        filmeService.update(filmeDTO);
     }
 
     @DeleteMapping("/{id}")

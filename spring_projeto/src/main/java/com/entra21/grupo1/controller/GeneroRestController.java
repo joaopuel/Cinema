@@ -33,8 +33,8 @@ public class GeneroRestController {
 
     //Chama o método update do GeneroService
     @PutMapping
-    public GeneroDTO updateGenero(@RequestBody GeneroDTO newGenero) {
-        return generoService.update(newGenero);
+    public void updateGenero(@RequestBody GeneroDTO newGenero) throws NoSuchFieldException {
+        generoService.update(newGenero);
     }
 
     //Chama o método delete do GeneroService

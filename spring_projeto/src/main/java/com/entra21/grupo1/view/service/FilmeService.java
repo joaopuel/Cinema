@@ -26,6 +26,9 @@ public class FilmeService {
     @Autowired
     private GeneroRepository generoRepository;
 
+    @Autowired
+    private PessoaService pessoaService;
+
     /**Método retornará todos os filmes a partir da data atual. Caso receba um parâmetro gênero, os filmes serão filtrados de acordo com o gênero, e caso receba um parâmetro nota, serão filtrados por nota.
      * Caso receba os dois parâmetros, será filtrado apenas por nota.
      * @param genero String - Gênero do filme.
@@ -55,49 +58,67 @@ public class FilmeService {
         if(nome.contains("_")) {
             nome = nome.replaceAll("_", " ");
         }
-        FilmeEntity f = filmeRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
-        return f.toDTOWithDetails();
+        return filmeRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 
     /**Adiciona filme ao banco de dados.
-     * @param input FilmePayloadDTO - Dados de um novo filme.
+     * @param newFilme FilmePayloadDTO - Dados de um novo filme.
      * @return FilmeDTOWithDetails - Dados salvos do filme com mais detalhes.
      */
-    public FilmeDTOWithDetails saveFilme(@NotNull FilmePayloadDTO input) {
-        filmeRepository.save(input.toEntity());
-        return filmeRepository.findByNome(input.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
-    }
-
-    /**Atualiza filme existente do banco de dados.
-     * @param newfilme FilmeDTOWithDetails - Dados de um filme que será atualizado.
-     * @return CinemaDTO - Dados atualizados do filme.
-     */
-    public FilmeDTOWithDetails update(@NotNull FilmeDTOWithDetails newfilme) {
-        FilmeEntity filmeEntity = filmeRepository.findById(newfilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
-        if (newfilme.getNome() != null){ filmeEntity.setNome(newfilme.getNome());}
-        if (newfilme.getDuracao() != null){ filmeEntity.setDuracao(newfilme.getDuracao());}
-        if (newfilme.getSinopse() != null){ filmeEntity.setSinopse(newfilme.getSinopse());}
-        if (newfilme.getDiretor() != null){ filmeEntity.setDiretor(newfilme.getDiretor());}
-        if (newfilme.getCartaz() != null){ filmeEntity.setCartaz(newfilme.getCartaz());}
-        filmeRepository.save(filmeEntity);
-        return filmeEntity.toDTOWithDetails();
-    }
-
-    /**Deleta filmes do banco de dados.
-     * @param id Long - Identificador de um filme existente.
-     */
-    public void delete(@NotNull Long id) {
-        filmeRepository.deleteById(id);
+    public FilmeDTOWithDetails saveFilme(@NotNull FilmePayloadDTO newFilme) {
+        pessoaService.userIsAnAdministrador();
+        pessoaService.checkNullField(newFilme);
+        filmeRepository.findByNome(newFilme.getNome()).ifPresentOrElse(
+                (f) -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse filme já existe!");
+                },
+                () -> {
+                    filmeRepository.save(newFilme.toEntity());
+                }
+        );
+        return filmeRepository.findByNome(newFilme.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 
     /**Adiciona gêneros de um filme.
      * @param generosFilmeDTO GenerosFilmeDTO - Gêneros que um filme pode ter.
      */
     public void addGeneros(@NotNull GenerosFilmeDTO generosFilmeDTO) {
+        pessoaService.userIsAnAdministrador();
+        pessoaService.checkNullField(generosFilmeDTO);
         filmeRepository.findById(generosFilmeDTO.getIdFilme()).ifPresentOrElse(f -> {
             Set<GeneroEntity> generos = new HashSet<>(generoRepository.findAllById(generosFilmeDTO.getIdGeneros()));
             f.setGeneros(generos);
             filmeRepository.save(f);
         }, () -> {throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!");});
+    }
+
+    /**Atualiza filme existente do banco de dados.
+     * @param newFilme FilmeDTOWithDetails - Dados de um filme que será atualizado.
+     * @return CinemaDTO - Dados atualizados do filme.
+     */
+    public void update(@NotNull FilmeDTOWithDetails newFilme) throws NoSuchFieldException {
+        pessoaService.checkNullId(newFilme);
+        FilmeEntity filmeEntity = filmeRepository.findById(newFilme.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
+        if (newFilme.getNome() != null){ filmeEntity.setNome(newFilme.getNome());}
+        if (newFilme.getDuracao() != null){ filmeEntity.setDuracao(newFilme.getDuracao());}
+        if (newFilme.getSinopse() != null){ filmeEntity.setSinopse(newFilme.getSinopse());}
+        if (newFilme.getDiretor() != null){ filmeEntity.setDiretor(newFilme.getDiretor());}
+        if (newFilme.getCartaz() != null){ filmeEntity.setCartaz(newFilme.getCartaz());}
+        filmeRepository.findByNome(newFilme.getNome()).ifPresentOrElse(
+                (f) -> {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, "Esse filme já existe!");
+                },
+                () -> {
+                    filmeRepository.save(filmeEntity);
+                }
+        );
+    }
+
+    /**Deleta filmes do banco de dados.
+     * @param id Long - Identificador de um filme existente.
+     */
+    public void delete(@NotNull Long id) {
+        pessoaService.userIsAnAdministrador();
+        filmeRepository.delete(filmeRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")));
     }
 }

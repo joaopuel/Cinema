@@ -13,7 +13,6 @@ public class FilmePayloadDTO {
     private String sinopse;
     private String diretor;
     private String cartaz;
-    private List<Long> idGeneros;
 
     public FilmeEntity toEntity(){
         FilmeEntity filmeEntity = new FilmeEntity();
