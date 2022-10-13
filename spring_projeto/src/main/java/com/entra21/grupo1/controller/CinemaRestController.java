@@ -3,7 +3,6 @@ package com.entra21.grupo1.controller;
 import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.view.service.CinemaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +22,11 @@ public class CinemaRestController {
         return cinemaService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public CinemaDTOWithDetails getCinemaById(@PathVariable(name = "id") Long id){
+        return cinemaService.getById(id);
+    }
+
     /**
      * Chama o método save de CinemaService
      * @param newCinema no formato CinemaPayloadDTO
@@ -35,18 +39,20 @@ public class CinemaRestController {
 
     /**
      * Chama o método update de CinemaService
-     * @param cinema no formato CinemaPayloadDTO
+     * @param newCinema no formato CinemaPayloadDTO
      * @return retorna um objeto CinemaDTO com todas as informaçoes finais.
      */
     @PutMapping
-    public CinemaDTO updateCinema(@RequestBody CinemaUpdateDTO cinema) {
-        return cinemaService.update(cinema);
+    public void updateCinema(@RequestBody CinemaDTO newCinema) throws NoSuchFieldException {
+        cinemaService.update(newCinema);
     }
 
     /**
      * Chama o método delete de CinemaService
      * @param id
      */
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {cinemaService.delete(id);}
+    @DeleteMapping("/{id}")
+    public void deleteCinema(@PathVariable(name = "id") Long id) {
+        cinemaService.delete(id);
+    }
 }

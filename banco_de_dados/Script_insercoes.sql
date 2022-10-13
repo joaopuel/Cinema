@@ -36,5 +36,22 @@ insert into filme(nome, duracao, sinopse, diretor,  cartaz)
 values("O Senhor dos Anéis: A Sociedade do Anel", '2:45', "Em uma terra fantástica e única, um hobbit recebe de presente de seu tio um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal. Para isso, o hobbit Frodo tem um caminho árduo pela frente, onde encontra perigo, medo e seres bizarros. Ao seu lado para o cumprimento desta jornada, ele aos poucos pode contar com outros hobbits, um elfo, um anão, dois humanos e um mago, totalizando nove seres que formam a Sociedade do Anel.
 ", "Peter Jackson",  "https://th.bing.com/th/id/R.7836a26a8af8e62de36d84216aaca7f7?rik=r6E4sJ12Oz%2bBBA&riu=http%3a%2f%2fbr.web.img3.acsta.net%2fmedias%2fnmedia%2f18%2f92%2f91%2f32%2f20224832.jpg&ehk=RUj44Sh2FpGHLd0Hxh9fmLNrCU1kn%2bf0AxWDyl7Ljl4%3d&risl=&pid=ImgRaw&r=0");
 
+select s.* from sessao s join sala s2 on s.id_sala = s2.id where s2.id = :idSala and s.data_sessao  = :data;
 
-SELECT id_pessoa FROM ingresso WHERE id_pessoa = 1;
+select x.* from sessao x where x.data_sessao = (select max(s.data_sessao) from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao < :data);
+
+select x.* from sessao x where x.data_sessao = (select min(s.data_sessao) from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao > :data);
+
+select * from (select distinct f.*, avg(a.rating) as avg_rat from filme f join sessao s on s.id_filme = f.id join avaliacao a on a.id_filme = f.id where s.data_sessao >= :data group by f.id, f.nome) x where x.avg_rat >= :nota;
+
+select * from (select s.*, max(s.data_sessao) as max_date from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala group by s.id) x where max_date < :data;
+
+select max(s2.data_sessao) from (select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao < :data) s2;
+
+select x.* from sessao x join sala y on x.id_sala = y.id where x.data_sessao = (select max(s2.data_sessao) from (select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao < :data) s2) and y.id = :idSala;
+
+select x.* from sessao x join sala y on x.id_sala = y.id where x.data_sessao = (select min(s2.data_sessao) from (select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao > :data) s2) and y.id = :idSala;
+
+select s.* from sessao s join sala sl on s.id_sala = sl.id where sl.id = :idSala and s.data_sessao BETWEEN :deData AND :ateData;
+
+select i.* from ingresso i join cadeira c on i.id_cadeira = c.id join sessao s on i.id_sessao = s.id where c.id = :idCadeira and s.id = :idSessao; 

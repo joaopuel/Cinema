@@ -30,4 +30,6 @@ public interface FilmeRepository extends JpaRepository<FilmeEntity, Long> {
     @Query(value = "select * from (select distinct f.*, avg(a.rating) as avg_rat from filme f join sessao s on s.id_filme = f.id join avaliacao a on a.id_filme = f.id where s.data_sessao >= :data group by f.id, f.nome) x where x.avg_rat >= :nota", nativeQuery = true)
     List<FilmeEntity> findAllFilmesDeNotaComSessoesDepois(@Param("nota") Double nota, @Param("data") LocalDateTime data);
 
+    @Query(value = "SELECT * FROM (SELECT DISTINCT f.*, avg(a.rating) as avg_rat FROM filme f JOIN sessao s ON s.id_filme = f.id INNER JOIN filme_genero fg ON fg.id_filme = f.id INNER JOIN genero g ON g.id = fg.id_genero JOIN avaliacao a ON a.id_filme = f.id WHERE g.nome = :genero AND s.data_sessao >= :data group by f.id, f.nome) x where x.avg_rat >= :nota", nativeQuery = true)
+    List<FilmeEntity> findAllFilmesDeGeneroENotaComSessoesDepois(@Param("genero") String genero, @Param("nota") Double nota, @Param("data") LocalDateTime data);
 }

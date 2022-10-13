@@ -18,8 +18,8 @@ public class FilmeRestController {
     private FilmeService filmeService;
 
     @GetMapping
-    public List<FilmeDTO> getAllFilmes(@RequestParam(name = "genero", required = false) String genero, @RequestParam(name = "nota", required = false) Double nota) {
-        return filmeService.getAll(genero, nota);
+    public List<FilmeDTO> getAllFilmes(@RequestParam(name = "nome", required = false) String nome, @RequestParam(name = "genero", required = false) String genero, @RequestParam(name = "nota", required = false) Double nota) {
+        return filmeService.getAll(nome, genero, nota);
     }
 
     @GetMapping("/{nome}")
@@ -38,8 +38,8 @@ public class FilmeRestController {
     }
 
     @PutMapping
-    public FilmeDTOWithDetails updateFilme(@RequestBody FilmeDTOWithDetails filmeDTO){
-        return filmeService.update(filmeDTO);
+    public void updateFilme(@RequestBody FilmeDTOWithDetails filmeDTO) throws NoSuchFieldException {
+        filmeService.update(filmeDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -25,7 +25,13 @@ public class SecurityConfig {
         http.csrf().disable().httpBasic()
                 .and()
                 .authorizeHttpRequests((req) -> req
-                        .antMatchers(HttpMethod.POST, "/pessoas").permitAll()
+                        .antMatchers(HttpMethod.POST, "/usuarios/criarusuario").permitAll()
+                        .antMatchers(HttpMethod.GET, "/filmes").permitAll()
+                        .antMatchers(HttpMethod.GET, "/filmes/{nome}").permitAll()
+                        .antMatchers(HttpMethod.GET, "/generos").permitAll()
+                        .antMatchers(HttpMethod.GET, "/cinemas").permitAll()
+                        .antMatchers(HttpMethod.GET, "/sessoes").permitAll()
+                        .antMatchers(HttpMethod.GET, "/sessoes/{id}").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

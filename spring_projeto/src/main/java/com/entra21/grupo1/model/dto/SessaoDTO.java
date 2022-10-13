@@ -7,9 +7,13 @@ import java.time.LocalDateTime;
 @Data
 public class SessaoDTO {
     private Long id;
+    private String nomeFilme;
     private LocalDateTime dataSessao;
     private Double valorInteira;
-    private Double valorMeia;
+    private Double taxaVip;
     private String tipoSessao;
     private Long idSala;
+    private String nomeSala;
+    private Long idCinema;
+    private String nomeCinema;
 }

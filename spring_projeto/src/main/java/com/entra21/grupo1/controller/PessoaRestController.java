@@ -1,9 +1,6 @@
 package com.entra21.grupo1.controller;
 
-import com.entra21.grupo1.model.dto.IngressoDTO;
-import com.entra21.grupo1.model.dto.MeusIngressosDTO;
-import com.entra21.grupo1.model.dto.PessoaDTO;
-import com.entra21.grupo1.model.dto.PessoaPayloadDTO;
+import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.view.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,34 +8,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/usuarios")
 public class PessoaRestController {
     @Autowired
     private PessoaService pessoaService;
 
-    @GetMapping
-    public List<PessoaDTO> getPessoas() {
-        return pessoaService.getAll();
+    @GetMapping("/meusdados")
+    public PessoaDTO getDadosPessoa(){
+        return pessoaService.getDados();
     }
 
     @GetMapping("/meusingressos")
-    public List<MeusIngressosDTO> meusIngressos(@RequestParam(name = "id") Long id) {
-        return pessoaService.meusIngressos(id);
+    public List<IngressoDTO> getIngressosPessoa() {
+        return pessoaService.getIngressos();
     }
 
-    @PostMapping
-    public PessoaDTO addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
-        return pessoaService.save(newPessoa);
+    @GetMapping("/meuscinemas")
+    public List<CinemaDTOWithDetails> getCinemasPessoa(){
+        return pessoaService.getCinemas();
     }
 
-    @PutMapping
-    public PessoaDTO updatePessoa(@RequestBody PessoaDTO newPessoa) {
-        return pessoaService.update(newPessoa);
+    @PostMapping("/criarusuario")
+    public void addPessoa(@RequestBody PessoaPayloadDTO newPessoa) {
+        pessoaService.savePessoa(newPessoa);
     }
 
-    @DeleteMapping
-    public void deletePessoa(@RequestParam(name = "id") Long id) {
-        pessoaService.delete(id);
+    @PutMapping("/atualizardados")
+    public void updatePessoa(@RequestBody PessoaPayloadDTO newPessoa) {
+        pessoaService.update(newPessoa);
     }
 
+    @PutMapping("/movimentacao")
+    public void addMovimentacao(@RequestBody Double valor) {
+        pessoaService.movimentacao(valor);
+    }
+
+    @DeleteMapping("/delete")
+    public void deletePessoa() {
+        pessoaService.delete();
+    }
 }

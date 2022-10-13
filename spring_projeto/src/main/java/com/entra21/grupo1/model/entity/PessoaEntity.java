@@ -48,9 +48,13 @@ public class PessoaEntity implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Set<CinemaEntity> cinemas;
 
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "usuario")
     @EqualsAndHashCode.Exclude
     private Set<IngressoEntity> ingressos;
+
+    @OneToMany(mappedBy = "usuario")
+    @EqualsAndHashCode.Exclude
+    private Set<AvaliacaoEntity> avaliacoes;
 
     public PessoaDTO toDTO() {
         PessoaDTO pessoaDTO = new PessoaDTO();

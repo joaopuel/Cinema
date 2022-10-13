@@ -4,7 +4,6 @@ import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -34,8 +33,8 @@ public class SessaoEntity {
     @Column(name = "valor_inteira")
     private Double valorInteira;
 
-    @Column(name = "valor_meia")
-    private Double valorMeia;
+    @Column(name = "taxa_vip")
+    private Double taxaVip;
 
     @Column(name = "tipo_sessao")
     private String tipoSessao;
@@ -43,22 +42,29 @@ public class SessaoEntity {
     public SessaoDTO toDTO(){
         SessaoDTO sessaoDTO = new SessaoDTO();
         sessaoDTO.setId(this.getId());
+        sessaoDTO.setNomeFilme(this.getFilme().getNome());
         sessaoDTO.setDataSessao(this.getDataSessao());
         sessaoDTO.setValorInteira(this.getValorInteira());
-        sessaoDTO.setValorMeia(this.getValorMeia());
+        sessaoDTO.setTaxaVip(this.getTaxaVip());
         sessaoDTO.setTipoSessao(this.getTipoSessao());
         sessaoDTO.setIdSala(this.getSala().getId());
+        sessaoDTO.setNomeSala(this.getSala().getNome());
+        sessaoDTO.setIdCinema(this.getSala().getCinema().getId());
+        sessaoDTO.setNomeCinema(this.getSala().getCinema().getNome());
         return sessaoDTO;
     }
 
     public SessaoDTOWithDetails toDTOWithDetails(){
         SessaoDTOWithDetails sessaoWithDetailsDTO = new SessaoDTOWithDetails();
         sessaoWithDetailsDTO.setId(this.getId());
+        sessaoWithDetailsDTO.setNomeFilme(this.getFilme().getNome());
         sessaoWithDetailsDTO.setDataSessao(this.getDataSessao());
         sessaoWithDetailsDTO.setValorInteira(this.getValorInteira());
-        sessaoWithDetailsDTO.setValorMeia(this.getValorMeia());
+        sessaoWithDetailsDTO.setTaxaVip(this.getTaxaVip());
         sessaoWithDetailsDTO.setTipoSessao(this.getTipoSessao());
         sessaoWithDetailsDTO.setSala(this.getSala().toDTO());
+        sessaoWithDetailsDTO.setIdCinema(this.getSala().getCinema().getId());
+        sessaoWithDetailsDTO.setNomeCinema(this.getSala().getCinema().getNome());
         return sessaoWithDetailsDTO;
     }
 }

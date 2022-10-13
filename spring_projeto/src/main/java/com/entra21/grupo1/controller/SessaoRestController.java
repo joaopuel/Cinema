@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class SessaoRestController {
     private SessaoService sessaoService;
 
     @GetMapping
-    public List<SessaoDTO> getAllSessoes(@RequestParam(name = "dataSessao", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataSessao) {
-        return sessaoService.getAll(dataSessao);
+    public List<SessaoDTO> getAllSessoes() {
+        return sessaoService.getAll();
     }
 
     @GetMapping("/{id}")
@@ -34,8 +35,8 @@ public class SessaoRestController {
     }
 
     @PutMapping
-    public SessaoDTO updateSessao(@RequestBody SessaoDTO newSessao){
-        return sessaoService.update(newSessao);
+    public void updateSessao(@RequestBody SessaoDTO newSessao) throws NoSuchFieldException {
+        sessaoService.update(newSessao);
     }
 
     @DeleteMapping("/{id}")

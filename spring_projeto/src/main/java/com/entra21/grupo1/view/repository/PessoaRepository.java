@@ -2,10 +2,15 @@ package com.entra21.grupo1.view.repository;
 
 import com.entra21.grupo1.model.entity.PessoaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PessoaRepository extends JpaRepository<PessoaEntity, Long> {
-    PessoaEntity findByLogin(String login);
-    PessoaEntity findByNome(String nome);
+    Optional<PessoaEntity> findByLogin(String login);
+    Optional<PessoaEntity> findByNome(String nome);
 }

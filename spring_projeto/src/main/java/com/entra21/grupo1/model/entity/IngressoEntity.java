@@ -4,9 +4,7 @@ import com.entra21.grupo1.model.dto.IngressoDTO;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Entity
@@ -23,7 +21,7 @@ public class IngressoEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_pessoa", referencedColumnName = "id")
-    private PessoaEntity pessoa;
+    private PessoaEntity usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_cadeira", referencedColumnName = "id")
@@ -32,13 +30,29 @@ public class IngressoEntity {
     @Column(name = "data_compra")
     private LocalDateTime dataCompra;
 
+    @Column(name = "meia_entrada")
+    private Boolean meiaEntrada;
+
     public IngressoDTO toDTO() {
         IngressoDTO ingressoDTO = new IngressoDTO();
         ingressoDTO.setId(this.getId());
         ingressoDTO.setSessao(this.getSessao().toDTO());
-        ingressoDTO.setPessoa(this.getPessoa().toDTO());
+        ingressoDTO.setIdPessoa(this.getUsuario().getId());
         ingressoDTO.setCadeira(this.getCadeira().toDTO());
         ingressoDTO.setDataCompra(this.getDataCompra());
+        ingressoDTO.setMeiaEntrada(this.getMeiaEntrada());
+        ingressoDTO.setNomeCinema(this.getCadeira().getSala().getCinema().getNome());
+        ingressoDTO.setNomeFilme(this.getSessao().getFilme().getNome());
+        ingressoDTO.setValorIngresso(this.getSessao().getValorInteira());
+
+        if(this.getCadeira().getTipoCadeira().equalsIgnoreCase("VIP")){
+            ingressoDTO.setValorIngresso(ingressoDTO.getValorIngresso() + this.getSessao().getTaxaVip());
+        }
+
+        if(this.getMeiaEntrada()){
+            ingressoDTO.setValorIngresso((ingressoDTO.getValorIngresso())/2);
+        }
+
         return ingressoDTO;
     }
 }
