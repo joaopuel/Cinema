@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* @media screen and (max-width: 767px) {
+  .card-container > *:not(.circle-link) ,
+  .terminal {
+    width: 100%;
+  }
+
+  .card:not(.highlight-card) {
+    height: 16px;
+    margin: 8px 0;
+  }
+
+  .card.highlight-card span {
+    margin-left: 72px;
+  }
+
+  svg#rocket-smoke {
+    right: 120px;
+    transform: rotate(-5deg);
+  }
+}
+*/
+
+* {
+  font-family: 'Poppins';
+}
+
+html, body{
+  height: 100%;
+  background-color: rgb(68, 68, 68);
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
