@@ -7,12 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  menuButton: Boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  changeMenu = (x: any) => {
-    x.classList.toggle("change");
+  changeMenu = () => {
+    if(this.menuButton){
+      this.menuButton = false;
+    } else {
+      this.menuButton = true;
+    }
   }
 }

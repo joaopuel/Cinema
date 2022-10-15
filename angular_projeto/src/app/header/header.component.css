@@ -39,7 +39,7 @@
   display: none;
 }
 
-.container-menu {
+.container-menu, .change {
   cursor: pointer;
   margin: 0 16px;
 }

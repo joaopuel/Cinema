@@ -1,0 +1,17 @@
+.my-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
+.my-card {
+    margin-top: 10px;
+    width: 145.2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cartaz {
+    width: 145.2px;
+    height: 210.6px;
+}

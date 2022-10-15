@@ -36,6 +36,9 @@ public class FilmeEntity {
     @Column(name = "cartaz")
     private String cartaz;
 
+    @Column(name = "trailer")
+    private String trailer;
+
     @OneToMany(mappedBy = "filme")
     @EqualsAndHashCode.Exclude
     private Set<SessaoEntity> sessoes;
@@ -110,6 +113,7 @@ public class FilmeEntity {
                     this.getAvaliacoes().stream().map(AvaliacaoEntity::toDTO).collect(Collectors.toList())
             );
         }
+        filmeDTO.setTrailer(this.getTrailer());
         return filmeDTO;
     }
 }
