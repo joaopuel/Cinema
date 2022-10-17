@@ -1,4 +1,4 @@
-create database BancoCinema;
+create database bancocinema;
 
 use bancocinema;
 
@@ -46,7 +46,8 @@ create table filme(
 	duracao time not null,
 	sinopse varchar(500) not null,
 	diretor varchar(250) not null,
-	cartaz varchar(500) not null
+	cartaz varchar(500) not null,
+	trailer varchar(500) not null
 );
 
 create table sessao(
@@ -118,3 +119,4 @@ alter table ingresso add column meia_entrada bit(1) not null default(b'0');
 alter table sessao rename column valor_meia to taxa_vip;
 alter table pessoa drop column administrador;
 alter table ingresso drop column cadeira_vip;
+alter table filme add column trailer varchar(500) not null;

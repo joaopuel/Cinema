@@ -1,0 +1,43 @@
+.all-footer{
+    display: flex;
+    align-items: end;
+}
+
+.footer {
+    flex: 1;
+    padding: 10px;
+}
+
+footer {
+    padding: 24px;
+}
+
+a.mylink {
+    font-size: 20px;
+    font-style: italic;
+}
+
+footer div div.section {
+    border-left: 1px solid rgba(255,255,255,0.25);
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 575px) {
+
+    footer div div.section {
+        border-left: 0;
+        padding: 0;
+        margin-bottom: 24px;
+    }
+
+    footer div:last-child div.section {
+        margin-bottom: 0;
+    }
+
+    fieldset.login-card {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

@@ -28,14 +28,46 @@
 
 html, body{
   height: 100%;
-  background-color: rgb(68, 68, 68);
+  background-color: #444;
 }
 
 a {
-  color: white;
+  color: #e7e7e7;
   text-decoration: none;
 }
 
 a:hover {
   opacity: 0.8;
+}
+
+.add-hov:hover {
+  color: #d1d1d1ec;
+}
+
+.my-light-text {
+  color: #e7e7e7;
+}
+
+.my-light-bg {
+  background-color: #e7e7e7;
+}
+
+.my-dark-text {
+  color: #444;
+}
+
+.my-dark-bg {
+  background-color: #444;
+}
+
+.my-red-text {
+  color: #b42e2e;
+}
+
+.my-red-bg {
+  background-color: #b42e2e;
+}
+
+.my-text-shadow {
+  text-shadow: 1px 1px black;
 }

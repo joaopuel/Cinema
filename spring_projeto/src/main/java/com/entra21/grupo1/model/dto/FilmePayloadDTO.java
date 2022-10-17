@@ -13,6 +13,7 @@ public class FilmePayloadDTO {
     private String sinopse;
     private String diretor;
     private String cartaz;
+    private String trailer;
 
     public FilmeEntity toEntity(){
         FilmeEntity filmeEntity = new FilmeEntity();
@@ -21,6 +22,7 @@ public class FilmePayloadDTO {
         filmeEntity.setSinopse(this.getSinopse());
         filmeEntity.setDiretor(this.getDiretor());
         filmeEntity.setCartaz(this.getCartaz());
+        filmeEntity.setTrailer(this.getTrailer());
         return filmeEntity;
     }
 }
