@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilmesScreenComponent implements OnInit {
 
+  emCartaz: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeEmCartaz = () => {
+    if(this.emCartaz){
+      this.emCartaz = false;
+    } else {
+      this.emCartaz = true;
+    }
   }
 
 }

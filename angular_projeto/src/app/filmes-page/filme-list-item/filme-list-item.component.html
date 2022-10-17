@@ -1,0 +1,8 @@
+<div class="my-list">
+    <a class="my-card" *ngFor="let filme of (emCartaz) ? listaEmCartaz : listaEmBreve">
+        <div class="poster-container" [style.background-image]="'url(' + filme.cartaz + ')'" [ngStyle]="{'background-size': 'cover', 'background-position': 'center'}">
+            <!-- <img class="poster-img" src="{{ filme.cartaz }}"> -->
+        </div>
+        <span class="title my-light-text">{{ filme.nome }}</span>
+    </a>
+</div>

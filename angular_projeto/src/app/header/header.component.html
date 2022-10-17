@@ -1,4 +1,4 @@
-<div class="toolbar" role="banner">
+<div class="toolbar my-red-bg" role="banner">
     <img
       width="40"
       alt="Angular Logo"
@@ -6,37 +6,37 @@
     />
 
     <div class="links">
-    <a id="link_filmes" href="#">Filmes</a>
-    <a id="link_cinemas" href="#">Cinemas</a>
+    <a id="link_filmes" class="text-decoration-none link-light" href="#">Filmes</a>
+    <a id="link_cinemas" class="text-decoration-none link-light" href="#">Cinemas</a>
     </div>
 
       <div class="spacer"></div>
 
       <div class="search-bar input-group">
-        <input id="input-search-bar" type="text" class="form-control" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        <input id="input-search-bar" type="text" class="form-control my-light-bg" placeholder="Buscar..." aria-label="Recipient's username" aria-describedby="button-addon2">
         <button id="button-search-bar" class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
       </div>
 
       <div class="spacer"></div>
       
       <div class="links">
-        <a id="link_login" href="#">Login</a>
+        <a id="link_login" class="text-decoration-none link-light nav-link" routerLink="/login">Login</a>
       </div>
 
       <div id="menu-icon">
         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <div [ngClass]="(menuButton) ? 'container-menu' : 'change'" (click)="changeMenu()">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+            <div class="bar1 my-dark-bg"></div>
+            <div class="bar2 my-dark-bg"></div>
+            <div class="bar3 my-dark-bg"></div>
           </div>
         </a>
   
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu my-light-bg">
           <li><a class="dropdown-item" href="#">Filmes</a></li>
           <li><a class="dropdown-item" href="#">Cinemas</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Login</a></li>
+          <li><a class="dropdown-item" routerLink="/login">Login</a></li>
         </ul>
       </div>
 

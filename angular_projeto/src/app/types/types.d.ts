@@ -1,3 +1,10 @@
+export type User = {
+    id: number;
+    login: string;
+    password: string;
+    authdata?: string;
+}
+
 export type Sessao = {
     id: number,
     nomeFilme: string,

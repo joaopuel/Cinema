@@ -1,4 +1,4 @@
-create database BancoCinema;
+create database bancocinema;
 
 use bancocinema;
 
