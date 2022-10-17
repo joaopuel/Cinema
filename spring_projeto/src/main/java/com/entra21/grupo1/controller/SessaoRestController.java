@@ -1,5 +1,6 @@
 package com.entra21.grupo1.controller;
 
+import com.entra21.grupo1.model.dto.CadeiraPayloadDTO;
 import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoPayloadDTO;
 import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
@@ -42,5 +43,10 @@ public class SessaoRestController {
     @DeleteMapping("/{id}")
     public void deleteSessao(@PathVariable(name = "id") Long id){
         sessaoService.delete(id);
+    }
+
+    @PostMapping("/listasessoes")
+    public void addListaSessoes(@RequestBody List<SessaoPayloadDTO> newSessoes) {
+        newSessoes.forEach( (c) -> {sessaoService.saveSessao(c);} );
     }
 }
