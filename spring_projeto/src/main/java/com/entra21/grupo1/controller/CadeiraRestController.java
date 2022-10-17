@@ -42,5 +42,10 @@ public class CadeiraRestController {
      */
     @DeleteMapping("/{id}")
     public void deletePessoa(@PathVariable(name = "id") Long id) {cadeiraService.delete(id);}
+
+    @PostMapping("/listacadeiras")
+    public void addListaCadeiras(@RequestBody List<CadeiraPayloadDTO> newCadeiras) {
+        newCadeiras.forEach( (c) -> {cadeiraService.saveCadeira(c);} );
+    }
 }
 
