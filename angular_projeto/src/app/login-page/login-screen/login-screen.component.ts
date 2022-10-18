@@ -47,7 +47,7 @@ export class LoginScreenComponent {
           .pipe(first())
           .subscribe(
               data => {
-                  this.router.navigate([this.returnUrl ?? '/dashboard']);
+                  this.router.navigate([this.returnUrl ?? '']);
               },
               error => {
                   this.error = error;
