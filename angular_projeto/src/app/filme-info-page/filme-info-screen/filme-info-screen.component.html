@@ -1,6 +1,6 @@
 <div class="full-page">
-    <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <h1>{{filme?.nome}}</h1>
     <div class="middle">
         <div class="info">
@@ -11,9 +11,13 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Duração: {{ filme?.duracao }}</li>
                     <li class="list-group-item">Diretor: {{ filme?.diretor }}</li>
+                    <li class="list-group-item">Generos: 
+                        <span *ngFor="let gen of filme?.generos">{{ gen.nome }}, </span>
+                    </li>
+                    <li class="list-group-item">Média de Avaliações: {{ (filme?.mediaNotas !== null) ? filme?.mediaNotas : "Ainda não possui avaliações"}}</li>
                 </ul>
             </div>
-            <button type="button" class="btn btn-danger my-red-bg my-light-text">Danger</button>
+            <button type="button" class="btn btn-danger my-light-text">Sessões</button>
         </div>
         <div class="poster-container">
             <img class="poster-img" src="{{ filme?.cartaz }}">
@@ -25,13 +29,18 @@
     </div>
     <div>
         <h6>Avaliações</h6>
+        <div *ngIf="filme!.avaliacoes.length === 0">
+            <div class="card">
+                <div class="card-header">Esse filme ainda não possui avaliações</div>
+              </div>
+        </div>
         <div *ngFor="let av of filme?.avaliacoes">
             <div class="card">
                 <div class="card-header">{{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</div>
                 <div class="card-body">
                   <blockquote class="blockquote mb-0">
                     <p>{{ av.comentario }}</p>
-                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    <footer class="">{{av.nota}} <cite title="Source Title">{{av.dataAvaliacao}}</cite></footer>
                   </blockquote>
                 </div>
               </div>

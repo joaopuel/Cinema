@@ -24,7 +24,7 @@ footer div div.section {
     flex-direction: column;
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 600px) {
 
     footer div div.section {
         border-left: 0;

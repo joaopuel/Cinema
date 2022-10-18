@@ -28,7 +28,7 @@ export class LoginScreenComponent {
   ) { 
       // redirect to home if already logged in
       if (this.authenticationService.userValue) { 
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/login']);
       }
   }
 
