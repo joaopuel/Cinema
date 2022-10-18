@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FilmesScreenComponent } from './filmes-screen/filmes-screen.component';
 import { FilmeListItemComponent } from './filme-list-item/filme-list-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -12,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     FilmeListItemComponent
   ],
   imports: [
-    CommonModule, HttpClientModule
+    CommonModule, HttpClientModule, RouterModule
   ], exports: [
     FilmesScreenComponent
   ]
