@@ -11,12 +11,16 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FilmesModule } from './filmes-page/filmes.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LandingPageScreenComponent } from './landing-page/landing-page-screen/landing-page-screen.component';
+import { LandingPageCardsComponent } from './landing-page/landing-page-cards/landing-page-cards.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LandingPageScreenComponent,
+    LandingPageCardsComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, FilmesModule, HttpClientModule, ReactiveFormsModule
