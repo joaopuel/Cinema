@@ -8,7 +8,8 @@ import { LoginScreenComponent } from "./login-page/login-screen/login-screen.com
 const routes: Routes = [
     { path: '', component: FilmesScreenComponent },
     { path: 'login', component: LoginScreenComponent },
-    { path: 'filme', component: FilmeInfoScreenComponent },
+    { path: 'filmes', component: FilmesScreenComponent },
+    { path: 'filmes/filme/:nome', component: FilmeInfoScreenComponent },
     // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     // { path: 'dashboard/franquias', component: FranquiasScreenComponent, canActivate: [AuthGuard] },
     // { path: '**', redirectTo: '/'}

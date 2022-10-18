@@ -18,9 +18,7 @@ import { FilmeInfoPageModule } from './filme-info-page/filme-info-page.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
-    LandingPageScreenComponent,
-    LandingPageCardsComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule, AppRoutingModule, FilmesModule, HttpClientModule, ReactiveFormsModule, LoginPageModule, FilmeInfoPageModule

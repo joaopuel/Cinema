@@ -1,4 +1,30 @@
 .full-page {
     display: flex;
+    flex-flow: column wrap;
     justify-content: center;
+    margin: 20px;
+}
+
+.middle {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+}
+
+.poster-container {
+    width: 435.6px;
+    height: 631.8px;
+}
+
+.poster-img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
 }
