@@ -11,8 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FilmesModule } from './filmes-page/filmes.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { LandingPageScreenComponent } from './landing-page/landing-page-screen/landing-page-screen.component';
-import { LandingPageCardsComponent } from './landing-page/landing-page-cards/landing-page-cards.component';
+import { LoginPageModule } from './login-page/login-page.module';
+import { FilmeInfoPageModule } from './filme-info-page/filme-info-page.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { LandingPageCardsComponent } from './landing-page/landing-page-cards/lan
     LandingPageCardsComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, FilmesModule, HttpClientModule, ReactiveFormsModule
+    BrowserModule, AppRoutingModule, FilmesModule, HttpClientModule, ReactiveFormsModule, LoginPageModule, FilmeInfoPageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

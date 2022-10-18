@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { FilmeInfo } from 'src/app/types/types';
 
 @Component({
   selector: 'app-filme-info-screen',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilmeInfoScreenComponent implements OnInit {
 
-  constructor() { }
+  @Input() nomeFilme!: string;
+
+  filme: FilmeInfo | undefined;
+
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
+    this.http.get<FilmeInfo>(`/filmes/${this.nomeFilme}`).subscribe((filme) => this.filme = filme);
   }
 
 }

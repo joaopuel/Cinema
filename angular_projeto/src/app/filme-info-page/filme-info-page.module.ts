@@ -10,6 +10,9 @@ import { FilmeInfoScreenComponent } from './filme-info-screen/filme-info-screen.
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    FilmeInfoScreenComponent
   ]
 })
 export class FilmeInfoPageModule { }
