@@ -28,7 +28,8 @@
 
 html, body{
   height: 100%;
-  background-color: #444;
+  background-color: rgb(40, 40, 40);
+  margin: 0;
 }
 
 a {
@@ -53,19 +54,19 @@ a:hover {
 }
 
 .my-dark-text {
-  color: #444;
+  color: rgb(30, 30, 30);
 }
 
 .my-dark-bg {
-  background-color: #444;
+  background-color: rgb(30, 30, 30);
 }
 
 .my-red-text {
-  color: #b42e2e;
+  color: rgb(120, 20, 20);
 }
 
 .my-red-bg {
-  background-color: #b42e2e;
+  background-color: rgb(120, 20, 20);
 }
 
 .my-text-shadow {
