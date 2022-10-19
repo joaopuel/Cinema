@@ -1,6 +1,6 @@
 <div class="full-page">
     <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
     <h1>{{filme?.nome}}</h1>
     <div class="middle">
         <div class="info">
@@ -17,7 +17,7 @@
                     <li class="list-group-item">Média de Avaliações: {{ (filme?.mediaNotas !== null) ? filme?.mediaNotas : "Ainda não possui avaliações"}}</li>
                 </ul>
             </div>
-            <button type="button" class="btn btn-danger my-light-text">Sessões</button>
+            <button type="button" class="btn btn-danger my-light-text" routerLink="/filmes/filme/{{filme?.nome}}/sessoes">Sessões</button>
         </div>
         <div class="poster-container">
             <img class="poster-img" src="{{ filme?.cartaz }}">

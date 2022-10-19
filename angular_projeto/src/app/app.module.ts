@@ -16,6 +16,8 @@ import { FilmeInfoPageModule } from './filme-info-page/filme-info-page.module';
 import { LandingPageCardsComponent } from './landing-page/landing-page-cards/landing-page-cards.component';
 import { LandingPageScreenComponent } from './landing-page/landing-page-screen/landing-page-screen.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
+import { SessoesPageModule } from './sessoes-page/sessoes-page.module';
+import { SessaoPageModule } from './sessao-page/sessao-page.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,16 @@ import { LandingPageModule } from './landing-page/landing-page.module';
     FooterComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, FilmesModule, HttpClientModule, ReactiveFormsModule, LoginPageModule, FilmeInfoPageModule, LandingPageModule
+    BrowserModule, 
+    AppRoutingModule, 
+    FilmesModule, 
+    HttpClientModule, 
+    ReactiveFormsModule, 
+    LoginPageModule, 
+    FilmeInfoPageModule, 
+    LandingPageModule,
+    SessoesPageModule,
+    SessaoPageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
