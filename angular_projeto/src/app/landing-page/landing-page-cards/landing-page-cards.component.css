@@ -1,14 +1,8 @@
 #slider {
-    width: 80%;
-    height: 80%;
+    width: auto;
+    height: 100%;
     text-align: center;
-    margin: 0;
     padding: 0;
-    
+    margin: 15%;
 }
 
-#center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
