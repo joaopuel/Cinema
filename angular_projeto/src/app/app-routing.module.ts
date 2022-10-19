@@ -5,12 +5,16 @@ import { FilmesScreenComponent } from "./filmes-page/filmes-screen/filmes-screen
 import { AuthGuard } from './helpers/auth.guard';
 import { LandingPageScreenComponent } from "./landing-page/landing-page-screen/landing-page-screen.component";
 import { LoginScreenComponent } from "./login-page/login-screen/login-screen.component";
+import { SessaoScreenComponent } from "./sessao-page/sessao-screen/sessao-screen.component";
+import { SessoesScreenComponent } from "./sessoes-page/sessoes-screen/sessoes-screen.component";
 
 const routes: Routes = [
     { path: '', component: LandingPageScreenComponent },
     { path: 'login', component: LoginScreenComponent },
     { path: 'filmes', component: FilmesScreenComponent },
     { path: 'filmes/filme/:nome', component: FilmeInfoScreenComponent },
+    { path: 'filmes/filme/:nome/sessoes', component:  SessoesScreenComponent},
+    { path: 'sessao/:id', component:  SessaoScreenComponent},
     // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     // { path: 'dashboard/franquias', component: FranquiasScreenComponent, canActivate: [AuthGuard] },
     // { path: '**', redirectTo: '/'}
