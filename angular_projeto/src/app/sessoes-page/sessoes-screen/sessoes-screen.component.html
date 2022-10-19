@@ -1,87 +1,29 @@
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-interval="false">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="cards-wrapper">
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card">
+                <div class="card-body">
+                <h5 class="card-title">Hoje</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ dataHoje }}</h6>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card" *ngFor="let d of getDays(true)">
+                <div class="card-body">
+                <h5 class="card-title">{{diaSemana[d.getDay()]}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ (d.getDate()) + "/" + (d.getMonth()) }}</h6>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
         </div>
       </div>
       <div class="carousel-item">
         <div class="cards-wrapper">
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="card" *ngFor="let d of getDays(false)">
+                <div class="card-body">
+                <h5 class="card-title">{{diaSemana[d.getDay()]}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ (d.getDate()) + "/" + (d.getMonth()) }}</h6>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="cards-wrapper">
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://s1.static.brasilescola.uol.com.br/be/conteudo/images/imagem-em-lente-convexa.jpg" class="card-img-top">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
         </div>
       </div>
     </div>
@@ -93,9 +35,9 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </div>
+</div>
 
 
 
-  
+
 <app-sessoes-list-item></app-sessoes-list-item>
