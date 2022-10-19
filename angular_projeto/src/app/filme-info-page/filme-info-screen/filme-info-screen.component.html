@@ -1,22 +1,29 @@
+<div style="height: 60px;"></div>
+
+
 <div class="full-page">
     <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <h1>{{filme?.nome}}</h1>
+    <div style="align-self: center;">
+        <iframe width="1104" height="621" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="card" style="width:18rem;">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{filme?.nome}}</li>
+            <li class="list-group-item">{{filme?.duracao}}</li>
+            <li class="list-group-item">{{filme?.diretor}}</li>
+            <li class="list-group-item">{{filme?.generos}}</li>
+            <li class="list-group-item">{{filme?.mediaNotas}}</li>
+        </ul>
+    </div>
+
+
+
+
     <div class="middle">
         <div class="info">
             <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Informações
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Duração: {{ filme?.duracao }}</li>
-                    <li class="list-group-item">Diretor: {{ filme?.diretor }}</li>
-                    <li class="list-group-item">Generos: 
-                        <span *ngFor="let gen of filme?.generos">{{ gen.nome }}, </span>
-                    </li>
-                    <li class="list-group-item">Média de Avaliações: {{ (filme?.mediaNotas !== null) ? filme?.mediaNotas : "Ainda não possui avaliações"}}</li>
-                </ul>
-            </div>
+                
             <button type="button" class="btn btn-danger my-light-text">Sessões</button>
         </div>
         <div class="poster-container">
