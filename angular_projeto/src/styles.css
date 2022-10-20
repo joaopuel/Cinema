@@ -42,6 +42,7 @@ a:hover {
 }
 
 .add-hov:hover {
+  cursor: pointer;
   color: #d1d1d1ec;
 }
 

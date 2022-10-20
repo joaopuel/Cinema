@@ -2,7 +2,7 @@
     <img class="poster-img" src="{{ filme?.cartaz }}">
 </div>
 <div class="my-list">
-    <a class="my-card" *ngFor="let nomeCinema of listaCinemas">
+    <a class="my-card" *ngFor="let nomeCinema of listaCinemas()">
         <div class="card">
             <div class="card-header">
               {{nomeCinema}}
