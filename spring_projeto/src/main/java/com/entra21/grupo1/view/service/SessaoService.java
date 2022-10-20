@@ -3,6 +3,7 @@ package com.entra21.grupo1.view.service;
 import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoPayloadDTO;
 import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
+import com.entra21.grupo1.model.entity.SalaEntity;
 import com.entra21.grupo1.model.entity.SessaoEntity;
 import com.entra21.grupo1.view.repository.FilmeRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
@@ -34,6 +35,9 @@ public class SessaoService {
     @Autowired
     private PessoaService pessoaService;
 
+    @Autowired
+    private SalaService salaService;
+
     /**Método retornará todas as sessões de um dia, caso receba uma data. Caso não receba nenhum parâmetro, retornará todas as sessões.
      * @return List<SessaoDTO> - Retorna uma lista de DTO de todas as sessões.
      */
@@ -46,7 +50,10 @@ public class SessaoService {
      * @return SessaoDTOWithDetails - Dados de uma sessão com mais detalhes.
      */
     public SessaoDTOWithDetails getById(@NotNull Long id) {
-        return sessaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sessão não encontrada!")).toDTOWithDetails();
+        SessaoEntity sessaoEntity = sessaoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sessão não encontrada!"));
+        return sessaoEntity.toDTOWithDetails(
+                salaService.getSalaDTOWithDetails(sessaoEntity.getSala().getId(), sessaoEntity.getId())
+        );
     }
 
     /**Adiciona novas sessões ao banco de dados.

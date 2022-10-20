@@ -1,5 +1,5 @@
 <main id="background" style="min-height: 74.4%;">
-    <app-header></app-header>
+    <app-header [isLogged]="(user != null)" (notLogged)="logout()"></app-header>
 
     <div style="height: 60px; align-self: flex-start;"></div>
 

@@ -2,11 +2,15 @@ package com.entra21.grupo1.view.service;
 import com.entra21.grupo1.model.dto.*;
 import com.entra21.grupo1.model.entity.CadeiraEntity;
 import com.entra21.grupo1.view.repository.CadeiraRepository;
+import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CadeiraService {
@@ -19,6 +23,9 @@ public class CadeiraService {
 
     @Autowired
     private SalaService salaService;
+
+    @Autowired
+    private IngressoRepository ingressoRepository;
 
     /**Adiciona cadeira ao banco de dados.
      * @param newCadeira CadeiraPayloadDTO - Dados de uma nova cadeira.

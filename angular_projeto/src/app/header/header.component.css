@@ -23,7 +23,7 @@
   margin: 0 8px;
 }
 
-.toolbar #link_login{
+.toolbar #link_login, #link_logout{
   font-size: 18px;
   margin: 0 16px;
 }

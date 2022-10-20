@@ -1,15 +1,14 @@
 package com.entra21.grupo1.model.dto;
 
-import com.entra21.grupo1.model.entity.SalaEntity;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class SalaDTO {
+public class SalaDTOWithDetails {
     private Long id;
     private String nome;
     private Integer numFileiras;
     private Integer tamFileiras;
-    private List<CadeiraDTO> cadeiras;
+    private List<CadeiraDTOWithDetails> cadeiras;
 }

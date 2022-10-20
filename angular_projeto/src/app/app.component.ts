@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './helpers/auth.service';
+import { User } from './types/types';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +10,18 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private router: Router) {
-  }
-  title = 'angular_projeto';
+  user: User | null = null;
 
-  goProducts() {
-    this.router.navigate(
-      ['/products'],
-      { queryParams: { order: 'popular' } }
-    );
-  }
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {
+        this.authenticationService.user.subscribe(x => this.user = x);
+    }
+
+    logout() {
+        this.authenticationService.logout();
+    }
+
+  title = 'angular_projeto';
 }

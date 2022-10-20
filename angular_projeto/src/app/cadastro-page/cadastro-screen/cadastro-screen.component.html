@@ -1,0 +1,26 @@
+<div class="card" >
+    <h4 class="card-header">Cadastre-se</h4>
+    <div class="card-body">
+        <form [formGroup]="cadastroForm">
+            <div class="form-group">
+                <input type="text" name="nome" id="nome" placeholder="nome" formControlName="nome" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="sobrenome" id="sobrenome" placeholder="sobrenome" formControlName="sobrenome" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="telefone" id="telefone" placeholder="telefone" formControlName="telefone" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="cpf" id="cpf" placeholder="cpf" formControlName="cpf" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="login" id="login" placeholder="login" formControlName="login" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="senha" id="senha" placeholder="senha" formControlName="senha" class="form-control"/>
+            </div>
+        </form>
+        <button type="submit" [disabled]="!cadastroForm.valid" (click)="onSubmit()">Cadastrar</button>
+    </div>
+</div>

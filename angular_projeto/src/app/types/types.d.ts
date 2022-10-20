@@ -5,6 +5,16 @@ export type User = {
     authdata?: string;
 }
 
+export type Cadastro = {
+    id?: number,
+    nome: string,
+    sobrenome: string,
+    telefone: string,
+    cpf: string,
+    login: string,
+    senha: string
+}
+
 export type Genero = {
     id: number,
     nome: string
@@ -27,10 +37,29 @@ export type Cadeira = {
     ordemFileira: number
 }
 
+export type CadeiraInfo = {
+    id: number,
+    codigo: string,
+    tipoCadeira: string,
+    fileira: number,
+    ordemFileira: number,
+    ocupado: boolean
+}
+
 export type Sala = {
     id: number,
     nome: string,
+    numFileiras: number,
+    tamFileiras: number,
     cadeiras: Cadeira[]
+}
+
+export type SalaInfo = {
+    id: number,
+    nome: string,
+    numFileiras: number,
+    tamFileiras: number,
+    cadeiras: CadeiraInfo[]
 }
 
 export type Sessao = {
@@ -53,7 +82,7 @@ export type SessaoInfo = {
     valorInteira: number,
     taxaVip: number,
     tipoSessao: string,
-    sala: Sala,
+    sala: SalaInfo,
     idCinema: number,
     nomeCinema: string
 }

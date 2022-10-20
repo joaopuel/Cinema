@@ -25,19 +25,16 @@ export class SessoesListItemComponent implements OnInit {
   }
 
   sessoesPorCinema(nomeCinema: String) {
-    return this.filme?.sessoes.filter((ss) => (ss.nomeCinema === nomeCinema) && (ss.dataSessao.toString().split('T')[0] === this.dia.toISOString().split('T')[0]));
+    return this.filme?.sessoes.filter((ss) => (ss.nomeCinema === nomeCinema) && (ss.dataSessao.toString().split('T')[0] === (this.dia.getFullYear() + '-' + (this.dia.getMonth()+1) + '-' + this.dia.getDate())));
   }
 
   listaCinemas = () => {
     let listaCinemas: Set<string> = new Set();
-    console.log("Dia escolhido: " + this.dia.getDate());
     this.filme?.sessoes.forEach((s) => {
-      if(s.dataSessao.toString().split('T')[0] === this.dia.toISOString().split('T')[0]){
-        listaCinemas.add(s.nomeCinema)
-        console.log(s.dataSessao);
+      if(s.dataSessao.toString().split('T')[0] === (this.dia.getFullYear() + '-' + (this.dia.getMonth()+1) + '-' + this.dia.getDate())){
+        listaCinemas.add(s.nomeCinema);
       }
     });
-    console.log(listaCinemas);
     return listaCinemas;
   }
 

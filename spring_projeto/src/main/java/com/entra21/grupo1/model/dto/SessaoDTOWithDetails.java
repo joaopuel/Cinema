@@ -13,7 +13,7 @@ public class SessaoDTOWithDetails {
     private Double valorInteira;
     private Double taxaVip;
     private String tipoSessao;
-    private SalaDTO sala;
+    private SalaDTOWithDetails sala;
     private Long idCinema;
     private String nomeCinema;
 }
