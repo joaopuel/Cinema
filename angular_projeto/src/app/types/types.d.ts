@@ -19,6 +19,20 @@ export type Avaliacao = {
     dataAvaliacao: Date
 }
 
+export type Cadeira = {
+    id: number,
+    codigo: string,
+    tipoCadeira: string,
+    fileira: number,
+    ordemFileira: number
+}
+
+export type Sala = {
+    id: number,
+    nome: string,
+    cadeiras: Cadeira[]
+}
+
 export type Sessao = {
     id: number,
     nomeFilme: string,
@@ -27,6 +41,19 @@ export type Sessao = {
     taxaVip: number,
     idSala: number;
     nomeSala: string,
+    idCinema: number,
+    nomeCinema: string
+}
+
+export type SessaoInfo = {
+    id: number,
+    nomeFilme: string,
+    cartazFilme: string;
+    dataSessao: Date,
+    valorInteira: number,
+    taxaVip: number,
+    tipoSessao: string,
+    sala: Sala,
     idCinema: number,
     nomeCinema: string
 }
