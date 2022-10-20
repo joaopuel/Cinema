@@ -9,7 +9,7 @@ export class SessoesScreenComponent implements OnInit {
 
   diaSemana: string[] = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 
-  dataHoje: string = new Date().getDate() + '/' + new Date().getMonth();
+  diaEscolhido: Date = new Date();
 
   constructor() { }
 
@@ -20,13 +20,13 @@ export class SessoesScreenComponent implements OnInit {
     var listaDias: Date[] = [];
 
     if(primeiro){
-      for(let i=1; i<4; i++){
+      for(let i=0; i<4; i++){
         let nextDay = new Date();
         nextDay.setDate(nextDay.getDate()+i);
         listaDias.push(nextDay);
       }
     } else {
-      for(let i=4; i<9; i++){
+      for(let i=4; i<8; i++){
         let nextDay = new Date();
         nextDay.setDate(nextDay.getDate()+i);
         listaDias.push(nextDay);
@@ -34,5 +34,13 @@ export class SessoesScreenComponent implements OnInit {
     }
 
     return listaDias;
+  }
+
+  today = () => {
+    return new Date();
+  }
+
+  onClick = (data: Date) => {
+    this.diaEscolhido = data;
   }
 }

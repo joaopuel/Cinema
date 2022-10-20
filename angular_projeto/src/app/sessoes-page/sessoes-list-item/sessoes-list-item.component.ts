@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FilmeInfo } from 'src/app/types/types';
 
@@ -10,25 +10,35 @@ import { FilmeInfo } from 'src/app/types/types';
 })
 export class SessoesListItemComponent implements OnInit {
 
+  @Input() dia!: Date;
+
   filme: FilmeInfo | undefined;
 
   nomeFilme: string | undefined | null;
-
-  listaCinemas: Set<string> = new Set();
 
   constructor(private acttivateRoute: ActivatedRoute, private http: HttpClient) {
   }
 
   ngOnInit(): void {
     this.nomeFilme = this.acttivateRoute.snapshot.paramMap.get('nome');
-    this.http.get<FilmeInfo>(`/filmes/${this.nomeFilme}`).subscribe((filme) => {
-      this.filme = filme;
-      filme.sessoes.forEach((s) => this.listaCinemas.add(s.nomeCinema));
-    });
+    this.http.get<FilmeInfo>(`/filmes/${this.nomeFilme}`).subscribe((filme) => this.filme = filme);
   }
 
   sessoesPorCinema(nomeCinema: String) {
-    return this.filme?.sessoes.filter((ss) => ss.nomeCinema === nomeCinema);
+    return this.filme?.sessoes.filter((ss) => (ss.nomeCinema === nomeCinema) && (ss.dataSessao.toString().split('T')[0] === this.dia.toISOString().split('T')[0]));
+  }
+
+  listaCinemas = () => {
+    let listaCinemas: Set<string> = new Set();
+    console.log("Dia escolhido: " + this.dia.getDate());
+    this.filme?.sessoes.forEach((s) => {
+      if(s.dataSessao.toString().split('T')[0] === this.dia.toISOString().split('T')[0]){
+        listaCinemas.add(s.nomeCinema)
+        console.log(s.dataSessao);
+      }
+    });
+    console.log(listaCinemas);
+    return listaCinemas;
   }
 
 }

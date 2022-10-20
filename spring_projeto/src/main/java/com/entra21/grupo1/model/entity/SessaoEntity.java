@@ -58,6 +58,7 @@ public class SessaoEntity {
         SessaoDTOWithDetails sessaoWithDetailsDTO = new SessaoDTOWithDetails();
         sessaoWithDetailsDTO.setId(this.getId());
         sessaoWithDetailsDTO.setNomeFilme(this.getFilme().getNome());
+        sessaoWithDetailsDTO.setCartazFilme(this.getFilme().getCartaz());
         sessaoWithDetailsDTO.setDataSessao(this.getDataSessao());
         sessaoWithDetailsDTO.setValorInteira(this.getValorInteira());
         sessaoWithDetailsDTO.setTaxaVip(this.getTaxaVip());
