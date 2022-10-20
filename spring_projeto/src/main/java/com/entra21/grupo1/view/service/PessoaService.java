@@ -132,4 +132,11 @@ public class PessoaService implements UserDetailsService {
         }
         return user;
     }
+
+    public void criar(PessoaDTO dto) {
+        PessoaEntity en = new PessoaEntity();
+        en.setLogin(dto.getLogin());
+        en.setSenha(dto.getSenha());
+        pessoaRepository.save(en);
+    }
 }

@@ -13,7 +13,7 @@ public class PessoaRestController {
     @Autowired
     private PessoaService pessoaService;
 
-    @PostMapping("/meusdados")
+    @GetMapping("/meusdados")
     public PessoaDTO getDadosPessoa(){
         return pessoaService.getDados();
     }
