@@ -1,8 +1,13 @@
 export type User = {
     id: number;
-    login: string;
-    password: string;
-    authdata?: string;
+    nome: string,
+    sobrenome: string,
+    telefone: string,
+    cpf: string,
+    saldoCarteira: number,
+    login: string,
+    senha: string,
+    authdata?: string
 }
 
 export type Cadastro = {
