@@ -1,5 +1,5 @@
 <div class="full-page">
-    
+
 
     <div class="trailer">
         <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
@@ -11,22 +11,23 @@
     <div class="div1">
 
         <div class="div2">
-            
-            <div class="card text-bg-dark mb-3" style="width: 500px; height: 350px;">
+
+            <div class="card text-bg-dark" style="width: 500px; height: 350px;">
                 <div class="card-header" style="background-image: url(https://www.globalspill.com.au/wp-content/uploads/2017/01/RMW-MMSADV46-1.jpg); background-position: center;">:</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-bg-dark border-light">{{filme?.nome}}</li>
-                        <li class="list-group-item text-bg-dark border-light">{{filme?.duracao}}</li>
-                        <li class="list-group-item text-bg-dark border-light">{{filme?.diretor}}</li>
-                        <li class="list-group-item text-bg-dark border-light">
-                            <span *ngFor="let g of filme?.generos">{{ g.nome }}, </span>
+                        <li class="list-group-item text-bg-dark border-secondary"><h2 style="margin: 0;">{{filme?.nome}}</h2></li>
+                        <li class="list-group-item text-bg-dark border-secondary">Diretor: {{filme?.diretor}}</li>
+                        <li class="list-group-item text-bg-dark border-secondary">
+                            <span *ngFor="let g of filme?.generos">Gênero: {{ g.nome }}, </span>
                         </li>
-                        <li class="list-group-item text-bg-dark">{{filme?.mediaNotas}}</li>
+                        <li class="list-group-item text-bg-dark border-secondary">Duração: {{filme?.duracao}}</li>
+                        <li class="list-group-item text-bg-dark border-secondary">Nota: {{filme?.mediaNotas}}</li>
+                        <li class="list-group-item text-bg-dark border-secondary"></li>
                     </ul>
             </div>
 
-            <div style="margin-top: 5px">
-                <button type="button" class="btn btn-dark btn-outline-light btn-lg" routerLink="/filmes/filme/{{filme?.nome}}/sessoes">SESSÕES</button>
+            <div style="margin-top: 40px">
+                <button type="button" class="btn btn-dark btn-outline-light border-secondary btn-lg" routerLink="/filmes/filme/{{filme?.nome}}/sessoes" style="font-size: 30px;">Ver sessões</button>
             </div>
 
         </div>
@@ -35,40 +36,57 @@
             <img class="poster-img" src="{{ filme?.cartaz }}">
         </div>
 
-    </div>    
-
-
-
-    <div class="sinopse" style="color: whitesmoke;">
-        <h4>Sinopse</h4>
-        <p>{{filme?.sinopse}}</p>
     </div>
 
+
+    <div class="sinopse">
+        <div class="card text-bg-dark">
+
+            <div class="card-header border-secondary">
+                <h4 style="margin: 0;">Sinopse</h4>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-bg-dark" style="text-align: justify; text-justify: inter-word;">{{filme?.sinopse}}</li>
+            </ul>
+
+        </div>
+    </div>
 
 
     <div class="campo-comentarios">
+        <div class="card text-bg-dark">
 
-        <h4 style="color: whitesmoke;">Avaliações</h4>
-        <div *ngIf="filme!.avaliacoes.length === 0" style="display: flex; justify-content: center">
-            <div class="card" style="width: fit-content; color: black;">
-                <div style="padding: 3px;">Esse filme ainda não possui avaliações</div>
+            <div class="card-header border-secondary">
+                <h4 style="margin: 0;">Avaliações</h4>
             </div>
-        </div>
 
-        <div *ngFor="let av of filme?.avaliacoes">
-            <div class="card text-bg-dark">
-                <div class="card-header">{{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</div>
-                <div class="card-body">
-                  <blockquote class="blockquote mb-0">
-                    <p>{{ av.comentario }}</p>
-                    <footer class="">{{av.nota}} <cite title="Source Title">{{av.dataAvaliacao}}</cite></footer>
-                  </blockquote>
-                </div>
-              </div>
-        </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-bg-dark" style="text-align: justify; text-justify: inter-word;">
 
+                    <div *ngIf="filme!.avaliacoes.length === 0" style="display: flex; justify-content: center">
+                        <div >Esse filme ainda não possui avaliações</div>
+                    </div>
+
+                    <div *ngFor="let av of filme?.avaliacoes">
+
+
+                        <div class="card text-bg-dark border-dark" style="width: 100%;">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-bg-dark border-dark">Usuário: {{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</li>
+                                <li class="list-group-item text-bg-dark border-dark">Comentário: {{ av.comentario }}</li>
+                                <li class="list-group-item text-bg-dark border-dark">Nota: {{av.nota}}</li>
+                                <!-- <li class="list-group-item text-bg-dark border-dark">{{av.dataAvaliacao}}</li> -->
+                            </ul>
+                            <hr style="width: 100%;">
+                        </div>
+
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
     </div>
-
-
 
 </div>
