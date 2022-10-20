@@ -2,12 +2,6 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="cards-wrapper">
-            <!-- <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Hoje</h5>
-                  <h6 class="card-subtitle mb-2 text-muted" (click)="">{{ dataHoje }}</h6>
-                </div>
-            </div> -->
             <div class="card add-hov" *ngFor="let d of getDays(true)" (click)="onClick(d)">
                 <div class="card-body">
                   <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>

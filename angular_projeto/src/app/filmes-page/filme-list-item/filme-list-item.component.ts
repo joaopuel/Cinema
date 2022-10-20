@@ -23,8 +23,8 @@ export class FilmeListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<Filme[]>("/filmes").subscribe((filmes) => {
-      this.listaEmCartaz = filmes.filter((f) => f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === new Date().toISOString().split('T')[0]));
-      this.listaEmBreve = filmes.filter((f) => !(f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === new Date().toISOString().split('T')[0])));
+      this.listaEmCartaz = filmes.filter((f) => f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate())));
+      this.listaEmBreve = filmes.filter((f) => !(f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate()))));
     });
   }
 }

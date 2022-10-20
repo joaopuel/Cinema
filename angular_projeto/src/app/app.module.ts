@@ -19,6 +19,7 @@ import { LandingPageModule } from './landing-page/landing-page.module';
 import { SessoesPageModule } from './sessoes-page/sessoes-page.module';
 import { SessaoPageModule } from './sessao-page/sessao-page.module';
 import { SobrePageModule } from './sobre-page/sobre-page.module';
+import { CadastroPageModule } from './cadastro-page/cadastro-page.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SobrePageModule } from './sobre-page/sobre-page.module';
     LandingPageModule,
     SessoesPageModule,
     SessaoPageModule,
-    SobrePageModule
+    SobrePageModule,
+    CadastroPageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

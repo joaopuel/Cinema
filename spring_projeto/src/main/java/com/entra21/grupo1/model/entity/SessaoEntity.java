@@ -1,5 +1,6 @@
 package com.entra21.grupo1.model.entity;
 
+import com.entra21.grupo1.model.dto.SalaDTOWithDetails;
 import com.entra21.grupo1.model.dto.SessaoDTO;
 import com.entra21.grupo1.model.dto.SessaoDTOWithDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,7 +55,7 @@ public class SessaoEntity {
         return sessaoDTO;
     }
 
-    public SessaoDTOWithDetails toDTOWithDetails(){
+    public SessaoDTOWithDetails toDTOWithDetails(SalaDTOWithDetails salaDTO){
         SessaoDTOWithDetails sessaoWithDetailsDTO = new SessaoDTOWithDetails();
         sessaoWithDetailsDTO.setId(this.getId());
         sessaoWithDetailsDTO.setNomeFilme(this.getFilme().getNome());
@@ -63,7 +64,7 @@ public class SessaoEntity {
         sessaoWithDetailsDTO.setValorInteira(this.getValorInteira());
         sessaoWithDetailsDTO.setTaxaVip(this.getTaxaVip());
         sessaoWithDetailsDTO.setTipoSessao(this.getTipoSessao());
-        sessaoWithDetailsDTO.setSala(this.getSala().toDTO());
+        sessaoWithDetailsDTO.setSala(salaDTO);
         sessaoWithDetailsDTO.setIdCinema(this.getSala().getCinema().getId());
         sessaoWithDetailsDTO.setNomeCinema(this.getSala().getCinema().getNome());
         return sessaoWithDetailsDTO;

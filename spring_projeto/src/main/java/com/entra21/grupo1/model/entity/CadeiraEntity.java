@@ -1,8 +1,11 @@
 package com.entra21.grupo1.model.entity;
 
 import com.entra21.grupo1.model.dto.CadeiraDTO;
+import com.entra21.grupo1.model.dto.CadeiraDTOWithDetails;
+import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -10,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "cadeira")
 public class CadeiraEntity {
+
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +38,16 @@ public class CadeiraEntity {
 
     public CadeiraDTO toDTO() {
         CadeiraDTO cadeiraDTO = new CadeiraDTO();
+        cadeiraDTO.setId(this.getId());
+        cadeiraDTO.setCodigo(this.getCodigo());
+        cadeiraDTO.setTipoCadeira(this.getTipoCadeira());
+        cadeiraDTO.setFileira(this.getFileira());
+        cadeiraDTO.setOrdemFileira(this.getOrdemFileira());
+        return cadeiraDTO;
+    }
+
+    public CadeiraDTOWithDetails toDTOWithDetails() {
+        CadeiraDTOWithDetails cadeiraDTO = new CadeiraDTOWithDetails();
         cadeiraDTO.setId(this.getId());
         cadeiraDTO.setCodigo(this.getCodigo());
         cadeiraDTO.setTipoCadeira(this.getTipoCadeira());

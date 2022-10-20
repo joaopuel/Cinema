@@ -38,13 +38,13 @@ public class FilmeService {
     public List<FilmeDTO> getAll(String nome, String genero, Double nota) {
         List<FilmeEntity> list;
         if(genero != null && nota != null){
-            list = filmeRepository.findAllFilmesDeGeneroENotaComSessoesDepois(genero, nota, LocalDateTime.now());
+            list = filmeRepository.findAllFilmesDeGeneroENotaComSessoesDepois(genero, nota,  LocalDateTime.now().toLocalDate().atStartOfDay());
         }else if(nota != null){
-            list = filmeRepository.findAllFilmesDeNotaComSessoesDepois(nota, LocalDateTime.now());
+            list = filmeRepository.findAllFilmesDeNotaComSessoesDepois(nota, LocalDateTime.now().toLocalDate().atStartOfDay());
         }else if(genero != null){
-            list = filmeRepository.findAllFilmesDeGeneroComSessoesDepois(genero, LocalDateTime.now());
+            list = filmeRepository.findAllFilmesDeGeneroComSessoesDepois(genero, LocalDateTime.now().toLocalDate().atStartOfDay());
         } else {
-            list = filmeRepository.findAllFilmesComSessoesDepois(LocalDateTime.now());
+            list = filmeRepository.findAllFilmesComSessoesDepois(LocalDateTime.now().toLocalDate().atStartOfDay());
         }
 
         if(nome != null){

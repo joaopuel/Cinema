@@ -1,14 +1,21 @@
 package com.entra21.grupo1.view.service;
 
+import com.entra21.grupo1.model.dto.CadeiraDTOWithDetails;
 import com.entra21.grupo1.model.dto.SalaDTO;
+import com.entra21.grupo1.model.dto.SalaDTOWithDetails;
 import com.entra21.grupo1.model.dto.SalaPayloadDTO;
 import com.entra21.grupo1.model.entity.SalaEntity;
+import com.entra21.grupo1.view.repository.CadeiraRepository;
+import com.entra21.grupo1.view.repository.IngressoRepository;
 import com.entra21.grupo1.view.repository.SalaRepository;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SalaService {
@@ -21,6 +28,12 @@ public class SalaService {
 
     @Autowired
     private PessoaService pessoaService;
+
+    @Autowired
+    private CadeiraRepository cadeiraRepository;
+
+    @Autowired
+    private IngressoRepository ingressoRepository;
 
     public SalaDTO getById(Long idSala) {
         return getSalaEntity(idSala).toDTO();
@@ -72,5 +85,21 @@ public class SalaService {
     public SalaEntity getSalaEntity(@NotNull Long idSala){
         pessoaService.userIsAnAdministrador();
         return salaRepository.findById(idSala).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
+    }
+
+    public SalaDTOWithDetails getSalaDTOWithDetails(Long idSala, Long idSessao){
+        SalaEntity salaEntity = salaRepository.findById(idSala).orElseThrow(() ->  new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada!"));
+        SalaDTOWithDetails salaDTO = salaEntity.toDTOWithDetails();
+        salaDTO.setCadeiras(getCadeirasDTOWithDetails(idSessao));
+        return salaDTO;
+    }
+
+    public List<CadeiraDTOWithDetails> getCadeirasDTOWithDetails(Long idSessao){
+        return cadeiraRepository.findAll().stream().map( (c) -> {
+            CadeiraDTOWithDetails cadeiraDTO;
+            cadeiraDTO = c.toDTOWithDetails();
+            cadeiraDTO.setOcupado(ingressoRepository.findByCadeiraBySessao(cadeiraDTO.getId(), idSessao).isPresent());
+            return cadeiraDTO;
+        }).collect(Collectors.toList());
     }
 }

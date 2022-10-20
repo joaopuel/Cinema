@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../types/types';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  @Input() isLogged!: boolean;
+  @Output() notLogged = new EventEmitter<boolean>();
 
   menuButton: Boolean = true;
 
@@ -20,5 +24,9 @@ export class HeaderComponent implements OnInit {
     } else {
       this.menuButton = true;
     }
+  }
+
+  logout = () => {
+    this.notLogged.emit(false);
   }
 }
