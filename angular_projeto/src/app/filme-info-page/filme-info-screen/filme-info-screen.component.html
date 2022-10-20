@@ -1,48 +1,62 @@
-<div style="height: 60px;"></div>
-
-
 <div class="full-page">
-    <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
-    <div style="align-self: center;">
+    
+
+    <div class="trailer">
+        <!-- <iframe width="560" height="315" src="{{filme?.trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
         <iframe width="1104" height="621" src="https://www.youtube.com/embed/XYgwMEL992c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
-    <div class="card" style="width:18rem;">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{filme?.nome}}</li>
-            <li class="list-group-item">{{filme?.duracao}}</li>
-            <li class="list-group-item">{{filme?.diretor}}</li>
-            <li class="list-group-item">{{filme?.generos}}</li>
-            <li class="list-group-item">{{filme?.mediaNotas}}</li>
-        </ul>
-    </div>
 
 
+    <div class="div1">
 
+        <div class="div2">
+            
+            <div class="card text-bg-dark mb-3" style="width: 500px; height: 350px;">
+                <div class="card-header" style="background-image: url(https://www.globalspill.com.au/wp-content/uploads/2017/01/RMW-MMSADV46-1.jpg); background-position: center;">:</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-bg-dark border-light">{{filme?.nome}}</li>
+                        <li class="list-group-item text-bg-dark border-light">{{filme?.duracao}}</li>
+                        <li class="list-group-item text-bg-dark border-light">{{filme?.diretor}}</li>
+                        <li class="list-group-item text-bg-dark border-light">
+                            <span *ngFor="let g of filme?.generos">{{ g.nome }}, </span>
+                        </li>
+                        <li class="list-group-item text-bg-dark">{{filme?.mediaNotas}}</li>
+                    </ul>
+            </div>
 
-    <div class="middle">
-        <div class="info">
-            <div class="card" style="width: 18rem;">
-                
-            <button type="button" class="btn btn-danger my-light-text" routerLink="/filmes/filme/{{filme?.nome}}/sessoes">Sessões</button>
+            <div style="margin-top: 5px">
+                <button type="button" class="btn btn-dark btn-outline-light btn-lg" routerLink="/filmes/filme/{{filme?.nome}}/sessoes">SESSÕES</button>
+            </div>
+
         </div>
-        <div class="poster-container">
+
+        <div class="div3">
             <img class="poster-img" src="{{ filme?.cartaz }}">
         </div>
-    </div>
-    <div>
-        <h6>Sinopse</h6>
+
+    </div>    
+
+
+
+    <div class="sinopse" style="color: whitesmoke;">
+        <h4>Sinopse</h4>
         <p>{{filme?.sinopse}}</p>
     </div>
-    <div>
-        <h6>Avaliações</h6>
-        <div *ngIf="filme!.avaliacoes.length === 0">
-            <div class="card">
-                <div class="card-header">Esse filme ainda não possui avaliações</div>
-              </div>
+
+
+
+    <div class="campo-comentarios">
+
+        <h4 style="color: whitesmoke;">Avaliações</h4>
+        <div *ngIf="filme!.avaliacoes.length === 0" style="display: flex; justify-content: center">
+            <div class="card" style="width: fit-content; color: black;">
+                <div style="padding: 3px;">Esse filme ainda não possui avaliações</div>
+            </div>
         </div>
+
         <div *ngFor="let av of filme?.avaliacoes">
-            <div class="card">
+            <div class="card text-bg-dark">
                 <div class="card-header">{{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</div>
                 <div class="card-body">
                   <blockquote class="blockquote mb-0">
@@ -52,5 +66,9 @@
                 </div>
               </div>
         </div>
+
     </div>
+
+
+
 </div>

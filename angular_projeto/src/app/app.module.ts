@@ -18,6 +18,7 @@ import { LandingPageScreenComponent } from './landing-page/landing-page-screen/l
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { SessoesPageModule } from './sessoes-page/sessoes-page.module';
 import { SessaoPageModule } from './sessao-page/sessao-page.module';
+import { SobrePageModule } from './sobre-page/sobre-page.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SessaoPageModule } from './sessao-page/sessao-page.module';
     FilmeInfoPageModule, 
     LandingPageModule,
     SessoesPageModule,
-    SessaoPageModule
+    SessaoPageModule,
+    SobrePageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
