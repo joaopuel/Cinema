@@ -37,5 +37,4 @@ export class SessaoScreenComponent implements OnInit {
   range(size: number, startAt: number) {
     return [...Array(size).keys()].map(i => i + startAt).reverse();
   }
-
 }
