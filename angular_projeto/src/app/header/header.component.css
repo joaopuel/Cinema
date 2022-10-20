@@ -61,7 +61,7 @@
 }
 
 @media screen and (max-width: 767px) {
- 
+
   .links{
     display: none;
   }
@@ -70,7 +70,7 @@
     display: inline-block;
   }
 
-} 
+}
 
 @media screen and (max-width: 575px) {
 
@@ -78,4 +78,4 @@
     width: 300px;
   }
 
-} 
+}
