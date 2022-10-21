@@ -1,18 +1,252 @@
-div.spandiv{
-    background-color: rgb(104, 104, 104);
-    border-color: black;
-    color: black;
+.fundo{
+    width: 100vw;
+    height: 68vh;
+
+    display: inline-block;
+    
 }
 
-.spann{
-    background-color: rgb(92, 92, 92);
+.seja{
+    font-family: 'Poppins';
+    font-size: 85px;
+    color: white; 
     display: flex;
-    justify-content: center;
+    align-items: center;
+    align-items: flex-end;
+    justify-content:left;
+    text-align : center;
+    margin-left: 55px;
+    margin-top: 150px;
+
+}
+
+
+.subtitulo{
+    font-family: 'Poppins';
+    font-size: 33px;
+    color: white;
+    display: block;
+    text-align:left;
+    justify-content: left;
+    margin-top: 20px;
+    margin-left: 55px;
+    margin-right: 500px;
+ 
+}
+
+.ong{
+    font-family: 'Poppins';
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    display: block;
+    text-align:left;
+    justify-content: left;
+    margin-left: 100px;
+    margin-right: 150px;
+    margin-top: 40px;
+}
+
+.edit-index {
+    font-family: 'Poppins';
+    font-size: 20px;
+    list-style-type: none;
     text-align: center;
-    margin-right: 25%;
-    margin-top: 5%;
+    padding: 15px;
+    margin-top: 30px;
+    margin-bottom: 75px;
+ }
+    
+
+.edit-index a{
+    display: inline;
+    text-decoration: none;
+    background-color: rgb(252, 238, 255);
+    padding: 8px 16px;
+    margin: 4px 0;
+    color: rgb(114, 114, 114);
+    border-radius: 6px;
+    margin-inline: 12px;
+}
+
+.lado{
+    display: flex;
+    flex-flow: row;
+ text-align: center;
+ margin-top: 40px;
+ margin-bottom: 0px;
+ margin-right: 30px;
+ margin-left: 0px;
+}
+
+
+#imagem{
+    width: 500px;
+    height: 560px;
+    margin-left: 50px;
+    display: inline;
+}
+
+.textolados{
+    margin-left: 0px;
+    display: inline-block;
+    align-items: flex-end;
+}
+
+.quemsomos{
+    display: inline-block;
+    font-family: 'Poppins';
+    font-size: 45px;
+    /* background-color: rgb(254, 226, 255); */
+    color: rgb(0, 255, 242) ;
     border-radius: 15px;
-    width: fit-content;
+    padding: 16px 30px;
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
+.sobre{
+    font-family: 'Poppins';
+    font-size: 21px;
+    color: rgb(5, 105, 136);
+    margin: 60px;
+    margin-top: 60px;
+}
+
+.lado2{
+    display: flex;
+    flex-flow: row;
+ text-align: center;
+ margin-bottom: 20px;
+ margin-right: 0px;
+ margin-left: 10px;
+}
+
+.para2{
+    font-family: 'Poppins';
+    font-size: 21px;
+    color: rgb(29, 172, 216);
+    margin-left: 30px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+
+#imagem2{
+    width: 510px;
+    height: 430px;
+    margin-top: 10px;
+
+    display: inline;
+}
+
+.precisa{
+    display: inline;
+    font-family: 'Poppins';
+    font-size: 45px;
+    /* background-color: rgb(254, 226, 255); */
+    color: rgb(0, 255, 242);
+    border-radius: 15px;
+    padding: 16px 30px;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 90px;
+    margin-top: 50px;
+}
+
+.ladotres{
+    display: flex;
+    flex-flow: row;
+ text-align: center;
+ margin-top: 150px;
+ margin-bottom: 0px;
+ margin-right: 0px;
+ margin-left: 10px;
+}
+
+.paratres{
+    font-family: 'Poppins';
+    font-size: 22px;
+    color:rgb(0, 255, 170);
+    margin-top: 70px;
+    margin-bottom: 90px;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+   padding-left: 100px;
+    padding-right: 100px;
+}
+
+.passo{
+    margin-top: 60px;
+    display: flex;
+    flex-direction:row;
+    font-family: 'Poppins';
     font-size: 18px;
-    text-align: start;
+    margin-bottom: 40px;
+}
+
+#um{
+font-family: 'Poppins';
+    display: inline;
+    color: rgb(0, 255, 0);
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+.background3{
+    background-color:rgb(255, 0, 0) ;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.texto{
+    display: block;
+}
+
+.dentro{
+    font-family: 'Poppins';
+    color: rgb(238, 255, 0);
+    font-size: 38px;
+    /* display: inline-block; */
+    text-align: left;
+    margin-left: 70px;
+    padding-top: 40px;
+    margin-bottom: 20px;
+}
+
+.facil{
+    font-family: 'Poppins';
+    color: hsl(0, 0%, 100%);
+    font-size: 23px;
+    margin-left: 70px;
+    margin-right: 210px;
+    /* display: inline-block; */
+    text-align: left;
+ /* justify-items: left; */
+
+}
+
+#logo{
+    display: inline;
+    width: 250px;
+    height: 250px;
+    float: right;
+    margin-top: 70px;
+    margin-right: 50px;
+}
+
+.sociais{
+    margin-top: 20px;
+    margin-left: 70px;
+    margin-bottom: 40px;
+}
+
+#soc{
+    height: 47px;
+    width: 47px;
+    margin: 5px;
 }
