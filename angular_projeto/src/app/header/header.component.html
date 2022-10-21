@@ -20,15 +20,31 @@
       <div class="spacer"></div>
       
       <ul class="links navbar-nav me-auto mb-2 mb-lg-0">
-        <li id="link_login" class="nav-item" *ngIf="!isLogged">
-          <a class="nav-link link-light" routerLink="/login">Login/Cadastro</a>
+        <li id="link_login" class="nav-item" *ngIf="user == null">
+          <button type="button" class="btn btn-primary" routerLink="/login"><i class="bi bi-person-circle"></i> Olá, Visitante</button>
         </li>
-        <li id="link_logout" class="nav-item" *ngIf="isLogged">
-          <a class="nav-link link-light" href="#" (click)="logout()">Logout</a>
+        <li id="link_logout" class="nav-item" *ngIf="user != null">
+
+          <div id="account-button">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button type="button" class="btn btn-primary"><i class="bi bi-person-circle"></i> Olá, {{ user.nome }}</button>
+            </a>
+    
+            <ul class="dropdown-menu my-light-bg">
+              <li><a class="dropdown-item" routerLink="/filmes">Gerenciar Dados</a></li>
+              <li *ngIf="user.login !== 'admin'"><a class="dropdown-item" href="#">Meus ingressos</a></li>
+              <li *ngIf="user.login === 'admin'"><a class="dropdown-item" href="#">Meus cinemas</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+              </li>
+            </ul>
+          </div>
+
         </li>
       </ul>
 
-      <div id="menu-icon">
+      <div id="menu-icon-phone">
         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <div [ngClass]="(menuButton) ? 'container-menu' : 'change'" (click)="changeMenu()">
             <div class="bar1 my-dark-bg"></div>
@@ -41,10 +57,10 @@
           <li><a class="dropdown-item" routerLink="/filmes">Filmes</a></li>
           <li><a class="dropdown-item" href="#">Cinemas</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li *ngIf="!isLogged">
-            <a class="dropdown-item" routerLink="/login">Login/Cadastro</a>
+          <li *ngIf="user == null">
+            <a class="dropdown-item" routerLink="/login">Login</a>
           </li>
-          <li *ngIf="isLogged">
+          <li *ngIf="user != null">
             <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
           </li>
         </ul>

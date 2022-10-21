@@ -1,10 +1,71 @@
-<div class="full-page">
-
-    <div class="fileiras" *ngFor="let f of getFileiras()">
-      <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">{{c?.codigo}}</div>
+<div class="container text-center my-light-text">
+  <div class="row">
+    <div class="col" style="border: solid 1px white;">
+      1 of 2
     </div>
-
+    <div class="col" style="border: solid 1px white;">
+      2 of 2
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" style="border: solid 1px white;">
+      1 of 3
+    </div>
+    <div class="col" style="border: solid 1px white;">
+      2 of 3
+    </div>
+    <div class="col" style="border: solid 1px white;">
+      3 of 3
+    </div>
+  </div>
 </div>
 
 
+<!-- <div class="full-page my-light-text">
+  <div class="infos">
 
+    <div class="filme-cinema">
+      <img class="poster" src="{{sessao.cartazFilme}}">
+      <div>
+        <h6 class="nomeFilme">Filme: {{ sessao.nomeFilme }}</h6>
+        <div class="card" style="width: 18rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Cinema: {{ sessao.nomeFilme }}</li>
+            <li class="list-group-item">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate() + "/" + getMyDate().getMonth() + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
+            <li class="list-group-item">{{ sessao.tipoSessao }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bar-hrzt"></div>
+
+    <div>
+      
+    </div>
+    <div>
+  
+    </div>
+  </div>
+  
+  <div class="container-sala">
+    <div class="sala container text-center my-light-text">
+      <div class="fileira" class="row" *ngFor="let f of getFileiras()">
+        <div class="coluna" *ngFor="let c of getCadeirasByFileira(f)">
+          <div class="cadeira cad-padrao" *ngIf="c?.tipoCadeira === 'Padrão'">
+              <span>{{c?.codigo}}</span>
+          </div>
+          <div class="cadeira cad-vip" *ngIf="c?.tipoCadeira === 'VIP'">
+            <span id="text">{{c?.codigo}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+<!-- <i id="star" class="bi bi-star-fill"></i> -->

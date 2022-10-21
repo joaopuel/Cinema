@@ -10,6 +10,8 @@ import { CadeiraInfo, SessaoInfo } from 'src/app/types/types';
 })
 export class SessaoScreenComponent implements OnInit {
 
+  diaSemana: string[] = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+
   idSessao!: string | null;
 
   sessao!: SessaoInfo;
@@ -36,5 +38,9 @@ export class SessaoScreenComponent implements OnInit {
 
   range(size: number, startAt: number) {
     return [...Array(size).keys()].map(i => i + startAt).reverse();
+  }
+
+  getMyDate() {
+    return new Date(this.sessao.dataSessao);
   }
 }

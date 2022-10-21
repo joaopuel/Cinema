@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AuthenticationService } from '../helpers/auth.service';
 import { User } from '../types/types';
 
 @Component({
@@ -8,12 +9,13 @@ import { User } from '../types/types';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() isLogged!: boolean;
-  @Output() notLogged = new EventEmitter<boolean>();
+  user: User | null = null;
 
   menuButton: Boolean = true;
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) {
+    this.authenticationService.user.subscribe(x => this.user = x);
+  }
 
   ngOnInit(): void {
   }
@@ -26,7 +28,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout = () => {
-    this.notLogged.emit(false);
-  }
+  logout() {
+    this.authenticationService.logout();
+}
 }
