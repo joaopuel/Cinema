@@ -11,7 +11,11 @@
 
       <div class="card text-bg-dark border-secondary calendar-subcontainer">
 
-        <div class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</div>
+        <div class="list-group-item text-bg-dark nome-cinema">
+          <div>
+            {{nomeCinema}}
+          </div>
+        </div>
 
         <ul class="list-group list-group-flush lista-horas">
           <li class="list-group-item text-bg-dark hora" *ngFor="let s of sessoesPorCinema(nomeCinema)">
