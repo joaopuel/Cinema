@@ -116,3 +116,15 @@ export type LoginDTO = {
     username: string;
     password: string;
 }
+
+export type Ingresso = {
+    id: number,
+    dataCompra: Date,
+    idPessoa: number,
+    nomeFilme: string,
+    nomeCinema: string,
+    valorIngresso: number,
+    meiaEntrada: boolean,
+    sessao: Sessao,
+    cadeira: Cadeira
+}

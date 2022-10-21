@@ -4,6 +4,7 @@ import { CadastroScreenComponent } from "./cadastro-page/cadastro-screen/cadastr
 import { FilmeInfoScreenComponent } from "./filme-info-page/filme-info-screen/filme-info-screen.component";
 import { FilmesScreenComponent } from "./filmes-page/filmes-screen/filmes-screen.component";
 import { AuthGuard } from './helpers/auth.guard';
+import { IngressosScreenComponent } from "./ingressos-page/ingressos-screen/ingressos-screen.component";
 import { LandingPageScreenComponent } from "./landing-page/landing-page-screen/landing-page-screen.component";
 import { LoginScreenComponent } from "./login-page/login-screen/login-screen.component";
 import { SessaoScreenComponent } from "./sessao-page/sessao-screen/sessao-screen.component";
@@ -19,8 +20,8 @@ const routes: Routes = [
     { path: 'filmes/filme/:nome/sessoes', component:  SessoesScreenComponent},
     { path: 'sessao/:id', component:  SessaoScreenComponent},
     { path: 'quemsomos', component:  SobreScreenComponent},
-    // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-    // { path: 'dashboard/franquias', component: FranquiasScreenComponent, canActivate: [AuthGuard] },
+    { path: 'meusingressos', component: IngressosScreenComponent, canActivate: [AuthGuard] },
+    { path: 'cinemas', component: IngressosScreenComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '/'}
   ];
   
