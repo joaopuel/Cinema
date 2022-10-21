@@ -1,16 +1,10 @@
-<div>
-  <div>
-    
-  </div>
-  <div>
+<div class="full-page">
 
-  </div>
+    <div class="fileiras" *ngFor="let f of getFileiras()">
+      <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">{{c?.codigo}}</div>
+    </div>
+
 </div>
 
-<div class="container text-center my-light-text">
-    <div class="row" *ngFor="let f of getFileiras()">
-      <div class="col" style="border: solid 1px white;" *ngFor="let c of getCadeirasByFileira(f)">
-        {{c?.codigo}}
-      </div>
-    </div>
-  </div>
+
+
