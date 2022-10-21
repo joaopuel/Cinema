@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/usuario")
 public class PessoaRestController {
     @Autowired
     private PessoaService pessoaService;
 
-    @PostMapping("/meusdados")
-    public PessoaDTO getDadosPessoa(LoginDTO user){
+    @PostMapping("/login")
+    public PessoaDTO getDadosPessoa(@RequestBody LoginDTO user){
         return pessoaService.getDados(user);
     }
 
