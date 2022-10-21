@@ -13,9 +13,9 @@ public class PessoaRestController {
     @Autowired
     private PessoaService pessoaService;
 
-    @GetMapping("/meusdados")
-    public PessoaDTO getDadosPessoa(){
-        return pessoaService.getDados();
+    @PostMapping("/meusdados")
+    public PessoaDTO getDadosPessoa(LoginDTO user){
+        return pessoaService.getDados(user);
     }
 
     @GetMapping("/meusingressos")
