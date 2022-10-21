@@ -1,47 +1,16 @@
-<div id="carouselExampleControls" class="carousel slide" data-interval="false">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="cards-wrapper">
-            <div class="card add-hov" *ngFor="let d of getDays(true)" (click)="onClick(d)">
-                <div class="card-body">
-                  <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>
-                  <h5 class="card-title" *ngIf="d.getDate() !== today().getDate()">{{diaSemana[d.getDay()]}}</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">{{ (d.getDate()).toString().padStart(2, '0') + "/" + (d.getMonth()).toString().padStart(2, '0') }}</h6>
-                </div>
-            </div>
-        </div>
+<div class="full-body">
+
+  <div class="dias-da-semana">
+    <button type="button" class="btn btn-dark btn-outline-light border-secondary btn-lg" style="margin: 0 10px 0 10px; padding-top: 15px; padding-bottom: 15px;" *ngFor="let d of getDays()" (click)="onClick(d)">
+      <div class="card-body">
+        <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>
+        <h5 class="card-title" *ngIf="d.getDate() !== today().getDate()">{{diaSemana[d.getDay()]}}</h5>
+        <h6 class="card-subtitle text-muted">{{ (d.getDate()).toString().padStart(2, '0') + "/" + (d.getMonth()).toString().padStart(2, '0') }}</h6>
       </div>
-      <div class="carousel-item">
-        <div class="cards-wrapper">
-            <div class="card add-hov" *ngFor="let d of getDays(false)" (click)="onClick(d)">
-                <div class="card-body">
-                <h5 class="card-title">{{diaSemana[d.getDay()]}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ (d.getDate()).toString().padStart(2, '0') + "/" + (d.getMonth()).toString().padStart(2, '0') }}</h6>
-                </div>
-            </div>
-        </div>
-
-
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-
-
-
+    </button>
 
   </div>
 
-
-
-
   <app-sessoes-list-item [dia]="diaEscolhido"></app-sessoes-list-item>
-
 
 </div>

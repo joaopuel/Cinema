@@ -16,22 +16,14 @@ export class SessoesScreenComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  getDays = (primeiro: boolean) => {
+  getDays = () => {
     var listaDias: Date[] = [];
-
-    if(primeiro){
-      for(let i=0; i<4; i++){
+  
+      for(let i=0; i<8; i++){
         let nextDay = new Date();
         nextDay.setDate(nextDay.getDate()+i);
         listaDias.push(nextDay);
       }
-    } else {
-      for(let i=4; i<8; i++){
-        let nextDay = new Date();
-        nextDay.setDate(nextDay.getDate()+i);
-        listaDias.push(nextDay);
-      }
-    }
 
     return listaDias;
   }

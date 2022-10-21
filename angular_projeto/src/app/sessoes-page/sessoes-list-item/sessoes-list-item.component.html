@@ -1,15 +1,21 @@
-<div class="poster-container">
-    <img class="poster-img" src="{{ filme?.cartaz }}">
-</div>
-<div class="my-list">
-    <a class="my-card" *ngFor="let nomeCinema of listaCinemas()">
-        <div class="card">
-            <div class="card-header">
-              {{nomeCinema}}
-            </div>
-            <div class="card-body" *ngFor="let s of sessoesPorCinema(nomeCinema)">
-              <a routerLink="/sessao/{{s.id}}" class="btn btn-danger my-light-text">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</a>
-            </div>
-          </div>
-    </a>
-</div>
+<div class="full-body">
+
+
+  <div class="poster-container">
+      <img class="poster-img" src="{{ filme?.cartaz }}">
+  </div>
+
+  <div class="calendar-container">
+    <div *ngFor="let nomeCinema of listaCinemas()">
+      <div class="card text-bg-dark border-secondary horarios">
+        <div class="card-header cinema">
+          {{nomeCinema}}
+        </div>
+        <div class="card hora" *ngFor="let s of sessoesPorCinema(nomeCinema)">
+          <p class="btn btn-outline-secondary" style="margin: 0;" routerLink="/sessao/{{s.id}}">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>  
