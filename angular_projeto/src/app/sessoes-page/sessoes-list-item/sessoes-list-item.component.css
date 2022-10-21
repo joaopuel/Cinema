@@ -1,10 +1,39 @@
+.full-body{
+  width: 1400px;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0 40px 0;
+}
+
 .poster-container {
-  height: 600px;
-  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
 }
 
 .poster-img {
-  max-width: 100%;
-  max-height: 100%;
-  display: block;
+  height: 400px;
+  width: fit-content;
+}
+
+.calendar-container{
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.horarios {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hora{
+  margin: 10px;
+}
+
+.cinema {
+  width: 20%;
 }
