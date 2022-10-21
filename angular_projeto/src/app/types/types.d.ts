@@ -10,8 +10,7 @@ export type User = {
     authdata?: string
 }
 
-export type Cadastro = {
-    id?: number,
+export type PessoaPayloadDTO = {
     nome: string,
     sobrenome: string,
     telefone: string,
@@ -111,4 +110,9 @@ export type FilmeInfo = {
     generos: Genero[],
     sessoes: Sessao[],
     avaliacoes: Avaliacao[]
+}
+
+export type LoginDTO = {
+    username: string;
+    password: string;
 }

@@ -35,6 +35,7 @@ export class LoginScreenComponent {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
+    console.log(this.loginForm.value)
       this.submitted = true;
 
       // stop here if form is invalid

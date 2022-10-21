@@ -30,8 +30,12 @@ public class PessoaService implements UserDetailsService {
     /**Busca as informações do respectivo usuário salvas no banco de dados.
      * @return Dados do usuário.
      */
-    public PessoaDTO getDados() {
-        return getUser().toDTO();
+    public PessoaDTO getDados(LoginDTO user) {
+        PessoaEntity u = pessoaRepository.findByLogin(user.getUsername()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Login inválido!"));
+        if (u.getPassword().equals(user.getPassword())) {
+            return u.toDTO();
+        }
+        throw new RuntimeException("Senha inválida!");
     }
 
     /**Busca todos os ingressos que respectivo usuário possuí.
@@ -50,7 +54,7 @@ public class PessoaService implements UserDetailsService {
      * @param newPessoa Dados do novo usuário.
      */
     public void savePessoa(@NotNull PessoaPayloadDTO newPessoa) {
-        checkNullField(newPessoa);
+//        checkNullField(newPessoa);
         pessoaRepository.findByLogin(newPessoa.getLogin()).ifPresentOrElse(p ->  {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Este login já está em uso");
         }, () -> pessoaRepository.save(newPessoa.toEntity()));

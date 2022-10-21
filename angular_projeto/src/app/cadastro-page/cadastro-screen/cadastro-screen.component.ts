@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Cadastro } from 'src/app/types/types';
+import { PessoaPayloadDTO } from 'src/app/types/types';
 
 @Component({
   selector: 'app-cadastro-screen',
@@ -10,10 +10,9 @@ import { Cadastro } from 'src/app/types/types';
 })
 export class CadastroScreenComponent implements OnInit {
 
-  @Output() cadastrar = new EventEmitter<Cadastro>();
+  @Output() cadastrar = new EventEmitter<PessoaPayloadDTO>();
 
   cadastroForm: FormGroup = this.formBuilder.group({
-    id: [null],
     nome: ['', Validators.required],
     sobrenome: ['', Validators.required],
     telefone: ['', Validators.required],
@@ -31,8 +30,8 @@ export class CadastroScreenComponent implements OnInit {
   }
 
   onSubmit = () => {
-    let cadastro: Cadastro = (this.cadastroForm.value as Cadastro);
-    this.http.post<Cadastro>("/usuarios/criarusuario", {cadastro});
+    var cadastro: PessoaPayloadDTO = (this.cadastroForm.value as PessoaPayloadDTO);
+    this.http.post<PessoaPayloadDTO>("/usuarios/criarusuario", cadastro).subscribe(success => {console.log(success)}, error => {console.log(error)});
   }
 
 }
