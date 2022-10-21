@@ -20,6 +20,7 @@ import { SessoesPageModule } from './sessoes-page/sessoes-page.module';
 import { SessaoPageModule } from './sessao-page/sessao-page.module';
 import { SobrePageModule } from './sobre-page/sobre-page.module';
 import { CadastroPageModule } from './cadastro-page/cadastro-page.module';
+import { IngressosPageModule } from './ingressos-page/ingressos-page.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CadastroPageModule } from './cadastro-page/cadastro-page.module';
     SessoesPageModule,
     SessaoPageModule,
     SobrePageModule,
-    CadastroPageModule
+    CadastroPageModule,
+    IngressosPageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

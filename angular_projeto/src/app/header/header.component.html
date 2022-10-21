@@ -32,7 +32,7 @@
     
             <ul class="dropdown-menu my-light-bg">
               <li><a class="dropdown-item" routerLink="/filmes">Gerenciar Dados</a></li>
-              <li *ngIf="user.login !== 'admin'"><a class="dropdown-item" href="#">Meus ingressos</a></li>
+              <li *ngIf="user.login !== 'admin'"><a class="dropdown-item" routerLink="/meusingressos">Meus ingressos</a></li>
               <li *ngIf="user.login === 'admin'"><a class="dropdown-item" href="#">Meus cinemas</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
