@@ -23,6 +23,8 @@ import { CadastroPageModule } from './cadastro-page/cadastro-page.module';
 import { IngressosPageModule } from './ingressos-page/ingressos-page.module';
 import { CinemasPageModule } from './cinemas-page/cinemas-page.module';
 import { CinemaPageModule } from './cinema-page/cinema-page.module';
+import { SalasPageModule } from './salas-page/salas-page.module';
+import { SalaPageModule } from './sala-page/sala-page.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { CinemaPageModule } from './cinema-page/cinema-page.module';
     CadastroPageModule,
     IngressosPageModule,
     CinemasPageModule,
-    CinemaPageModule
+    CinemaPageModule,
+    SalasPageModule,
+    SalaPageModule
   ],
   exports: [
     FooterComponent

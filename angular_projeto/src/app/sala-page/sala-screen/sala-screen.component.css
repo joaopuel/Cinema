@@ -1,0 +1,109 @@
+.body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 40px 12% 40px 12%;
+    color: whitesmoke;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.info-filme {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.poster {
+    height: 200px;
+    width: auto;
+}
+
+.ingresso-card {
+  margin-bottom: 10px;
+}
+
+.cadeiras-selecionadas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 56px;
+}
+
+.cadeira-individual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: fit-content;
+  min-width:  30px;
+  height: 30px;
+}
+
+.sala {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 70%;
+  padding: 12% 0 12% 0;
+  margin: 0 2% 0 2%;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: gray;
+  border-radius: 6px;
+}
+
+.fileiras {
+  display: flex;
+  flex-direction: row;
+}
+
+.cadeiras {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cadeira-padrao {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-image: url(../../../imagens/chair1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.cadeira-vip {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-image: url(../../../imagens/vip-chair.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.tela {
+  width: 500px;
+  height: 30px;
+  background-color: rgb(22, 22, 22);
+  color: whitesmoke;
+  justify-self: flex-end;
+  align-self: center;
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
