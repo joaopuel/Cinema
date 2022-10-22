@@ -27,6 +27,11 @@ public class FilmeRestController {
         return filmeService.getByNome(nome);
     }
 
+    @GetMapping("/cinema/{id}")
+    public List<FilmeDTO> getAllFilmesByCinema(@PathVariable(name = "id") Long id) {
+        return filmeService.getAllByCinema(id);
+    }
+
     @PostMapping
     public FilmeDTOWithDetails addFilme(@RequestBody FilmePayloadDTO newfilme) {
         return filmeService.saveFilme(newfilme);

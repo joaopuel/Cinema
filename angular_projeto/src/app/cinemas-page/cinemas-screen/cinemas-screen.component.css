@@ -1,0 +1,44 @@
+.full-page{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.admin-page{
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card{
+    min-width: 300px;
+    margin: 10px;
+}
+
+.head-admin{
+    display: flex!important;
+    justify-content: space-between!important;
+}
+
+.add-cinema{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    min-width: 300px;
+    border: solid 1px white;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.add-cinema:hover{
+    color: red;
+    border: solid 1px red;
+}

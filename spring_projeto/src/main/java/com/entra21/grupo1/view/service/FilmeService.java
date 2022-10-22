@@ -65,6 +65,10 @@ public class FilmeService {
         return filmeRepository.findByNome(nome).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!")).toDTOWithDetails();
     }
 
+    public List<FilmeDTO> getAllByCinema(@NotNull Long id) {
+        return filmeRepository.findAllByCinema(id, LocalDateTime.now().toLocalDate().atStartOfDay()).stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
+    }
+
     /**Adiciona filme ao banco de dados.
      * @param newFilme FilmePayloadDTO - Dados de um novo filme.
      * @return FilmeDTOWithDetails - Dados salvos do filme com mais detalhes.

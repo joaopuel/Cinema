@@ -135,3 +135,23 @@ export type Cinema = {
     logradouro: string,
     numero: number
 }
+
+export type CinemaInfo = {
+    id: number,
+    nome: string,
+    idAdministrador: number,
+    caixa: number,
+    logradouro: string,
+    numero: number,
+    salas: Sala[],
+    registroCaixa: Registro[]
+}
+
+export type Registro = {
+    id: number,
+    operacao: string,
+    valor: number,
+    descricao: string,
+    nomeCinema: string,
+    dataOperacao: Date
+}
