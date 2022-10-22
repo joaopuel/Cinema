@@ -1,95 +1,66 @@
 <div class="full-page">
-
-
   <div class="div1" *ngIf="user == null || user.login !== 'admin'">
-    <div class="div1-2" *ngFor="let c of listaCinemas">
-
-      <button class="btn btn-dark btn-outline-secondary div1-3" routerLink="/cinema/{{ c.id }}">
-
-        <div class="div1-4">{{c.nome}}</div>
+    <div class="div2" *ngFor="let c of listaCinemas">
+      <button class="btn btn-dark btn-outline-secondary div3" routerLink="/cinema/{{ c.id }}">
+        <div class="div4">{{c.nome}}</div>
         <hr style="margin: 0;">
-        <div class="div1-4">{{ c.logradouro }}, {{ c.numero }}</div>
-
+        <div class="div4">{{ c.logradouro }}, {{ c.numero }}</div>
       </button>
-
     </div>
   </div>
-
-
 </div>
 
 
 
+<div class="full-page">
+  <div class="div1" *ngIf="user != null && user.login === 'admin'">
+    <div class="div2" *ngFor="let c of listaCinemasInfo">
 
 
+      <button class="btn btn-dark btn-outline-secondary div3" routerLink="/cinema/{{ c.id }}">
+        <div class="div4">{{c.nome}}</div>
+        <hr style="margin: 0;">
+        <div class="div4">{{ c.logradouro }}, {{ c.numero }}</div>
+        <div class="div4">R$ {{ c.caixa.toFixed(2) }}</div>
+      </button>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="full-page">
-  <div>
-
-
-    <div class="admin-page" *ngIf="user != null && user.login === 'admin'">
-      <div class="cards">
-        <div *ngFor="let c of listaCinemasInfo">
-          <div class="card my-light-bg">
-              <div class="card-header head-admin">
-                {{c.nome}}
-
-                <div class="btn-group">
-                  <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                    <li><button class="dropdown-item" type="button">Action</button></li>
-                    <li><button class="dropdown-item" type="button">Another action</button></li>
-                    <li><button class="dropdown-item" type="button">Something else here</button></li>
-                  </ul>
-                </div>
-
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ c.logradouro }}, {{ c.numero }}</p>
-                <footer class="blockquote-footer">R$ {{ c.caixa.toFixed(2) }}</footer>
-              </div>
-          </div>
-        </div>
-
-        <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-          <i class="bi bi-plus-circle"></i>
-        </div> -->
-
-
-
-
-
-
-
-
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
-
-
-
-
-
-
-      <!-- </div>
-
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Total: {{ getTotal() }}</h5>
-        </div>
+      <div class="btn-group bitton">
+        <i class="bi" data-bs-toggle="dropdown" aria-expanded="false">...</i>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+          <li><button class="dropdown-item" type="button">Editar</button></li>
+          <li><button class="dropdown-item" type="button">Deletar</button></li>
+          <li><button class="dropdown-item" type="button">Something else here</button></li>
+        </ul>
       </div>
 
     </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+      <i class="bi bi-plus-circle"></i>
+    </div>
+
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Total: {{ getTotal() }}</h5>
+      </div>
+    </div>
+
+
+
+
   </div>
 </div>
 
@@ -123,4 +94,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

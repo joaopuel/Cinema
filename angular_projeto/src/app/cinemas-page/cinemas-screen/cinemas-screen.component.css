@@ -13,28 +13,46 @@
   justify-content: flex-start;
 }
 
-.div1-2 {
+.div2 {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 200px;
-  max-width: 200px;
-  margin: 12px;
+  margin: 12px 0 12px 6px;
 }
 
-.div1-3 {
-  width: 100%;
+.div3 {
+  width: max-content;
   color: whitesmoke;
+  display: flex;
+  flex-direction: column;
 }
 
-.div1-4 {
+.div4 {
   border: 0;
   text-align: start;
   word-break: break-all;
 }
 
+.bitton {
+  display: flex;
+  justify-content: center;
+  background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjwekV8_OjOBs3a5o2gkNuaazdgWVnowVviw&usqp=CAU);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 8px;
+  width: 100%;
 
 
+}
+
+.bi {
+  width: 100%;
+  height: 100%;
+  align-self: center;
+
+}
 
 
 
