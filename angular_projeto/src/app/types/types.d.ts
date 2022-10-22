@@ -66,6 +66,12 @@ export type SalaInfo = {
     cadeiras: CadeiraInfo[]
 }
 
+export type SalaPayLoad = {
+    id: number,
+    nome: string,
+    idCinema: number
+}
+
 export type Sessao = {
     id: number,
     nomeFilme: string,

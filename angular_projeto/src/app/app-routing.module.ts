@@ -9,6 +9,8 @@ import { AuthGuard } from './helpers/auth.guard';
 import { IngressosScreenComponent } from "./ingressos-page/ingressos-screen/ingressos-screen.component";
 import { LandingPageScreenComponent } from "./landing-page/landing-page-screen/landing-page-screen.component";
 import { LoginScreenComponent } from "./login-page/login-screen/login-screen.component";
+import { SalaScreenComponent } from "./sala-page/sala-screen/sala-screen.component";
+import { SalasScreenComponent } from "./salas-page/salas-screen/salas-screen.component";
 import { SessaoScreenComponent } from "./sessao-page/sessao-screen/sessao-screen.component";
 import { SessoesScreenComponent } from "./sessoes-page/sessoes-screen/sessoes-screen.component";
 import { SobreScreenComponent } from "./sobre-page/sobre-screen/sobre-screen.component";
@@ -25,6 +27,8 @@ const routes: Routes = [
     { path: 'meusingressos', component: IngressosScreenComponent, canActivate: [AuthGuard] },
     { path: 'cinemas', component: CinemasScreenComponent},
     { path: 'cinema/:id', component: CinemaScreenComponent},
+    { path: 'cinema/:id/salas', component: SalasScreenComponent, canActivate: [AuthGuard]},
+    { path: 'sala/:id', component: SalaScreenComponent, canActivate: [AuthGuard]},
     { path: '**', redirectTo: '/'}
   ];
   
