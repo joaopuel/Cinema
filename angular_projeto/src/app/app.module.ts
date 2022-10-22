@@ -21,6 +21,7 @@ import { SessaoPageModule } from './sessao-page/sessao-page.module';
 import { SobrePageModule } from './sobre-page/sobre-page.module';
 import { CadastroPageModule } from './cadastro-page/cadastro-page.module';
 import { IngressosPageModule } from './ingressos-page/ingressos-page.module';
+import { CinemasPageModule } from './cinemas-page/cinemas-page.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { IngressosPageModule } from './ingressos-page/ingressos-page.module';
     SessaoPageModule,
     SobrePageModule,
     CadastroPageModule,
-    IngressosPageModule
+    IngressosPageModule,
+    CinemasPageModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

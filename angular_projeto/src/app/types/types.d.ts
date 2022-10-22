@@ -128,3 +128,10 @@ export type Ingresso = {
     sessao: Sessao,
     cadeira: Cadeira
 }
+
+export type Cinema = {
+    id: number,
+    nome: string,
+    logradouro: string,
+    numero: number
+}
