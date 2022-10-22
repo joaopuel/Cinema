@@ -1,17 +1,17 @@
 <div class="full-body">
 
-    <div class="dias-da-semana">
-      <button type="button" class="btn btn-dark border-secondary btn-lg" *ngFor="let d of getDays()" (click)="onClick(d);">
-        <div class="card-body">
-          <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>
-          <h5 class="card-title" *ngIf="d.getDate() !== today().getDate()">{{diaSemana[d.getDay()]}}</h5>
-          <h6 class="card-subtitle text-muted">{{ (d.getDate()).toString().padStart(2, '0') + "/" + (d.getMonth()).toString().padStart(2, '0') }}</h6>
-        </div>
-      </button>
-  
-    </div>
-  
-    <app-cinema-sessoes-list-item [dia]="diaEscolhido"></app-cinema-sessoes-list-item>
-  
+  <div class="dias-da-semana">
+    <button type="button" *ngFor="let d of getDays()" (click)="onClick(d);" [ngClass]="d.getDate() !== diaEscolhido.getDate() ? 'btn btn-dark border-secondary btn-lg' : 'btn btn-light border-dark btn-lg disabled'">
+
+      <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>
+      <h5 class="card-title" *ngIf="d.getDate() !== today().getDate()">{{diaSemana[d.getDay()]}}</h5>
+      <h6 class="card-subtitle text-muted">{{ (d.getDate()).toString().padStart(2, '0') + "/" + (d.getMonth()).toString().padStart(2, '0') }}</h6>
+
+    </button>
+
   </div>
-  
+
+</div>
+
+
+<app-cinema-sessoes-list-item [dia]="diaEscolhido"></app-cinema-sessoes-list-item>

@@ -13,6 +13,7 @@
 
         <div class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</div>
 
+        <!-- separar horários por sala -->
         <ul class="list-group list-group-flush lista-horas">
           <li class="list-group-item text-bg-dark hora" *ngFor="let s of sessoesPorCinema(nomeCinema)">
             <button class="btn btn-dark border-secondary" routerLink="/sessao/{{s.id}}">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
