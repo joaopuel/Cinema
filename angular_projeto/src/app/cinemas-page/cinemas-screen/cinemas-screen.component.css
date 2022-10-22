@@ -1,9 +1,14 @@
 .full-page {
   display: flex;
-  flex-direction: row;
+  flex-flow: column wrap;
+  align-items: center;
   justify-content: center;
-  width: 70%;
   margin: 5px 15% 5px 15%;
+}
+
+.div {
+  display: flex;
+  justify-content: center;
 }
 
 .div1 {
@@ -11,6 +16,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  width: 804px;
 }
 
 .div2 {
@@ -18,11 +24,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 12px 0 12px 6px;
+  margin: 12px 0 12px 0px;
 }
 
 .div3 {
-  width: max-content;
+  min-width: 250px;
   color: whitesmoke;
   display: flex;
   flex-direction: column;
@@ -32,6 +38,24 @@
   border: 0;
   text-align: start;
   word-break: break-all;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-group{
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.bi-gear-fill{
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
 }
 
 .bitton {
@@ -54,7 +78,37 @@
 
 }
 
+.card {
+  margin: 0 8px;
+}
 
+.add-cinema{
+  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 89px;
+  min-width: 252px;
+  border: solid 1px white;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.add-cinema:hover{
+  color: red;
+  border: solid 1px red;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.total-card{
+  width: 100%;
+  text-align: end;
+}
 
 
 /* .full-page{
@@ -84,20 +138,4 @@
 .head-admin{
     display: flex!important;
     justify-content: space-between!important;
-}
-
-.add-cinema{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100px;
-    min-width: 300px;
-    border: solid 1px white;
-    font-size: 40px;
-    cursor: pointer;
-}
-
-.add-cinema:hover{
-    color: red;
-    border: solid 1px red;
 } */
