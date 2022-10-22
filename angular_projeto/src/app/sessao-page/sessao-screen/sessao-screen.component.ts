@@ -16,6 +16,8 @@ export class SessaoScreenComponent implements OnInit {
 
   sessao!: SessaoInfo;
 
+  cadeirasSelecionadas: CadeiraInfo[] = [];
+
   constructor(private acttivateRoute: ActivatedRoute, private http: HttpClient) {
   }
 
@@ -42,5 +44,17 @@ export class SessaoScreenComponent implements OnInit {
 
   getMyDate() {
     return new Date(this.sessao.dataSessao);
+  }
+
+  onClick(cadeira: CadeiraInfo) {
+    if (this.cadeirasSelecionadas.includes(cadeira)) {
+      this.cadeirasSelecionadas.splice(this.cadeirasSelecionadas.indexOf(cadeira), 1);
+    } else {
+      this.cadeirasSelecionadas.push(cadeira);
+    }
+  }
+
+  getCadeirasSelecionadas = () => {
+    return this.cadeirasSelecionadas;
   }
 }

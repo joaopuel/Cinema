@@ -28,6 +28,24 @@
   margin-bottom: 10px;
 }
 
+.cadeiras-selecionadas {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 56px;
+}
+
+.cadeira-individual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: fit-content;
+  min-width:  30px;
+  height: 30px;
+}
+
 .sala {
     display: flex;
     flex-direction: column;
@@ -70,7 +88,7 @@
 }
 
 .tela {
-  width: 50%;
+  width: 500px;
   height: 30px;
   margin: 20px;
   background-color: rgb(22, 22, 22);
