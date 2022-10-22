@@ -10,6 +10,9 @@ import { CinemasScreenComponent } from './cinemas-screen/cinemas-screen.componen
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    CinemasScreenComponent
   ]
 })
 export class CinemasPageModule { }
