@@ -6,10 +6,10 @@
       <img class="poster" src="{{sessao.cartazFilme}}">
       <div class="card border-secondary" style="width: 100%; margin: 5px;">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item text-bg-dark border-secondary">{{ sessao.nomeFilme }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">Filme: {{ sessao.nomeFilme }}</li>
           <li class="list-group-item text-bg-dark border-secondary">Cinema: {{ sessao.nomeCinema }}</li>
           <li class="list-group-item text-bg-dark border-secondary">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate() + "/" + getMyDate().getMonth() + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
-          <li class="list-group-item text-bg-dark border-secondary">{{ sessao.tipoSessao }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">Sessão: {{ sessao.tipoSessao }}</li>
         </ul>
       </div>
 
@@ -23,9 +23,11 @@
         <div class="card-header border-secondary">
           Cadeiras
         </div>
-        <div class="card-body">
-          Cadeiras selecionadas
+
+        <div class="card-header cadeiras-selecionadas">
+          <div class="cadeira-individual" *ngFor="let c of getCadeirasSelecionadas()">{{ c.codigo }}</div>
         </div>
+
       </div>
 
 
@@ -63,8 +65,8 @@
 
     <div class="fileiras" *ngFor="let f of getFileiras()">
       <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
-        <button type="button" class="btn btn-outline-light cadeira-padrao" *ngIf="c?.tipoCadeira === 'Padrão'"></button>
-        <button type="button" class="btn btn-outline-light cadeira-vip" *ngIf="c?.tipoCadeira === 'VIP'"></button>
+        <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-padrao' : 'btn btn-outline-light cadeira-padrao'" *ngIf="c?.tipoCadeira === 'Padrão'" (click)="onClick(c!)"></button>
+        <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-vip' : 'btn btn-outline-light cadeira-vip'" *ngIf="c?.tipoCadeira === 'VIP'" (click)="onClick(c!)"></button>
       </div>
     </div>
     <div class="tela">Tela</div>
