@@ -1,7 +1,7 @@
 <div class="full-body">
 
   <div class="dias-da-semana">
-    <button type="button" class="btn btn-dark border-secondary btn-lg" *ngFor="let d of getDays()" (click)="onClick(d)">
+    <button type="button" class="btn btn-dark border-secondary btn-lg" *ngFor="let d of getDays()" (click)="onClick(d);">
       <div class="card-body">
         <h5 class="card-title" *ngIf="d.getDate() === today().getDate()">Hoje</h5>
         <h5 class="card-title" *ngIf="d.getDate() !== today().getDate()">{{diaSemana[d.getDay()]}}</h5>

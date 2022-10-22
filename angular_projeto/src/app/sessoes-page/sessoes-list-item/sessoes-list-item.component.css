@@ -30,7 +30,11 @@
 }
 
 .nome-cinema {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  word-break: break-all;
   min-width: 120px;
   max-width: 120px;
   padding: 10px;

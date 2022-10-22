@@ -1,121 +1,77 @@
-<div class="container text-center">
-  <div class="row">
-    <div class="col-sm-4">
+<div class="bodyA">
+  
+  <div class="infoA">
 
-
-      <div class="container text-center">
-        <div class="row">
-          <div class="col filme-cinema" style="border: solid 1px white;">
-            
-            <img class="poster" src="{{sessao.cartazFilme}}">
-              <div>
-                <h6 class="nomeFilme my-light-text">Filme: {{ sessao.nomeFilme }}</h6>
-                <div class="card" style="width: 18rem;">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cinema: {{ sessao.nomeFilme }}</li>
-                    <li class="list-group-item">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate() + "/" + getMyDate().getMonth() + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
-                    <li class="list-group-item">{{ sessao.tipoSessao }}</li>
-                  </ul>
-                </div>
-              </div>
-
-          </div>
-        </div>
-        <div class="row">
-          <div class="col" style="border: solid 1px white;">
-            
-            <div class="container text-center">
-              <div class="row">
-                <div class="col" style="border: solid 1px white;">
-                  
-                  <div class="card">
-                    <div class="card-header">
-                      Cadeiras
-                    </div>
-                    <div class="card-body">
-                      <p>A well-known quote, contained in a blockquote element.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col" style="border: solid 1px white;">
-                  
-                  <div class="card">
-                    <div class="card-header">
-                      Ingressos
-                    </div>
-                    <div class="card-body">
-                      <p>A well-known quote, contained in a blockquote element.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col" style="border: solid 1px white;">
-                 
-                  <div class="card">
-                    <div class="card-header">
-                      Formas de Pagamento
-                    </div>
-                    <div class="card-body">
-                      <p>A well-known quote, contained in a blockquote element.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col" style="border: solid 1px white;">
-           
-            <div class="card">
-              <div class="card-header">
-                Resumo das Vendas
-              </div>
-              <div class="card-body">
-                <p>A well-known quote, contained in a blockquote element.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
+    <div class="info-filmeA">
+      <img class="posterA" src="{{sessao.cartazFilme}}">
+      <div class="card border-secondary" style="width: 100%; margin: 5px;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-bg-dark border-secondary">{{ sessao.nomeFilme }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">Cinema: {{ sessao.nomeCinema }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate() + "/" + getMyDate().getMonth() + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">{{ sessao.tipoSessao }}</li>
+        </ul>
       </div>
-
-    </div>
-
-
-    <div class="col-sm-8" style="border: solid 1px white;">
       
-      <div class="container-sala">
-        <div class="sala container text-center my-light-text">
-          <div class="fileira" class="row" *ngFor="let f of getFileiras()">
-            <div class="coluna" *ngFor="let c of getCadeirasByFileira(f)">
-              <div class="cadeira cad-padrao" *ngIf="c?.tipoCadeira === 'Padrão'">
-                  <span>{{c?.codigo}}</span>
-              </div>
-              <div class="cadeira cad-vip" *ngIf="c?.tipoCadeira === 'VIP'">
-                <span id="text">{{c?.codigo}}</span>
-            </div>
-          </div>
+    </div>
+
+
+    <div class="ingresso-infoA">
+
+
+      <div class="card text-bg-dark border-secondary">
+        <div class="card-header border-secondary">
+          Cadeiras
+        </div>
+        <div class="card-body">
+          Cadeiras selecionadas
         </div>
       </div>
-    </div>
+
+
+      <div class="card text-bg-dark border-secondary">
+        <div class="card-body">
+          Ingressos
+        </div>
+      </div>
+
+
+      <div class="card text-bg-dark border-secondary">
+        <div class="card-header border-secondary">
+          Formas de pagamento
+        </div>
+        <div class="card-body">
+          Cartão de crédito
+        </div>
+      </div>
+
+
+      <div class="card text-bg-dark border-secondary">
+        <div class="card-header border-secondary">
+          Resumo das vendas
+        </div>
+        <div class="card-body">
+          Resumo
+        </div>
+      </div>
+
 
     </div>
   </div>
+
+  <div class="salaA">
+    <div class="fileiras" *ngFor="let f of getFileiras()">
+
+      <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
+
+        <div class="cadeira cad-padrao" *ngIf="c?.tipoCadeira === 'Padrão'">
+          {{c?.codigo}}
+        </div>
+        <div class="cadeira cad-vip" *ngIf="c?.tipoCadeira === 'VIP'">
+          {{c?.codigo}}
+      </div>
+
+    </div>
+  </div>
+
 </div>
-
-
-
-
-
-
-<!-- <i id="star" class="bi bi-star-fill"></i> -->

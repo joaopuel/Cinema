@@ -1,8 +1,43 @@
-.full-page{
+.bodyA{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    padding: 40px 12% 40px 12%;
+    color: whitesmoke;
 }
 
+.infoA {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.info-filmeA {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.posterA{
+    height: 200px;
+    width: auto;
+}
+
+
+
+.salaA {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+}
+
+
+
+
+
+/* 
 .infos{
     display: flex;
     flex-direction: column;
@@ -16,10 +51,7 @@
     justify-content: center;
 }
 
-.poster{
-    width: 145.2px;
-    height: 210.6px;
-}
+
 
 .nomeFilme{
     word-break: break-all;
@@ -96,7 +128,7 @@
 
 .cadeira.cad-vip{
     border-radius: 4px;
-}
+} */
 
 /*.full-page {
   display: flex;
