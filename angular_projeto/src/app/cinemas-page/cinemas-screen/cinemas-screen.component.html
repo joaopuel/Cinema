@@ -1,25 +1,51 @@
 <div class="full-page">
-  <div>
-    <div class="cards" *ngIf="user == null || user.login !== 'admin'">
-      <div *ngFor="let c of listaCinemas">
-        <div class="card my-light-bg add-hov" routerLink="/cinema/{{ c.id }}">
-            <div class="card-header">
-              {{c.nome}}
-            </div>
-            <div class="card-body">
-              <p class="card-text">{{ c.logradouro }}, {{ c.numero }}</p>
-            </div>
-        </div>
-      </div>
+
+
+  <div class="div1" *ngIf="user == null || user.login !== 'admin'">
+    <div class="div1-2" *ngFor="let c of listaCinemas">
+
+      <button class="btn btn-dark btn-outline-secondary div1-3" routerLink="/cinema/{{ c.id }}">
+
+        <div class="div1-4">{{c.nome}}</div>
+        <hr style="margin: 0;">
+        <div class="div1-4">{{ c.logradouro }}, {{ c.numero }}</div>
+
+      </button>
+
     </div>
-    
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="full-page">
+  <div>
+
+
     <div class="admin-page" *ngIf="user != null && user.login === 'admin'">
       <div class="cards">
         <div *ngFor="let c of listaCinemasInfo">
           <div class="card my-light-bg">
               <div class="card-header head-admin">
                 {{c.nome}}
-      
+
                 <div class="btn-group">
                   <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
@@ -28,7 +54,7 @@
                     <li><button class="dropdown-item" type="button">Something else here</button></li>
                   </ul>
                 </div>
-      
+
               </div>
               <div class="card-body">
                 <p class="card-text">{{ c.logradouro }}, {{ c.numero }}</p>
@@ -39,11 +65,23 @@
 
         <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
           <i class="bi bi-plus-circle"></i>
-        </div>
+        </div> -->
+
+
+
+
+
+
+
 
         <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
-  
-      </div>
+
+
+
+
+
+
+      <!-- </div>
 
       <div class="card">
         <div class="card-body">
@@ -85,4 +123,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
