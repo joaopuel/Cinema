@@ -1,9 +1,9 @@
-<div class="bodyA">
-  
-  <div class="infoA">
+<div class="body">
 
-    <div class="info-filmeA">
-      <img class="posterA" src="{{sessao.cartazFilme}}">
+  <div class="info">
+
+    <div class="info-filme">
+      <img class="poster" src="{{sessao.cartazFilme}}">
       <div class="card border-secondary" style="width: 100%; margin: 5px;">
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-bg-dark border-secondary">{{ sessao.nomeFilme }}</li>
@@ -12,14 +12,14 @@
           <li class="list-group-item text-bg-dark border-secondary">{{ sessao.tipoSessao }}</li>
         </ul>
       </div>
-      
+
     </div>
 
 
-    <div class="ingresso-infoA">
+    <div class="ingresso-info">
 
 
-      <div class="card text-bg-dark border-secondary">
+      <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-header border-secondary">
           Cadeiras
         </div>
@@ -29,14 +29,14 @@
       </div>
 
 
-      <div class="card text-bg-dark border-secondary">
+      <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-body">
           Ingressos
         </div>
       </div>
 
 
-      <div class="card text-bg-dark border-secondary">
+      <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-header border-secondary">
           Formas de pagamento
         </div>
@@ -46,7 +46,7 @@
       </div>
 
 
-      <div class="card text-bg-dark border-secondary">
+      <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-header border-secondary">
           Resumo das vendas
         </div>
@@ -59,19 +59,15 @@
     </div>
   </div>
 
-  <div class="salaA">
+  <div class="sala">
+
     <div class="fileiras" *ngFor="let f of getFileiras()">
-
       <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
-
-        <div class="cadeira cad-padrao" *ngIf="c?.tipoCadeira === 'Padrão'">
-          {{c?.codigo}}
-        </div>
-        <div class="cadeira cad-vip" *ngIf="c?.tipoCadeira === 'VIP'">
-          {{c?.codigo}}
+        <button type="button" class="btn btn-outline-light cadeira-padrao" *ngIf="c?.tipoCadeira === 'Padrão'"></button>
+        <button type="button" class="btn btn-outline-light cadeira-vip" *ngIf="c?.tipoCadeira === 'VIP'"></button>
       </div>
-
     </div>
-  </div>
+    <div class="tela">Tela</div>
 
+  </div>
 </div>
