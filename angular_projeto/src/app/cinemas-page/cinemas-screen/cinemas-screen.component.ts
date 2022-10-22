@@ -14,6 +14,8 @@ export class CinemasScreenComponent implements OnInit {
 
   user!: User | null;
 
+  cinemaEscolhido!: Cinema;
+
   listaCinemas: Cinema[] = [];
   listaCinemasInfo: CinemaInfo[] = [];
 
@@ -48,10 +50,17 @@ export class CinemasScreenComponent implements OnInit {
     return valor;
   }
 
+  setCinema(c: Cinema) {
+    this.cinemaEscolhido = c;
+  }
+
   addCinema(){
     var cinema: Cinema = (this.cinemaForm.value as Cinema);
-    this.http.post<Cinema>("/cinemas", cinema).subscribe(success => {console.log(success)}, error => {console.log(error)});
-    window.location.reload();
+    this.http.post<Cinema>("/cinemas", cinema).subscribe(success => {window.location.reload()}, error => {console.log(error)});
+  }
+
+  deleteCinema(){
+    this.http.delete<any>(`/cinemas/${this.cinemaEscolhido.id}`).subscribe(success => {window.location.reload()}, error => {console.log(error)});
   }
 
 }

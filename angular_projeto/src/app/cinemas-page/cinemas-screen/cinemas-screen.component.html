@@ -13,55 +13,48 @@
 
 
 <div class="full-page">
-  <div class="div1" *ngIf="user != null && user.login === 'admin'">
-    <div class="div2" *ngFor="let c of listaCinemasInfo">
 
-
-      <button class="btn btn-dark btn-outline-secondary div3" routerLink="/cinema/{{ c.id }}">
-        <div class="div4">{{c.nome}}</div>
-        <hr style="margin: 0;">
-        <div class="div4">{{ c.logradouro }}, {{ c.numero }}</div>
-        <div class="div4">R$ {{ c.caixa.toFixed(2) }}</div>
-      </button>
-
-      <div class="btn-group bitton">
-        <i class="bi" data-bs-toggle="dropdown" aria-expanded="false">...</i>
-        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-          <li><button class="dropdown-item" type="button">Editar</button></li>
-          <li><button class="dropdown-item" type="button">Deletar</button></li>
-          <li><button class="dropdown-item" type="button">Something else here</button></li>
-        </ul>
+  <div class="div">
+    <div class="div1" *ngIf="user != null && user.login === 'admin'">
+      <div class="div2" *ngFor="let c of listaCinemasInfo">
+  
+        <div class="card">
+  
+          <button class="btn btn-dark btn-outline-secondary div3 position-relative" routerLink="/cinema/{{ c.id }}">
+            <div class="div4">{{c.nome}}</div>
+            <hr style="margin: 0;">
+            <div class="div4">{{ c.logradouro }}, {{ c.numero }}</div>
+            <div class="div4">R$ {{ c.caixa.toFixed(2) }}</div>
+          </button>
+  
+          <span class="position-absolute top-0 start-100 translate-middle p-1">
+            <div class="btn-group bg-light rounded-circle">
+              <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false" (click)="setCinema(c)"></i>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><button class="dropdown-item" type="button">Editar</button></li>
+                <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
+              </ul>
+            </div>
+          </span>
+        </div>
+  
       </div>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-    <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-      <i class="bi bi-plus-circle"></i>
-    </div>
-
-
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
-
-
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Total: {{ getTotal() }}</h5>
+  
+  
+      <div class="div2">
+        <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+          <i class="bi bi-plus-circle icon"></i>
+        </div>
       </div>
+  
     </div>
-
-
-
-
   </div>
+
+    <div class="card total-card" *ngIf="user != null && user.login === 'admin'">
+      <div class="card-body">
+        <h5 class="card-text">Total: {{ getTotal() }}</h5>
+      </div>
+    </div>
 </div>
 
 
@@ -90,7 +83,32 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!cinemaForm.valid" (click)="addCinema()" data-bs-dismiss="modal">Salvar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!cinemaForm.valid" (click)="addCinema()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="cinemaEscolhido != undefined" class="modal-title">Excluir {{ cinemaEscolhido.nome }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Você está prestes a excluir este cinema da sua conta.</p>
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill my-red-text" style="width: 20px;"></i>
+          <div>
+            Esta ação pode acarretar em perda de dados!
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCinema()">Excluir</button>
       </div>
     </div>
   </div>
