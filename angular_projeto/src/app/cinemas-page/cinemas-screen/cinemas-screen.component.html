@@ -1,12 +1,88 @@
-<div *ngFor="let c of listaCinemas">
-    <div class="card">
-        <div class="card-header">
-          {{c.nome}}
+<div class="full-page">
+  <div>
+    <div class="cards" *ngIf="user == null || user.login !== 'admin'">
+      <div *ngFor="let c of listaCinemas">
+        <div class="card my-light-bg add-hov" routerLink="/cinema/{{ c.id }}">
+            <div class="card-header">
+              {{c.nome}}
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ c.logradouro }}, {{ c.numero }}</p>
+            </div>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+      </div>
     </div>
+    
+    <div class="admin-page" *ngIf="user != null && user.login === 'admin'">
+      <div class="cards">
+        <div *ngFor="let c of listaCinemasInfo">
+          <div class="card my-light-bg">
+              <div class="card-header head-admin">
+                {{c.nome}}
+      
+                <div class="btn-group">
+                  <i class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                    <li><button class="dropdown-item" type="button">Action</button></li>
+                    <li><button class="dropdown-item" type="button">Another action</button></li>
+                    <li><button class="dropdown-item" type="button">Something else here</button></li>
+                  </ul>
+                </div>
+      
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ c.logradouro }}, {{ c.numero }}</p>
+                <footer class="blockquote-footer">R$ {{ c.caixa.toFixed(2) }}</footer>
+              </div>
+          </div>
+        </div>
+
+        <div class="card my-light-text add-cinema my-dark-bg" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+          <i class="bi bi-plus-circle"></i>
+        </div>
+
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button> -->
+  
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total: {{ getTotal() }}</h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="cinemaForm">
+          <div class="mb-3">
+            <label for="nome" class="col-form-label">Nome:</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+          </div>
+          <div class="mb-3">
+            <label for="logradouro" class="col-form-label">Logradouro:</label>
+            <input type="text" class="form-control" id="logradouro" formControlName="logradouro">
+          </div>
+          <div class="mb-3">
+            <label for="numero" class="col-form-label">Número:</label>
+            <input type="text" class="form-control" id="numero" formControlName="numero">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!cinemaForm.valid" (click)="addCinema()" data-bs-dismiss="modal">Salvar</button>
+      </div>
+    </div>
+  </div>
 </div>

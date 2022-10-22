@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CinemasScreenComponent } from './cinemas-screen/cinemas-screen.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +11,7 @@ import { CinemasScreenComponent } from './cinemas-screen/cinemas-screen.componen
     CinemasScreenComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, RouterModule, ReactiveFormsModule
   ],
   exports: [
     CinemasScreenComponent

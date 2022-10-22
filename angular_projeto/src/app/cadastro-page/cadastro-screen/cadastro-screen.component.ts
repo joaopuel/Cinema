@@ -31,7 +31,7 @@ export class CadastroScreenComponent implements OnInit {
 
   onSubmit = () => {
     var cadastro: PessoaPayloadDTO = (this.cadastroForm.value as PessoaPayloadDTO);
-    this.http.post<PessoaPayloadDTO>("/usuarios/criarusuario", cadastro).subscribe(success => {console.log(success)}, error => {console.log(error)});
+    this.http.post<PessoaPayloadDTO>("/usuario/criarusuario", cadastro).subscribe(success => {console.log(success)}, error => {console.log(error)});
   }
 
 }

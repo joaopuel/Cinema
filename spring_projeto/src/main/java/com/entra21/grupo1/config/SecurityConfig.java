@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes/{nome}").permitAll()
+                        .antMatchers(HttpMethod.GET, "/filmes/cinema/{id}").permitAll()
                         .antMatchers(HttpMethod.GET, "/generos").permitAll()
                         .antMatchers(HttpMethod.GET, "/cinemas").permitAll()
                         .antMatchers(HttpMethod.GET, "/sessoes").permitAll()

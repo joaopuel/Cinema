@@ -1,0 +1,29 @@
+<div class="full-body">
+    
+
+    <h1 class="my-light-text">{{ listaFilmes[0].sessoes[0].nomeCinema }}</h1>
+  
+    <div class="calendar-container">
+      <div *ngFor="let filme of filmesEmCartaz()">
+  
+  
+        <div class="card text-bg-dark border-secondary calendar-subcontainer">
+  
+            <div class="poster-container">
+                <img class="poster-img" src="{{ filme?.cartaz }}">
+            </div>
+  
+          <ul class="list-group list-group-flush lista-horas">
+            <li class="list-group-item text-bg-dark hora" *ngFor="let s of sessoesPorFilme(filme.id)">
+              <button class="btn btn-dark border-secondary" routerLink="/sessao/{{s.id}}">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
+            </li>
+          </ul>
+  
+        </div>
+  
+  
+      </div>
+    </div>
+  
+  </div>
+  

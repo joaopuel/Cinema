@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CadastroScreenComponent } from "./cadastro-page/cadastro-screen/cadastro-screen.component";
+import { CinemaScreenComponent } from "./cinema-page/cinema-screen/cinema-screen.component";
 import { CinemasScreenComponent } from "./cinemas-page/cinemas-screen/cinemas-screen.component";
 import { FilmeInfoScreenComponent } from "./filme-info-page/filme-info-screen/filme-info-screen.component";
 import { FilmesScreenComponent } from "./filmes-page/filmes-screen/filmes-screen.component";
@@ -17,12 +18,13 @@ const routes: Routes = [
     { path: 'login', component: LoginScreenComponent },
     { path: 'cadastro', component:  CadastroScreenComponent},
     { path: 'filmes', component: FilmesScreenComponent },
-    { path: 'filmes/filme/:nome', component: FilmeInfoScreenComponent },
-    { path: 'filmes/filme/:nome/sessoes', component:  SessoesScreenComponent},
+    { path: 'filme/:nome', component: FilmeInfoScreenComponent },
+    { path: 'filme/:nome/sessoes', component:  SessoesScreenComponent},
     { path: 'sessao/:id', component:  SessaoScreenComponent},
     { path: 'quemsomos', component:  SobreScreenComponent},
     { path: 'meusingressos', component: IngressosScreenComponent, canActivate: [AuthGuard] },
     { path: 'cinemas', component: CinemasScreenComponent},
+    { path: 'cinema/:id', component: CinemaScreenComponent},
     { path: '**', redirectTo: '/'}
   ];
   

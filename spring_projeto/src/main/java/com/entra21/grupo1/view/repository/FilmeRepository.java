@@ -1,5 +1,6 @@
 package com.entra21.grupo1.view.repository;
 
+import com.entra21.grupo1.model.dto.FilmeDTO;
 import com.entra21.grupo1.model.entity.FilmeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -32,4 +33,7 @@ public interface FilmeRepository extends JpaRepository<FilmeEntity, Long> {
 
     @Query(value = "SELECT * FROM (SELECT DISTINCT f.*, avg(a.rating) as avg_rat FROM filme f JOIN sessao s ON s.id_filme = f.id INNER JOIN filme_genero fg ON fg.id_filme = f.id INNER JOIN genero g ON g.id = fg.id_genero JOIN avaliacao a ON a.id_filme = f.id WHERE g.nome = :genero AND s.data_sessao >= :data group by f.id, f.nome) x where x.avg_rat >= :nota", nativeQuery = true)
     List<FilmeEntity> findAllFilmesDeGeneroENotaComSessoesDepois(@Param("genero") String genero, @Param("nota") Double nota, @Param("data") LocalDateTime data);
+
+    @Query(value = "select f.* from filme f join sessao s on s.id_filme = f.id join sala sl on s.id_sala = sl.id join cinema c on sl.id_cinema = c.id where c.id = :id and s.data_sessao >= :data", nativeQuery = true)
+    List<FilmeEntity> findAllByCinema(@Param("id") Long id, @Param("data") LocalDateTime data);
 }
