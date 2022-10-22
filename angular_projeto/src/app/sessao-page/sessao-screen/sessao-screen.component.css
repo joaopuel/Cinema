@@ -1,4 +1,4 @@
-.bodyA{
+.body {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -6,134 +6,34 @@
     color: whitesmoke;
 }
 
-.infoA {
+.info {
     display: flex;
     flex-direction: column;
     width: 30%;
 }
 
-.info-filmeA {
+.info-filme {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.posterA{
+.poster {
     height: 200px;
     width: auto;
 }
 
+.ingresso-card {
+  margin-bottom: 10px;
+}
 
-
-.salaA {
+.sala {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 70%;
-}
-
-
-
-
-
-/* 
-.infos{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.filme-cinema{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-
-
-.nomeFilme{
-    word-break: break-all;
-}
-
-.card{
-    font-size: small;
-}
-
-.bar-hrzt{
-    display: block;
-    background-color: white;
-    height: 3px;
-    width: 200px;
-    margin: 10px 0;
-}
-
-.container-sala{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sala{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-    background-color: rgb(37, 37, 37);
-    border-radius: 8px;
-    border: solid 2px black;
-}
-
-.fileira{
-    height: 35px;
-    margin: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-}
-
-.coluna{
-    margin: 3px;
-    width: 35px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.cadeira{
-    color: blue;
-    background-color: blue;
-    min-width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: small;
-    cursor: pointer;
-}
-
-.cadeira:hover {
-    color: white;
-    background-color: red;
-}
-
-.cad-padrao{
-    border-radius: 100%;
-}
-
-.cadeira.cad-vip{
-    border-radius: 4px;
-} */
-
-/*.full-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .fileiras {
@@ -145,7 +45,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+}
+
+.cadeira-padrao {
   height: 50px;
-  margin: 10px;
-}*/
+  width: 50px;
+  margin: 5px;
+  background-image: url(../../../imagens/chair1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.cadeira-vip {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-image: url(../../../imagens/vip-chair.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.tela {
+  width: 50%;
+  height: 30px;
+  margin: 20px;
+  background-color: rgb(22, 22, 22);
+  color: whitesmoke;
+  justify-self: flex-end;
+  align-self: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
