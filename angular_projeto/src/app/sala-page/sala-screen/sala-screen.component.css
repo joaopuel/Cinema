@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     padding: 40px 12% 40px 12%;
     color: whitesmoke;
 }
@@ -50,10 +51,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-self: center;
+  background-color: transparent!important;
 
-  width: 70%;
-  padding: 12% 0 12% 0;
+  min-width: 1000px;
+  min-height: 300px;
   margin: 0 2% 0 2%;
 
   border-width: 1px;
@@ -63,8 +65,12 @@
 }
 
 .fileiras {
-  display: flex;
-  flex-direction: row;
+    margin: auto 30px;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
 
 .cadeiras {
@@ -73,37 +79,85 @@
   align-items: center;
 }
 
-.cadeira-padrao {
-  height: 50px;
-  width: 50px;
-  margin: 5px;
-  background-image: url(../../../imagens/chair1.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.65;
+.div-corredor{
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.cadeira-vip {
-  height: 50px;
-  width: 50px;
-  margin: 5px;
-  background-image: url(../../../imagens/vip-chair.gif);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.65;
+.corredor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    border: solid 1px whitesmoke;
+    font-size: 20px;
+    color: whitesmoke;
 }
+
+.corredor:hover{
+    color: red;
+    border: solid 1px red;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
 
 .tela {
-  width: 500px;
   height: 30px;
   background-color: rgb(22, 22, 22);
+  margin-top: auto;
   color: whitesmoke;
-  justify-self: flex-end;
-  align-self: center;
-  margin-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 6px;
 }
+
+.add-new{
+    margin: auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    min-width: 252px;
+    border: solid 1px white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .add-new:hover{
+    color: red;
+    border: solid 1px red;
+  }
+
+  .icon {
+    margin: 18px;
+  }
+
+  .btn-group{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .bi-gear-fill{
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+  }
+  
+  .bi {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+  
+  }

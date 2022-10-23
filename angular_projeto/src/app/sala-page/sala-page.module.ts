@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SalaScreenComponent } from './sala-screen/sala-screen.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +11,7 @@ import { SalaScreenComponent } from './sala-screen/sala-screen.component';
     SalaScreenComponent
   ],
   imports: [
-    CommonModule
+    CommonModule, RouterModule, ReactiveFormsModule
   ],
   exports: [
     SalaScreenComponent

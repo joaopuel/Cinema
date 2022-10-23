@@ -34,7 +34,7 @@ export type Avaliacao = {
 }
 
 export type Cadeira = {
-    id: number,
+    id: number | null,
     codigo: string,
     tipoCadeira: string,
     fileira: number,
@@ -64,12 +64,6 @@ export type SalaInfo = {
     numFileiras: number,
     tamFileiras: number,
     cadeiras: CadeiraInfo[]
-}
-
-export type SalaPayLoad = {
-    id: number,
-    nome: string,
-    idCinema: number
 }
 
 export type Sessao = {

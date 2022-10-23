@@ -1,5 +1,5 @@
-<div class="full-page">
-  <div class="div1" *ngIf="user == null || user.login !== 'admin'">
+<div class="full-page" *ngIf="user == null || user.login !== 'admin'">
+  <div class="div1">
     <div class="div2" *ngFor="let c of listaCinemas">
       <button class="btn btn-dark btn-outline-secondary div3" routerLink="/cinema/{{ c.id }}">
         <div class="div4">{{c.nome}}</div>
@@ -12,15 +12,15 @@
 
 
 
-<div class="full-page">
+<div class="full-page" *ngIf="user != null && user.login === 'admin'">
 
   <div class="div">
-    <div class="div1" *ngIf="user != null && user.login === 'admin'">
+    <div class="div1">
       <div class="div2" *ngFor="let c of listaCinemasInfo">
   
         <div class="card">
   
-          <button class="btn btn-dark btn-outline-secondary div3 position-relative" routerLink="/cinema/{{ c.id }}">
+          <button class="btn btn-dark btn-outline-secondary div3 position-relative" routerLink="/cinema/{{ c.id }}/salas">
             <div class="div4">{{c.nome}}</div>
             <hr style="margin: 0;">
             <div class="div4">{{ c.logradouro }}, {{ c.numero }}</div>
@@ -62,7 +62,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Cinema</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -108,7 +108,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="deleteCinema()">Excluir</button>
+        <button type="button" class="btn btn-danger" (click)="deleteCinema()">Excluir</button>
       </div>
     </div>
   </div>

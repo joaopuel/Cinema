@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/helpers/auth.service';
-import { CinemaInfo, SalaPayLoad, User } from 'src/app/types/types';
+import { CinemaInfo, Sala, User } from 'src/app/types/types';
 
 @Component({
   selector: 'app-salas-screen',
@@ -16,12 +16,12 @@ export class SalasScreenComponent implements OnInit {
 
   cinema!: CinemaInfo | null;
 
-  idCinema!: string | null;
+  id!: string | null;
+
+  salaEscolhida!: Sala;
 
   salaForm: FormGroup = this.formBuilder.group({
-    id: [null],
-    nome: ['', Validators.required],
-    idCinema: [this.idCinema]
+    nome: ['', Validators.required]
   });
 
 
@@ -36,14 +36,22 @@ export class SalasScreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.idCinema = this.acttivateRoute.snapshot.paramMap.get('id');
-    this.http.get<CinemaInfo>(`/cinemas/${this.idCinema}`).subscribe((cinema) => this.cinema = cinema);
+    this.id = this.acttivateRoute.snapshot.paramMap.get('id');
+    this.http.get<CinemaInfo>(`/cinemas/${this.id}`).subscribe((cinema) => this.cinema = cinema);
   }
 
   addSala(){
-    var sala: SalaPayLoad = (this.salaForm.value as SalaPayLoad);
-    this.http.post<any>("/salas", sala).subscribe(success => {console.log(success)}, error => {console.log(error)});
-    window.location.reload();
+    let nome = (this.salaForm.value.nome);
+    let idCinema = this.cinema!.id;
+    this.http.post<any>("/salas", { nome,  idCinema}).subscribe(success => {window.location.reload()}, error => {console.log(error)});
+  }
+
+  setSala(s: Sala){
+    this.salaEscolhida = s;
+  }
+
+  deleteSala(){
+    this.http.delete<any>(`/salas/${this.salaEscolhida.id}`).subscribe(success => {window.location.reload()}, error => {console.log(error)});
   }
 
 }

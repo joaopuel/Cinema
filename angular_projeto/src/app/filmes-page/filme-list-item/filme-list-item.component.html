@@ -1,8 +1,13 @@
 <div class="my-list">
-    <a class="my-card" *ngFor="let filme of (emCartaz) ? listaEmCartaz : listaEmBreve" routerLink="/filme/{{filme.nome}}">
+    <a class="my-card" *ngFor="let filme of (show === 'emCartaz') ? listaEmCartaz : ( show === 'emBreve') ? listaEmBreve : listaFilmes" routerLink="/filme/{{filme.nome}}">
         <div class="poster-container" [style.background-image]="'url(' + filme.cartaz + ')'" [ngStyle]="{'background-size': 'cover', 'background-position': 'center'}">
             <!-- <img class="poster-img" src="{{ filme.cartaz }}"> -->
         </div>
         <span class="title my-light-text">{{ filme.nome }}</span>
     </a>
+    <div *ngIf="show === 'todos'">
+        <div class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
+          <i class="bi bi-plus-circle icon"></i>
+        </div>
+    </div>
 </div>

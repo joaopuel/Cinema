@@ -10,7 +10,7 @@ import { skipLast } from 'rxjs';
 })
 export class FilmeListItemComponent implements OnInit {
 
-  @Input() emCartaz!: boolean;
+  @Input() show!: string;
 
   listaFilmes: Filme[] = [];
 
@@ -23,6 +23,7 @@ export class FilmeListItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<Filme[]>("/filmes").subscribe((filmes) => {
+      this.listaFilmes = filmes;
       this.listaEmCartaz = filmes.filter((f) => f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate())));
       this.listaEmBreve = filmes.filter((f) => !(f.sessoes.some((s) => s.dataSessao.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-' + new Date().getDate()))));
     });
