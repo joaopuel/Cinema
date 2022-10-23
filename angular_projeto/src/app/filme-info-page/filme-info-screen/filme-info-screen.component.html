@@ -18,7 +18,7 @@
                         <li class="list-group-item text-bg-dark border-secondary"><h2 style="margin: 0;">{{filme?.nome}}</h2></li>
                         <li class="list-group-item text-bg-dark border-secondary">Diretor: {{filme?.diretor}}</li>
                         <li class="list-group-item text-bg-dark border-secondary">
-                            <span *ngFor="let g of filme?.generos">Gênero: {{ g.nome }}, </span>
+                            Gênero: <span *ngFor="let g of filme?.generos">{{ g.nome }}, </span>
                         </li>
                         <li class="list-group-item text-bg-dark border-secondary">Duração: {{filme?.duracao}}</li>
                         <li class="list-group-item text-bg-dark border-secondary">Nota: {{filme?.mediaNotas}}</li>

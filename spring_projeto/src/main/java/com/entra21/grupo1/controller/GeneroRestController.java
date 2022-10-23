@@ -27,8 +27,13 @@ public class GeneroRestController {
 
     //Chama o método saveGenero do GeneroService
     @PostMapping
-    public void addGenero(@RequestBody GeneroPayloadDTO newGenero) {
-        generoService.saveGenero(newGenero);
+    public GeneroDTO addGenero(@RequestBody GeneroPayloadDTO newGenero) {
+        return generoService.saveGenero(newGenero);
+    }
+
+    @PostMapping("/listageneros")
+    public List<GeneroDTO> addGeneros(@RequestBody List<GeneroPayloadDTO> newGeneros) {
+        return generoService.saveGeneros(newGeneros);
     }
 
     //Chama o método update do GeneroService
