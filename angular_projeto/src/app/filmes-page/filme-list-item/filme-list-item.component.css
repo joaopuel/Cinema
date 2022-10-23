@@ -22,3 +22,26 @@
     max-height: 100%;
     display: block;
 }
+
+.add-new{
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 82px;
+    min-width: 252px;
+    border: solid 1px white;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .add-new:hover{
+    color: red;
+    border: solid 1px red;
+  }
+  
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

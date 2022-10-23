@@ -28,7 +28,7 @@ public class SalaRestController {
 
     //Chama o método saveSala do SalaService
     @PostMapping
-    public SalaDTO addSala(@AuthenticationPrincipal PessoaEntity user, @RequestBody SalaPayloadDTO newSala) {
+    public SalaDTO addSala(@RequestBody SalaPayloadDTO newSala) {
         return salaService.saveSala(newSala);
     }
 

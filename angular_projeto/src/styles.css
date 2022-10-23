@@ -73,3 +73,25 @@ a:hover {
 .my-text-shadow {
   text-shadow: 1px 1px black;
 }
+
+.cadeira-padrao {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-image: url(imagens/chair1.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.cadeira-vip {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  background-image: url(imagens/vip-chair.gif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}

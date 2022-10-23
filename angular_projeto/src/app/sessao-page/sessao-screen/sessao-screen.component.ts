@@ -39,7 +39,11 @@ export class SessaoScreenComponent implements OnInit {
   }
 
   range(size: number, startAt: number) {
-    return [...Array(size).keys()].map(i => i + startAt).reverse();
+    let array: number[] = [];
+    for(let i=startAt; i<= size; i++){
+      array.push(i);
+    }
+    return array;
   }
 
   getMyDate() {

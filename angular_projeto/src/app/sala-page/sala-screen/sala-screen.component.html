@@ -1,0 +1,64 @@
+<div class="body">
+    <div class="card sala">
+
+        <div *ngIf="(sala.cadeiras == null || sala.cadeiras == undefined || sala.cadeiras.length === 0)" class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
+            <i class="bi bi-plus-circle icon"></i>
+            <h4>Adicione cadeiras a esta sala!</h4>
+        </div>
+
+  
+      <div *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)">
+        <div class="fileiras" *ngFor="let f of getFileiras()">
+          <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
+            <button type="button" *ngIf="c?.tipoCadeira !== 'Corredor'" [ngClass]="(c?.tipoCadeira === 'Padrão') ? 'btn btn-light cadeira-padrao' : 'btn btn-light cadeira-vip'" (click)="onClick(c!)"></button>
+            <div class="div-corredor" *ngIf="c?.tipoCadeira === 'Corredor'">
+              <button type="button" class="btn btn-light corredor" (click)="onClick(c!)">
+                <i class="bi bi-plus-circle icon"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="tela">Tela</div>
+
+      <span *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)" class="position-absolute top-0 start-100 translate-middle p-1">
+        <div class="btn-group bg-light rounded-circle">
+          <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><button class="dropdown-item" type="button" (click)="addFileira()">Adicionar Fileira</button></li>
+            <li><button class="dropdown-item" type="button" (click)="addFileira()">Adicionar Coluna</button></li>
+          </ul>
+        </div>
+      </span>
+  
+    </div>
+  </div>
+  
+  <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="cadastro">Adicionar Cadeiras</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="cadeirasSalaForm">
+            <div class="mb-3">
+              <label for="numFileiras" class="col-form-label">Número de Fileiras:</label>
+              <input type="text" class="form-control" id="numFileiras" formControlName="numFileiras">
+            </div>
+            <div class="mb-3">
+                <label for="tamFileiras" class="col-form-label">Número de Assentos da Maior Fileira:</label>
+                <input type="text" class="form-control" id="tamFileiras" formControlName="tamFileiras">
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!cadeirasSalaForm.valid" (click)="setCadeiras()" data-bs-dismiss="modal">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>

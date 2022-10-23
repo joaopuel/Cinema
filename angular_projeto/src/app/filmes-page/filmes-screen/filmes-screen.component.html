@@ -1,15 +1,21 @@
-<div class="full-page">
+<div class="full-page" *ngIf="user == undefined || user == null || user.login !== 'admin'" >
     <div class="main">
         <h3 class="titles my-light-text">
-            <span class="title" [ngClass]="(emCartaz) ? 'my-red-text my-text-shadow':'my-light-text add-hov'" (click)="changeEmCartaz()">Em Cartaz</span>
+            <span class="title" [ngClass]="(show === 'emCartaz') ? 'my-red-text my-text-shadow':'my-light-text add-hov'" (click)="changeEmCartaz()">Em Cartaz</span>
             <div class="div-bar my-light-bg"></div>
-            <span class="title" [ngClass]="!(emCartaz) ? 'my-red-text my-text-shadow':'my-light-text add-hov'" (click)="changeEmCartaz()">Em Breve</span></h3>
+            <span class="title" [ngClass]="(show !== 'emCartaz') ? 'my-red-text my-text-shadow':'my-light-text add-hov'" (click)="changeEmCartaz()">Em Breve</span></h3>
         <div class="all-bars">
             <div class="side-bar my-light-bg"></div>
-            <div class="bar" [ngClass]="(emCartaz) ? 'my-red-bg':'my-light-bg'"></div>
-            <div class="bar" [ngClass]="!(emCartaz) ? 'my-red-bg':'my-light-bg'"></div>
+            <div class="bar" [ngClass]="(show === 'emCartaz') ? 'my-red-bg':'my-light-bg'"></div>
+            <div class="bar" [ngClass]="(show !== 'emCartaz') ? 'my-red-bg':'my-light-bg'"></div>
             <div class="side-bar my-light-bg"></div>
         </div>
-        <app-filme-list-item [emCartaz]="emCartaz"></app-filme-list-item>
+        <app-filme-list-item [show]="show"></app-filme-list-item>
+    </div>
+</div>
+
+<div class="full-page" *ngIf="user != undefined && user != null && user.login === 'admin'" >
+    <div class="main">
+        <app-filme-list-item [show]="'todos'"></app-filme-list-item>
     </div>
 </div>
