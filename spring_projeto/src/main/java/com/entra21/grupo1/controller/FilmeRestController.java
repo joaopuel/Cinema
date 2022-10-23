@@ -22,6 +22,11 @@ public class FilmeRestController {
         return filmeService.getAll(nome, genero, nota);
     }
 
+    @GetMapping("/meusfilmes")
+    public List<FilmeDTO> getAllMeusFilmes() {
+        return filmeService.getAllMeusFilmes();
+    }
+
     @GetMapping("/{nome}")
     public FilmeDTOWithDetails getFilmeByNome(@PathVariable(name = "nome") String nome){
         return filmeService.getByNome(nome);

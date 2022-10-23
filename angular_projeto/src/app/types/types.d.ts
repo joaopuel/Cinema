@@ -24,6 +24,11 @@ export type Genero = {
     nome: string
 }
 
+export type GenerosFilmeDTO = {
+    idFilme: number,
+    idGeneros: number[]
+}
+
 export type Avaliacao = {
     id: number,
     nomeUsuario: string,
@@ -110,6 +115,15 @@ export type FilmeInfo = {
     generos: Genero[],
     sessoes: Sessao[],
     avaliacoes: Avaliacao[]
+}
+
+export type FilmePayload = {
+    nome: string,
+    duracao: TimeRanges,
+    sinopse: string,
+    diretor: string,
+    cartaz: string,
+    trailer: string
 }
 
 export type LoginDTO = {
