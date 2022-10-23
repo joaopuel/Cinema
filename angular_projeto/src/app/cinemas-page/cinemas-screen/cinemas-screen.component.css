@@ -76,7 +76,6 @@
   width: 100%;
   height: 100%;
   align-self: center;
-
 }
 
 .card {
@@ -90,20 +89,16 @@
   justify-content: center;
   min-height: 89px;
   min-width: 252px;
-  border: solid 1px white;
   font-size: 40px;
   cursor: pointer;
 }
 
-.add-cinema:hover{
-  color: red;
-  border: solid 1px red;
-}
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: gray;
 }
 
 .total-card{

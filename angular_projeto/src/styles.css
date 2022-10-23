@@ -63,11 +63,11 @@ a:hover {
 }
 
 .my-red-text {
-  color: rgb(120, 20, 20);
+  color: rgb(211, 0, 53);
 }
 
 .my-red-bg {
-  background-color: rgb(120, 20, 20);
+  background-color: rgb(211, 0, 53);
 }
 
 .my-text-shadow {
@@ -94,4 +94,8 @@ a:hover {
   background-repeat: no-repeat;
   background-size: contain;
   opacity: 0.65;
+}
+
+.a-black-bg {
+  background-color: rgb(10, 10, 10);
 }

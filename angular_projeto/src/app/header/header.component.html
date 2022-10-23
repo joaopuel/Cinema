@@ -1,4 +1,4 @@
-<div class="toolbar my-red-bg" role="banner">
+<div class="toolbar a-black-bg" role="banner">
     <img
       width="40"
       alt="Angular Logo"
@@ -18,25 +18,25 @@
       </div>
 
       <div class="spacer"></div>
-      
+
       <ul class="links navbar-nav me-auto mb-2 mb-lg-0">
         <li id="link_login" class="nav-item" *ngIf="user == null">
-          <button type="button" class="btn btn-primary" routerLink="/login"><i class="bi bi-person-circle"></i> Olá, Visitante</button>
+          <button type="button" class="btn btn-dark" routerLink="/login"><i class="bi bi-person-circle"></i> Olá, Visitante</button>
         </li>
         <li id="link_logout" class="nav-item" *ngIf="user != null">
 
           <div id="account-button">
             <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <button type="button" class="btn btn-primary"><i class="bi bi-person-circle"></i> Olá, {{ user.nome }}</button>
+              <button type="button" class="btn btn-dark"><i class="bi bi-person-circle"></i> Olá, {{ user.nome }}</button>
             </a>
-    
-            <ul class="dropdown-menu my-light-bg">
-              <li><a class="dropdown-item" routerLink="/filmes">Gerenciar Dados</a></li>
-              <li *ngIf="user.login !== 'admin'"><a class="dropdown-item" routerLink="/meusingressos">Meus ingressos</a></li>
-              <li *ngIf="user.login === 'admin'"><a class="dropdown-item" routerLink="/cinemas">Meus cinemas</a></li>
+
+            <ul class="dropdown-menu text-bg-dark">
+              <li><a class="dropdown-item my-light-text" routerLink="/filmes">Gerenciar Dados</a></li>
+              <li *ngIf="user.login !== 'admin'"><a class="dropdown-item my-light-text" routerLink="/meusingressos">Meus ingressos</a></li>
+              <li *ngIf="user.login === 'admin'"><a class="dropdown-item my-light-text" routerLink="/cinemas">Meus cinemas</a></li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+                <a class="dropdown-item my-light-text" href="#" (click)="logout()">Logout</a>
               </li>
             </ul>
           </div>
