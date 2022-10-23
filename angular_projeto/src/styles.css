@@ -95,3 +95,22 @@ a:hover {
   background-size: contain;
   opacity: 0.65;
 }
+
+.btn-group{
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.bi-gear-fill{
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
+}
+
+.bi {
+  width: 100%;
+  height: 100%;
+  align-self: center;
+
+}

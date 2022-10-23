@@ -4,6 +4,7 @@ import { FilmesScreenComponent } from './filmes-screen/filmes-screen.component';
 import { FilmeListItemComponent } from './filme-list-item/filme-list-item.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,7 @@ import { RouterModule } from '@angular/router';
     FilmeListItemComponent
   ],
   imports: [
-    CommonModule, HttpClientModule, RouterModule
+    CommonModule, HttpClientModule, RouterModule, ReactiveFormsModule
   ], exports: [
     FilmesScreenComponent
   ]

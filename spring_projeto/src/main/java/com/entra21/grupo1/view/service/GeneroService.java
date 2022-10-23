@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class GeneroService {
     /**Adiciona um novo gênero ao banco de dados.
      * @param newGenero GeneroPayloadDTO - Dados de um novo gênero.
      */
-    public void saveGenero(@NotNull GeneroPayloadDTO newGenero) {
+    public GeneroDTO saveGenero(@NotNull GeneroPayloadDTO newGenero) {
         pessoaService.userIsAnAdministrador();
         pessoaService.checkNullField(newGenero);
         generoRepository.findByNome(newGenero.getNome()).ifPresentOrElse(
@@ -42,6 +43,11 @@ public class GeneroService {
                     generoRepository.save(newGenero.toEntity());
                 }
         );
+        return generoRepository.findByNome(newGenero.getNome()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Gênero não encontrado!")).toDTO();
+    }
+
+    public List<GeneroDTO> saveGeneros(List<GeneroPayloadDTO> newGeneros) {
+        return newGeneros.stream().map(this::saveGenero).collect(Collectors.toList());
     }
 
     /**Atualiza gênero já existentes no banco de dados.

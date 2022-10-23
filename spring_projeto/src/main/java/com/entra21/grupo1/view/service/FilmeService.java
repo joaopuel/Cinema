@@ -54,6 +54,11 @@ public class FilmeService {
         return list.stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
     }
 
+    public List<FilmeDTO> getAllMeusFilmes() {
+        pessoaService.userIsAnAdministrador();
+        return filmeRepository.findAll().stream().map(FilmeEntity::toDTO).collect(Collectors.toList());
+    }
+
     /**Busca um filme pelo seu nome completo.
      * @param nome String - Nome do filme.
      * @return FilmeDTOWithDetails - Dados do filme.
