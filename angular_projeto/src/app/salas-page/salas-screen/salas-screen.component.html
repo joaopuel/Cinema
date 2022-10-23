@@ -3,33 +3,33 @@
     <div class="div" *ngIf="user != null && user.login === 'admin'">
       <div class="div1" *ngIf="cinema != undefined && cinema != null">
         <div class="div2" *ngFor="let s of cinema.salas">
-    
-          <div class="card">
-    
+
+          <div class="card text-bg-dark">
+
             <button class="btn btn-dark btn-outline-secondary div3 position-relative" routerLink="/sala/{{ s.id }}">
               <h4 class="div4">{{s.nome}}</h4>
             </button>
-    
+
             <span class="position-absolute top-0 start-100 translate-middle p-1">
               <div class="btn-group bg-light rounded-circle">
                 <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false" (click)="setSala(s)"></i>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><button class="dropdown-item" type="button">Editar</button></li>
-                  <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
+                <ul class="dropdown-menu dropdown-menu-end text-bg-dark border-secondary">
+                  <li><button class="dropdown-item my-light-text" type="button">Editar</button></li>
+                  <li><button class="dropdown-item my-light-text btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
                 </ul>
               </div>
             </span>
           </div>
-    
+
         </div>
-    
-    
+
+
         <div class="div2">
           <div class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
             <i class="bi bi-plus-circle icon"></i>
           </div>
         </div>
-    
+
       </div>
     </div>
 
@@ -40,16 +40,16 @@
       </div>
 
   </div>
-  
-  
+
+
   <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
           <h1 class="modal-title fs-5" id="cadastro">Cadastrar Sala</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body border-secondary">
           <form [formGroup]="salaForm">
             <div class="mb-3">
               <label for="nome" class="col-form-label">Nome:</label>
@@ -57,24 +57,25 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" [disabled]="!salaForm.valid" (click)="addSala()">Salvar</button>
         </div>
       </div>
     </div>
   </div>
-  
-  
+
+
   <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
           <h5 *ngIf="salaEscolhida != undefined" class="modal-title">Excluir {{ salaEscolhida.nome }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <p>Você está prestes a excluir esta sala da sua conta.</p>
+        <div class="modal-body border-secondary">
+          <p>Você está prestes a excluir este cinema da sua conta.</p>
+
           <div class="alert alert-danger d-flex align-items-center" role="alert">
             <i class="bi bi-exclamation-triangle-fill my-red-text" style="width: 20px;"></i>
             <div>
@@ -82,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-danger" (click)="deleteSala()">Excluir</button>
         </div>

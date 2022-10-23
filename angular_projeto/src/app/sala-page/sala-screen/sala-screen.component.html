@@ -6,7 +6,7 @@
             <h4>Adicione cadeiras a esta sala!</h4>
         </div>
 
-  
+
       <div *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)">
         <div class="fileiras" *ngFor="let f of getFileiras()">
           <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
@@ -26,24 +26,24 @@
       <span *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)" class="position-absolute top-0 start-100 translate-middle p-1">
         <div class="btn-group bg-light rounded-circle">
           <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false"></i>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><button class="dropdown-item" type="button" (click)="addFileira()">Adicionar Fileira</button></li>
-            <li><button class="dropdown-item" type="button" (click)="addFileira()">Adicionar Coluna</button></li>
+          <ul class="dropdown-menu dropdown-menu-end text-bg-dark">
+            <li><button class="dropdown-item my-light-text" type="button" (click)="addFileira()">Adicionar Fileira</button></li>
+            <li><button class="dropdown-item my-light-text" type="button" (click)="addFileira()">Adicionar Coluna</button></li>
           </ul>
         </div>
       </span>
-  
+
     </div>
   </div>
-  
+
   <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
           <h1 class="modal-title fs-5" id="cadastro">Adicionar Cadeiras</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body border-secondary">
           <form [formGroup]="cadeirasSalaForm">
             <div class="mb-3">
               <label for="numFileiras" class="col-form-label">Número de Fileiras:</label>
@@ -55,7 +55,7 @@
               </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" [disabled]="!cadeirasSalaForm.valid" (click)="setCadeiras()" data-bs-dismiss="modal">Salvar</button>
         </div>
