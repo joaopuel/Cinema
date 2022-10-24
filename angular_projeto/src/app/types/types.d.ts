@@ -46,6 +46,15 @@ export type Cadeira = {
     ordemFileira: number
 }
 
+export type CadeiraPayload = {
+    idSala: number,
+    codigo: string,
+    tipoCadeira: string,
+    fileira: number,
+    ordemFileira: number
+}
+
+
 export type CadeiraInfo = {
     id: number,
     codigo: string,

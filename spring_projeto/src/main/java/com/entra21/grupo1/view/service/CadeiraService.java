@@ -65,4 +65,10 @@ public class CadeiraService {
         pessoaService.userIsAnAdministrador();
         return cadeiraRepository.findById(idCadeira).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cadeira não encontrada"));
     }
+
+    public void deleteBySala(Long idSala) {
+        salaService.getById(idSala).getCadeiras().forEach( (c) -> {
+            delete(c.getId());
+        });
+    }
 }

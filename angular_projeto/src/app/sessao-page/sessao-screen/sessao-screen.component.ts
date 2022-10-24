@@ -17,6 +17,8 @@ export class SessaoScreenComponent implements OnInit {
   sessao!: SessaoInfo;
 
   cadeirasSelecionadas: CadeiraInfo[] = [];
+  
+  cardSelecionado: string = 'cadeiras';
 
   constructor(private acttivateRoute: ActivatedRoute, private http: HttpClient) {
   }
@@ -60,5 +62,9 @@ export class SessaoScreenComponent implements OnInit {
 
   getCadeirasSelecionadas = () => {
     return this.cadeirasSelecionadas;
+  }
+
+  setCardSelecionado(tipo: string){
+    this.cardSelecionado = tipo;
   }
 }
