@@ -28,7 +28,7 @@
 
 html, body{
   height: 100%;
-  background-color: rgb(40, 40, 40);
+  background-color: rgb(1, 1, 1);
   margin: 0;
 }
 
@@ -89,7 +89,7 @@ a:hover {
   height: 50px;
   width: 50px;
   margin: 5px;
-  background-image: url(imagens/vip-chair.gif);
+  background-image: url(imagens/star32.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
