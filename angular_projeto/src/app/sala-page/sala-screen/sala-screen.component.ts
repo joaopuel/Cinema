@@ -121,8 +121,8 @@ export class SalaScreenComponent implements OnInit {
           ordemFileira: c.ordemFileira
         }
         listaCadeirasPayload.push(cadeira);
-        this.http.post<CadeiraPayload[]>("/cadeiras/listacadeiras", listaCadeirasPayload).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
       });
+      this.http.post<CadeiraPayload[]>("/cadeiras/listacadeiras", listaCadeirasPayload).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
     } else{
       this.http.put<Cadeira[]>("/cadeiras/listacadeiras", this.cadeirasAlteradas).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
     }
