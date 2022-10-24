@@ -16,4 +16,6 @@ public class SessaoDTO {
     private String nomeSala;
     private Long idCinema;
     private String nomeCinema;
+    private String logradouroCinema;
+    private Integer numeroCinema;
 }

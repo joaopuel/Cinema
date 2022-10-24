@@ -43,6 +43,7 @@ public class IngressoEntity {
         ingressoDTO.setMeiaEntrada(this.getMeiaEntrada());
         ingressoDTO.setNomeCinema(this.getCadeira().getSala().getCinema().getNome());
         ingressoDTO.setNomeFilme(this.getSessao().getFilme().getNome());
+        ingressoDTO.setCartazFilme(this.getSessao().getFilme().getCartaz());
         ingressoDTO.setValorIngresso(this.getSessao().getValorInteira());
 
         if(this.getCadeira().getTipoCadeira().equalsIgnoreCase("VIP")){

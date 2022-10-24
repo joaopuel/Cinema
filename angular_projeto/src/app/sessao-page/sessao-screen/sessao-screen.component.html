@@ -8,7 +8,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-bg-dark border-secondary">Filme: {{ sessao.nomeFilme }}</li>
           <li class="list-group-item text-bg-dark border-secondary">Cinema: {{ sessao.nomeCinema }}</li>
-          <li class="list-group-item text-bg-dark border-secondary">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate() + "/" + getMyDate().getMonth() + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
+          <li class="list-group-item text-bg-dark border-secondary">Data: {{ diaSemana[getMyDate().getDay()] + " " + getMyDate().getDate().toString().padStart(2, '0') + "/" + getMyDate().getMonth().toString().padStart(2, '0') + " " + sessao.dataSessao.toString().split('T')[1].substring(0, 5)  }}</li>
           <li class="list-group-item text-bg-dark border-secondary">Sessão: {{ sessao.tipoSessao }}</li>
         </ul>
       </div>
@@ -31,33 +31,34 @@
       </div>
 
 
-      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'ingressos') ? 'btn-light' : ''" (click)="setCardSelecionado('ingressos')">
+      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'ingressos') ? 'btn-light' : ''" (click)="(getCadeirasSelecionadas().length !== 0) ? setCardSelecionado('ingressos'): {}">
         <div class="card-header border-secondary">
           Ingressos
         </div>
         <div class="card-body">
-          <div>Inteira: </div>
-          <div>Meia: </div>
+          <div>Inteira: {{ (numInteiraPadrao + numInteiraVIP)}}</div>
+          <div>Meia: {{ (numMeiaPadrao + numMeiaVIP)}}</div>
+          <div>VIP: {{ getCadeirasSelecionadasPeloTipo("VIP").length}}</div>
         </div>
       </div>
 
 
-      <div class="card text-bg-dark border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'pagamento') ? 'btn-light' : ''" (click)="setCardSelecionado('pagamento')">
+      <div class="card text-bg-dark border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'pagamento') ? 'btn-light' : ''" (click)="(getIngressos().length !== 0 && getIngressos().length === getCadeirasSelecionadas().length)? setCardSelecionado('pagamento'): {}">
         <div class="card-header border-secondary">
           Formas de pagamento
         </div>
         <div class="card-body">
-          Cartão de crédito
+          {{ (formaPagamento === '') ? 'Ainda não foi escolhida a forma de pagamento' : formaPagamento }}
         </div>
       </div>
 
 
       <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-header border-secondary">
-          Resumo das vendas
+          Total do Pedido
         </div>
         <div class="card-body">
-          Resumo
+          R$ {{ total.toFixed(2) }}
         </div>
       </div>
 
@@ -70,8 +71,9 @@
     <div>
       <div class="fileiras" *ngFor="let f of getFileiras()">
         <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
-          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-padrao' : 'btn btn-outline-light cadeira-padrao'" *ngIf="c?.tipoCadeira === 'Padrão'" (click)="onClick(c!)"></button>
-          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-vip' : 'btn btn-outline-light cadeira-vip'" *ngIf="c?.tipoCadeira === 'VIP'" (click)="onClick(c!)"></button>
+          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-padrao' : 'btn btn-outline-light cadeira-padrao'" *ngIf="c?.tipoCadeira === 'Padrão' && !c?.ocupado" (click)="onClick(c!)"></button>
+          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-vip' : 'btn btn-outline-light cadeira-vip'" *ngIf="c?.tipoCadeira === 'VIP' && !c?.ocupado" (click)="onClick(c!)"></button>
+          <button type="button" disabled class="btn btn-light cadeira-padrao" *ngIf="c?.ocupado"></button>
           <div class="corredor" *ngIf="c?.codigo === 'Corredor'"></div>
         </div>
       </div>
@@ -81,17 +83,104 @@
   </div>
 
   <div *ngIf="cardSelecionado === 'ingressos'" class="sala">
-
-    <div class="card text-bg-dark border-secondary ingresso-card btn">
-      <div class="card-header border-secondary">
-        Cadeiras Padrão:
+    <h3>Defina os Tipos de Ingressos</h3>
+    <div *ngIf="getCadeirasSelecionadasPeloTipo('Padrão').length !== 0" class="card text-bg-dark border-secondary ingresso-card">
+      <div class="card-header border-secondary cadeiras-selecionadas">
+        <div *ngFor="let c of getCadeirasSelecionadasPeloTipo('Padrão')">
+          <div class="lista-cadeiras" [ngClass]="(c.ocupado) ? 'ocupado':'desocupado'">
+            <span>{{ c.codigo }}</span>
+          </div>
+        </div>
       </div>
       <div class="card-body">
-        Cartão de crédito
+        <h5 class="card-title">Cadeiras Padrão: </h5>
+        <div class="select-number">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Inteira</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('Padrão', false, n)">{{ n }}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="select-number">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Meia</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('Padrão', true, n)">{{ n }}</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
+    <div *ngIf="getCadeirasSelecionadasPeloTipo('VIP').length !== 0" class="card text-bg-dark border-secondary ingresso-card">
+      <div class="card-header border-secondary cadeiras-selecionadas">
+        <div *ngFor="let c of getCadeirasSelecionadasPeloTipo('VIP')">
+          <div class="lista-cadeiras" [ngClass]="(c.ocupado) ? 'ocupado':'desocupado'">
+            <span>{{ c.codigo }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Cadeiras VIP: </h5>
+        <div class="select-number">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Inteira</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('VIP', false, n)">{{ n }}</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="select-number">
+          <div class="btn-group">
+            <button type="button" class="btn btn-secondary">Meia</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('VIP', true, n)">{{ n }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="getCadeirasSelecionadasPeloTipo('Padrão').length === 0 || getCadeirasSelecionadasPeloTipo('VIP').length === 0"></div>
+  </div>
+
+  <div *ngIf="cardSelecionado === 'pagamento'" class="sala">
+    <h3>Escolha a Forma de Pagamento</h3>
+    <div class="div-pagamento">
+      <button type="button" class="btn btn-secondary" (click)="setPagamento('Cartão de Débito')">Cartão de Débito</button>
+      <button type="button" class="btn btn-secondary" (click)="setPagamento('Cartão de Crédito')">Cartão de Crédito</button>
+      <button type="button" class="btn btn-secondary" (click)="setPagamento('Pix')">Pix</button>
+    </div>
+    <div *ngIf="(formaPagamento !== '')">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Finalizar Compra</button>
+    </div>
+    <div *ngIf="(formaPagamento === '')"></div>
   </div>
 
   
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar Pedido</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="comprarIngressos()">Confirmar</button>
+      </div>
+    </div>
+  </div>
 </div>

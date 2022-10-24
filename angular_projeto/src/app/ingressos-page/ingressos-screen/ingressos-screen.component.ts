@@ -25,4 +25,8 @@ export class IngressosScreenComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<Ingresso[]>("/usuario/meusingressos").subscribe((ingressos) => this.listaIngressos = ingressos);
   }
+
+  getData(data: Date){
+    return new Date(data);
+  }
 }

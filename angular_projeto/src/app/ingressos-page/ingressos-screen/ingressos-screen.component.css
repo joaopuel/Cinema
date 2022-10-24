@@ -1,0 +1,109 @@
+.full-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.full-ingresso{
+    width: 80%;
+    margin: 10px 0;
+}
+
+.ingresso{
+    border:3px solid black ;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    border-radius: 6px;
+    padding-top: 5px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+}
+ 
+.tituloingresso{
+    width: 50%;
+    margin-left: 10px
+}
+
+.numeroingresso{
+    width: 50%;
+    text-align: end;
+    margin-right: 10px;
+} 
+ 
+.tamanho{
+    font-size: 20px;
+}
+
+.primeiraparte{
+margin-top: 10px;
+margin-bottom: 10px;
+margin-left: 10px;
+display: flex;
+justify-content: start;
+flex-direction: column;
+color: white;
+width: 50%;
+}
+ 
+.segundaparte{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    color: white;
+    width: 50%;
+    margin-right: 10px;
+}
+
+.textin{
+    font-size: 15px;
+    text-align: end;
+}
+
+.corpo{
+    border: 3px solid black;
+    border-radius: 6px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+}
+ 
+.cartazfoto{
+    border: 1px solid rgba(255, 255, 255, 0);
+    border-radius: 7px;
+    width: 100px;
+    margin-top: 10px;
+    margin-left: 9px;
+    cursor: pointer;
+}
+ 
+.estilofilme{
+    display: inline-flex;
+    flex-direction: row;
+   
+}
+.dub-leg{
+    border: 3px solid black;
+    border-radius: 7px;
+    margin: 0px 5px 0px 0px;
+    padding: 0px 16.4px 0px 5px;
+}
+.dd-ddd{
+    border: 3px solid black;
+    border-radius: 7px;
+    margin: 0px 5px 0px 5px;
+    size: 15cm 15cm;
+    padding: 0px 50px 0px 5px;
+}
+ 
+body {
+    background-color: rgb(49, 49, 49);
+}
+
+h6:hover{
+    cursor: pointer;
+    color: red;
+}

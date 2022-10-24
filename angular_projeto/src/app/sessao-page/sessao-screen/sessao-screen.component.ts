@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CadeiraInfo, SessaoInfo } from 'src/app/types/types';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CadeiraInfo, IngressoPayload, SessaoInfo } from 'src/app/types/types';
 
 @Component({
   selector: 'app-sessao-screen',
@@ -20,7 +20,24 @@ export class SessaoScreenComponent implements OnInit {
   
   cardSelecionado: string = 'cadeiras';
 
-  constructor(private acttivateRoute: ActivatedRoute, private http: HttpClient) {
+  listaIngressos: IngressoPayload[] = [];
+
+  numInteiraPadrao: number = 0;
+
+  numMeiaPadrao: number = 0;
+
+  numInteiraVIP: number = 0;
+
+  numMeiaVIP: number = 0;
+
+  total: number = 0;
+
+  formaPagamento: string = '';
+
+  constructor(
+    private acttivateRoute: ActivatedRoute, 
+    private http: HttpClient,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -45,7 +62,7 @@ export class SessaoScreenComponent implements OnInit {
     for(let i=startAt; i<= size; i++){
       array.push(i);
     }
-    return array;
+    return array.reverse();
   }
 
   getMyDate() {
@@ -66,5 +83,104 @@ export class SessaoScreenComponent implements OnInit {
 
   setCardSelecionado(tipo: string){
     this.cardSelecionado = tipo;
+  }
+
+  getCadeirasSelecionadasPeloTipo = (tipo: string) => {
+    this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === tipo).forEach((c) => c.ocupado = false);
+    for(let i=0; i < (this.numInteiraPadrao + this.numMeiaPadrao); i++){
+      this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === 'Padrão')[i].ocupado = true;
+    }
+    for(let i=0; i < (this.numInteiraVIP + this.numMeiaVIP); i++){
+      this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === 'VIP')[i].ocupado = true;
+    }
+    return this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === tipo);
+  }
+
+  setQtdTipoEntrada(tipo: string, meia: boolean, numero: number){
+    this.total = 0;
+    if(tipo === 'Padrão'){
+      if(meia){
+        this.numMeiaPadrao = numero;
+      } else{
+        this.numInteiraPadrao = numero;
+      }
+    } else{
+      if(meia){
+        this.numMeiaVIP = numero;
+      } else {
+        this.numInteiraVIP = numero;
+      }
+    }
+    this.total = (this.numInteiraPadrao * this.sessao.valorInteira) + ((this.numMeiaPadrao * this.sessao.valorInteira)/2) + (this.numInteiraVIP * (this.sessao.valorInteira+this.sessao.taxaVip)) + ((this.numMeiaVIP * (this.sessao.valorInteira+this.sessao.taxaVip))/2);
+  }
+
+  getIngressos(){
+    this.listaIngressos = [];
+    let cadeirasPadrao: CadeiraInfo [] = this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === 'Padrão');
+    let cadeirasVIP: CadeiraInfo [] = this.cadeirasSelecionadas.filter((c) => c.tipoCadeira === 'VIP');
+
+    for(let i = 0; i<this.numInteiraPadrao; i++){
+      let cadeira: (CadeiraInfo | undefined) = cadeirasPadrao.pop();
+      if(cadeira != undefined && cadeira != null){
+        let ingresso: IngressoPayload = {
+          idSessao: this.sessao.id,
+          idCadeira: cadeira.id,
+          meiaEntrada: false
+        }
+        this.listaIngressos.push(ingresso);
+      }
+    }
+    for(let i = 0; i<this.numMeiaPadrao; i++){
+      let cadeira: (CadeiraInfo | undefined) = cadeirasPadrao.pop();
+      if(cadeira != undefined && cadeira != null){
+        let ingresso: IngressoPayload = {
+          idSessao: this.sessao.id,
+          idCadeira: cadeira.id,
+          meiaEntrada: true
+        }
+        this.listaIngressos.push(ingresso);
+      }
+    }
+    for(let i = 0; i<this.numInteiraVIP; i++){
+      let cadeira: (CadeiraInfo | undefined) = cadeirasVIP.pop();
+      if(cadeira != undefined && cadeira != null){
+        let ingresso: IngressoPayload = {
+          idSessao: this.sessao.id,
+          idCadeira: cadeira.id,
+          meiaEntrada: false
+        }
+        this.listaIngressos.push(ingresso);
+      }
+    }
+    for(let i = 0; i<this.numMeiaVIP; i++){
+      let cadeira: (CadeiraInfo | undefined) = cadeirasVIP.pop();
+      if(cadeira != undefined && cadeira != null){
+        let ingresso: IngressoPayload = {
+          idSessao: this.sessao.id,
+          idCadeira: cadeira.id,
+          meiaEntrada: true
+        }
+        this.listaIngressos.push(ingresso);
+      }
+    }
+    return this.listaIngressos;
+  }
+
+  setPagamento(tipo: string){
+    this.formaPagamento = tipo;
+  }
+
+  comprarIngressos(){
+    this.http.put<number>("/usuario/movimentacao", this.total).subscribe((sucess) => {
+      this.http.post<IngressoPayload[]>("/ingressos/listaingressos", this.listaIngressos).subscribe(
+        (sucess) => {
+          this.router.navigate(["/meusingressos"]);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    },
+    (error) => {console.log(error)});
   }
 }

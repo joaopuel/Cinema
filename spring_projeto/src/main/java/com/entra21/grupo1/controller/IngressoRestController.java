@@ -21,8 +21,13 @@ public class IngressoRestController {
     }
 
     @PostMapping
-    public IngressoDTO addIngresso(@RequestBody IngressoPayloadDTO newIngresso){
-        return ingressoService.saveIngresso(newIngresso);
+    public void addIngresso(@RequestBody IngressoPayloadDTO newIngresso){
+        ingressoService.saveIngresso(newIngresso);
+    }
+
+    @PostMapping("/listaingressos")
+    public void addIngressos(@RequestBody List<IngressoPayloadDTO> newIngressos){
+        newIngressos.forEach((i) -> {ingressoService.saveIngresso(i);});
     }
 
     @DeleteMapping("/{id}")

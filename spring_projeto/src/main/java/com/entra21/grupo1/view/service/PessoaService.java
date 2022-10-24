@@ -54,7 +54,7 @@ public class PessoaService implements UserDetailsService {
      * @param newPessoa Dados do novo usuário.
      */
     public void savePessoa(@NotNull PessoaPayloadDTO newPessoa) {
-//        checkNullField(newPessoa);
+        checkNullField(newPessoa);
         pessoaRepository.findByLogin(newPessoa.getLogin()).ifPresentOrElse(p ->  {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Este login já está em uso");
         }, () -> pessoaRepository.save(newPessoa.toEntity()));
