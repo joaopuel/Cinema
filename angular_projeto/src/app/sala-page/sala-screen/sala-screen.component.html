@@ -1,13 +1,13 @@
 <div class="body">
     <div class="card sala">
 
-        <div *ngIf="(sala.cadeiras == null || sala.cadeiras == undefined || sala.cadeiras.length === 0)" class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
+        <div *ngIf="(sala != null) && (sala.cadeiras == null || sala.cadeiras == undefined || sala.cadeiras.length === 0)" class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
             <i class="bi bi-plus-circle icon"></i>
             <h4>Adicione cadeiras a esta sala!</h4>
         </div>
 
 
-      <div *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)">
+      <div *ngIf="(sala != null) && (sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)">
         <div class="fileiras" *ngFor="let f of getFileiras()">
           <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
             <button type="button" *ngIf="c?.tipoCadeira !== 'Corredor'" [ngClass]="(c?.tipoCadeira === 'Padrão') ? 'btn btn-light cadeira-padrao' : 'btn btn-light cadeira-vip'" (click)="onClick(c!)"></button>
@@ -23,17 +23,22 @@
 
       <div class="tela">Tela</div>
 
-      <span *ngIf="(sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)" class="position-absolute top-0 start-100 translate-middle p-1">
+      <span *ngIf="!mudanca == (sala != null) && (sala.cadeiras != null && sala.cadeiras != undefined && sala.cadeiras.length !== 0)" class="position-absolute top-0 start-100 translate-middle p-1">
         <div class="btn-group bg-light rounded-circle">
           <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false"></i>
           <ul class="dropdown-menu dropdown-menu-end text-bg-dark">
-            <li><button class="dropdown-item my-light-text" type="button" (click)="addFileira()">Adicionar Fileira</button></li>
-            <li><button class="dropdown-item my-light-text" type="button" (click)="addFileira()">Adicionar Coluna</button></li>
+            <li><button class="dropdown-item my-light-text" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir Cadeiras</button></li>
           </ul>
         </div>
       </span>
 
     </div>
+
+    <div>
+      <button *ngIf="mudanca" class="btn btn-secondary" (click)="cancelChanges()">Cancelar</button>
+      <button *ngIf="mudanca" class="btn btn-primary" (click)="saveChanges()">Salvar</button>
+    </div>
+
   </div>
 
   <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
@@ -58,6 +63,31 @@
         <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" [disabled]="!cadeirasSalaForm.valid" (click)="setCadeiras()" data-bs-dismiss="modal">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title">Excluir Todas as Cadeiras da {{ sala.nome }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body border-secondary">
+          <p>Você está prestes a excluir todas as cadeiras desta sala da sua conta.</p>
+
+          <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill my-red-text" style="width: 20px;"></i>
+            <div>
+              Esta ação pode acarretar em perda de dados!
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="deleteCadeiras()">Excluir</button>
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { LoginScreenComponent } from "./login-page/login-screen/login-screen.com
 import { SalaScreenComponent } from "./sala-page/sala-screen/sala-screen.component";
 import { SalasScreenComponent } from "./salas-page/salas-screen/salas-screen.component";
 import { SessaoScreenComponent } from "./sessao-page/sessao-screen/sessao-screen.component";
+import { SessoesAdmScreenComponent } from "./sessoes-adm-page/sessoes-adm-screen/sessoes-adm-screen.component";
 import { SessoesScreenComponent } from "./sessoes-page/sessoes-screen/sessoes-screen.component";
 import { SobreScreenComponent } from "./sobre-page/sobre-screen/sobre-screen.component";
 
@@ -29,6 +30,7 @@ const routes: Routes = [
     { path: 'cinema/:id', component: CinemaScreenComponent},
     { path: 'cinema/:id/salas', component: SalasScreenComponent, canActivate: [AuthGuard]},
     { path: 'sala/:id', component: SalaScreenComponent, canActivate: [AuthGuard]},
+    { path: 'sessoes/filme/:nome', component: SessoesAdmScreenComponent, canActivate: [AuthGuard]},
     { path: '**', redirectTo: '/'}
   ];
   

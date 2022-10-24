@@ -36,12 +36,26 @@ public class CadeiraRestController {
         cadeiraService.update(newCadeira);
     }
 
+    @PutMapping("/listacadeiras")
+    public void updateCadeiras(@RequestBody List<CadeiraDTO> newCadeiras) throws NoSuchFieldException {
+        newCadeiras.forEach((c) -> {
+            try {
+                cadeiraService.update(c);
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
     /**
      * Chama o método delete de CadeiraService
      * @param id no formato Long
      */
     @DeleteMapping("/{id}")
-    public void deletePessoa(@PathVariable(name = "id") Long id) {cadeiraService.delete(id);}
+    public void deleteCadeira(@PathVariable(name = "id") Long id) {cadeiraService.delete(id);}
+
+    @DeleteMapping("/sala/{id}")
+    public void deleteCadeiras(@PathVariable(name = "id") Long id) {cadeiraService.deleteBySala(id);}
 
     @PostMapping("/listacadeiras")
     public void addListaCadeiras(@RequestBody List<CadeiraPayloadDTO> newCadeiras) {
