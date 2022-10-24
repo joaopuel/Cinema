@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((req) -> req
                         .antMatchers("/cadastro").permitAll()
-                        .antMatchers(HttpMethod.POST, "/usuarios/criarusuario").permitAll()
+                        .antMatchers(HttpMethod.POST, "/usuario/criarusuario").permitAll()
                         .antMatchers(HttpMethod.POST, "/usuario/login").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes").permitAll()
                         .antMatchers(HttpMethod.GET, "/filmes/{nome}").permitAll()

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CadeiraInfo, IngressoPayload, SessaoInfo } from 'src/app/types/types';
+import { AuthenticationService } from 'src/app/helpers/auth.service';
+import { CadeiraInfo, IngressoPayload, SessaoInfo, User } from 'src/app/types/types';
 
 @Component({
   selector: 'app-sessao-screen',
@@ -9,6 +10,8 @@ import { CadeiraInfo, IngressoPayload, SessaoInfo } from 'src/app/types/types';
   styleUrls: ['./sessao-screen.component.css']
 })
 export class SessaoScreenComponent implements OnInit {
+
+  user: User | null = null;
 
   diaSemana: string[] = ["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
 
@@ -37,7 +40,9 @@ export class SessaoScreenComponent implements OnInit {
   constructor(
     private acttivateRoute: ActivatedRoute, 
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private authenticationService: AuthenticationService) {
+      this.authenticationService.user.subscribe(x => this.user = x);
   }
 
   ngOnInit(): void {
@@ -82,6 +87,9 @@ export class SessaoScreenComponent implements OnInit {
   }
 
   setCardSelecionado(tipo: string){
+    if(tipo === 'pagamento' && (this.user == undefined || this.user == null)){
+      this.router.navigate(["/login"]);
+    }
     this.cardSelecionado = tipo;
   }
 
