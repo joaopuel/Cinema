@@ -1,10 +1,10 @@
 .my-list {
     display: flex;
-    flex-flow: row wrap;
+    flex-wrap: wrap;
 }
 
 .my-card {
-    margin: 10px;
+    margin: 10px 17px;
     width: 145.2px;
     display: flex;
     flex-direction: column;
@@ -32,16 +32,17 @@
     justify-content: center;
     width: 145.2px;
     height: 210.6px;
-    border: solid 1px white;
+    border: solid 1px gray;
+    color: grey;
     font-size: 30px;
     cursor: pointer;
   }
-  
+
   .add-new:hover{
-    color: red;
-    border: solid 1px red;
+    color: white;
+    border: solid 1px white;
   }
-  
+
   .icon {
     display: flex;
     align-items: center;
@@ -53,8 +54,14 @@
     flex-flow: row wrap;
   }
 
+  .div-generos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .generos{
     height: 38px;
+    margin: 5px;
   }
 
   .my-card-button {
@@ -65,21 +72,22 @@
 }
 
   .add-new-button{
-    color: black;
+    color: gray;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100px;
     height: 38px;
-    border: solid 1px black;
+    border: solid 1px gray;
     background-color: transparent;
     font-size: 20px;
     cursor: pointer;
+    margin: 5px;
   }
-  
+
   .add-new-button:hover{
-    color: red;
-    border: solid 1px red;
+    color: white;
+    border: solid 1px white;
   }
 
   .btn-group{
@@ -87,16 +95,16 @@
     width: 20px;
     height: 20px;
   }
-  
+
   .bi-gear-fill{
     display: flex!important;
     align-items: center!important;
     justify-content: center!important;
   }
-  
+
   .bi {
     width: 100%;
     height: 100%;
     align-self: center;
-  
+
   }

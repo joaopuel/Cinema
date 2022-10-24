@@ -1,5 +1,7 @@
 <div class="my-list">
 
+
+ <!-- MOSTRAR LISTA DE FILMES -->
   <div class="card my-card" *ngFor="let filme of (show === 'emCartaz') ? listaEmCartaz : ( show === 'emBreve') ? listaEmBreve : listaFilmes">
     <a>
         <div class="poster-container">
@@ -11,14 +13,15 @@
     <span *ngIf="show === 'todos'" class="position-absolute top-0 start-100 translate-middle p-1">
       <div class="btn-group bg-light rounded-circle">
         <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false" (click)="setFilme(filme)"></i>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><button class="dropdown-item" type="button">Editar</button></li>
-          <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
+        <ul class="dropdown-menu dropdown-menu-end text-bg-dark border-secondary">
+          <li><button class="dropdown-item my-light-text" type="button" data-bs-toggle="modal" data-bs-target="#confirmEdit" data-bs-whatever="">Editar</button></li>
+          <li><button class="dropdown-item my-light-text" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
         </ul>
       </div>
     </span>
   </div>
 
+    <!-- CARD PARA ADICIONAR FILME -->
     <div class="my-card" *ngIf="show === 'todos'">
         <div class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
           <i class="bi bi-plus-circle icon"></i>
@@ -26,14 +29,18 @@
     </div>
 </div>
 
+
+
+
+<!-- MODAL PARA ADICIONAR FILME -->
 <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="cadastro">Cadastrar Sala</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header border-secondary">
+          <h1 class="modal-title fs-5" id="cadastro">Cadastrar Filme</h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body border-secondary">
           <form [formGroup]="filmeForm">
             <div class="mb-3">
               <label for="nome" class="col-form-label">Nome:</label>
@@ -60,13 +67,15 @@
                 <input type="text" class="form-control" id="trailer" formControlName="trailer">
               </div>
               <h6 class="col-form-label">Secione os gêneros do filme:</h6>
-              <div class="div1">
+
+
+              <div class="div-generos">
                 <button class="generos" *ngFor="let g of listaGeneros" type="button" [ngClass]="listaGenerosEscolhidos.includes(g.nome) ? 'btn btn-primary' : 'btn btn-outline-primary'" (click)="addGeneroEscolhido(g)">{{ g.nome }}</button>
                 <div class="my-card-button dropdown">
                     <div class="card my-light-text add-new-button my-dark-bg" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bi bi-plus-circle icon"></i>
                     </div>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu text-bg-dark border-secondary" style="padding: 8px;">
                         <li>
                             <form [formGroup]="generoForm">
                                 <div class="mb-3">
@@ -79,9 +88,10 @@
                       </ul>
                 </div>
               </div>
+
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary" [disabled]="!filmeForm.valid || listaGenerosEscolhidos.length === 0" (click)="addFilme()">Salvar</button>
         </div>
@@ -90,14 +100,86 @@
   </div>
 
 
+
+
+<!-- MODAL PARA EDITAR FILME -->
+<div class="modal fade" id="confirmEdit" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header border-secondary">
+          <h1 class="modal-title fs-5" id="cadastro">Editar Filme</h1>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body border-secondary">
+          <form [formGroup]="filmeForm">
+            <div class="mb-3">
+              <label for="nome" class="col-form-label">Nome:</label>
+                <input type="text" class="form-control" id="nome" formControlName="nome" placeholder="John">
+            </div>
+            <div class="mb-3">
+                <label for="duracao" class="col-form-label">Duracao:</label>
+                <input type="text" class="form-control" id="duracao" formControlName="duracao">
+              </div>
+              <div class="mb-3">
+                <label for="sinopse" class="col-form-label">Sinopse:</label>
+                <input type="text" class="form-control" id="sinopse" formControlName="sinopse">
+              </div>
+              <div class="mb-3">
+                <label for="diretor" class="col-form-label">Diretor(es):</label>
+                <input type="text" class="form-control" id="diretor" formControlName="diretor">
+              </div>
+              <div class="mb-3">
+                <label for="cartaz" class="col-form-label">Cartaz:</label>
+                <input type="text" class="form-control" id="cartaz" formControlName="cartaz">
+              </div>
+              <div class="mb-3">
+                <label for="trailer" class="col-form-label">Trailer:</label>
+                <input type="text" class="form-control" id="trailer" formControlName="trailer">
+              </div>
+              <h6 class="col-form-label">Secione os gêneros do filme:</h6>
+
+              <!-- ADICIONAR GÊNERO -->
+              <div class="div-generos">
+                <button class="generos" *ngFor="let g of listaGeneros" type="button" [ngClass]="listaGenerosEscolhidos.includes(g.nome) ? 'btn btn-primary' : 'btn btn-outline-primary'" (click)="addGeneroEscolhido(g)">{{ g.nome }}</button>
+                <div class="my-card-button dropdown">
+                    <div class="card my-light-text add-new-button my-dark-bg" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-plus-circle icon"></i>
+                    </div>
+                    <ul class="dropdown-menu text-bg-dark border-secondary" style="padding: 8px;">
+                        <li>
+                            <form [formGroup]="generoForm">
+                                <div class="mb-3">
+                                    <label for="nome" class="col-form-label">Novo Gênero:</label>
+                                    <input type="text" class="form-control" id="nome" formControlName="nome">
+                                    <button type="submit" class="btn btn-primary" [disabled]="!generoForm.valid" (click)="addGenero()">Salvar</button>
+                                </div>
+                            </form>
+                        </li>
+                      </ul>
+                </div>
+              </div>
+
+          </form>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!filmeForm.valid || listaGenerosEscolhidos.length === 0" (click)="setFilme">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- MODAL PARA EXCLUIR FILME -->
   <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-content text-bg-dark">
+        <div class="modal-header border-secondary">
           <h5 *ngIf="filmeEscolhido != undefined" class="modal-title">Excluir {{ filmeEscolhido.nome }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body border-secondary">
           <p>Você está prestes a excluir este filme da sua conta.</p>
           <div class="alert alert-danger d-flex align-items-center" role="alert">
             <i class="bi bi-exclamation-triangle-fill my-red-text" style="width: 20px;"></i>
@@ -106,7 +188,7 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer border-secondary">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-danger" (click)="deleteFilme()">Excluir</button>
         </div>

@@ -28,7 +28,7 @@
 
 html, body{
   height: 100%;
-  background-color: rgb(1, 1, 1);
+  background-color: rgb(40, 40, 40);
   margin: 0;
 }
 
@@ -101,7 +101,10 @@ a:hover {
   width: 200px;
   margin: 5px;
   background-image: url(imagens/LogoVariacao2.png);
-
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 
 .a-black-bg {
   background-color: rgb(10, 10, 10);
