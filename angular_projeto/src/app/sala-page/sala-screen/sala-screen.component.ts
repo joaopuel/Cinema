@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/helpers/auth.service';
-import { Cadeira, Sala, User } from 'src/app/types/types';
+import { Cadeira, CadeiraPayload, Sala, User } from 'src/app/types/types';
 
 @Component({
   selector: 'app-sala-screen',
@@ -18,7 +18,11 @@ export class SalaScreenComponent implements OnInit {
 
   idSala!: string | null;
 
+  cadeirasAlteradas: Cadeira[] = [];
+
   mudanca: boolean = false;
+
+  novaSala: boolean = false;
 
   letras = "ABCDEFGHIJKLMNOPQRSTUVYXYZ";
 
@@ -69,10 +73,6 @@ export class SalaScreenComponent implements OnInit {
     return array;
   }
 
-  addCadeira(){
-    
-  }
-
   setCadeiras(){
     let listaCadeiras: Cadeira[] = [];
       for(let i=1; i <= this.cadeirasSalaForm.value.numFileiras; i++){
@@ -92,25 +92,43 @@ export class SalaScreenComponent implements OnInit {
     this.sala.tamFileiras = this.cadeirasSalaForm.value.tamFileiras;
     this.sala.cadeiras = listaCadeiras;
     this.mudanca = true;
+    this.novaSala = true;
   }
 
   onClick(cadeira: Cadeira){
     let index: number = this.sala.cadeiras.indexOf(cadeira);
     this.sala.cadeiras.splice(index, 1);
     let c: Cadeira = cadeira;
-    c.tipoCadeira = (cadeira.tipoCadeira == 'Padrão') ? 'VIP' : (cadeira.tipoCadeira == 'VIP') ? 'Corredor' : 'Padrão';
+    c.tipoCadeira = (cadeira.tipoCadeira == 'Padrão') ? 'VIP' : 'Padrão';
     this.sala.cadeiras.push(c);
+    this.mudanca = true;
+    this.cadeirasAlteradas.push(c);
   }
 
-  addFileira(){
-    this.sala.numFileiras = this.sala.numFileiras + 1;
-    this.setCadeiras();
-    this.mudanca = true;
+  cancelChanges(){
+    window.location.reload();
   }
 
-  addColuna(){
-    this.sala.tamFileiras = this.sala.tamFileiras +1;
-    this.setCadeiras();
-    this.mudanca = true;
+  saveChanges(){
+    if(this.novaSala){
+      let listaCadeirasPayload: CadeiraPayload[] = [];
+      this.sala.cadeiras.forEach((c) => {
+        let cadeira: CadeiraPayload = {
+          idSala: this.sala.id,
+          codigo: c.codigo,
+          tipoCadeira: c.tipoCadeira,
+          fileira: c.fileira,
+          ordemFileira: c.ordemFileira
+        }
+        listaCadeirasPayload.push(cadeira);
+        this.http.post<CadeiraPayload[]>("/cadeiras/listacadeiras", listaCadeirasPayload).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
+      });
+    } else{
+      this.http.put<Cadeira[]>("/cadeiras/listacadeiras", this.cadeirasAlteradas).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
+    }
+  }
+
+  deleteCadeiras(){
+    this.http.delete<any>(`/cadeiras/sala/${this.sala.id}`).subscribe((sucess) => {window.location.reload()}, (error) => {console.log(error)});
   }
 }

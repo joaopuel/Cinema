@@ -19,7 +19,7 @@
     <div class="ingresso-info">
 
 
-      <div class="card text-bg-dark border-secondary ingresso-card">
+      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'cadeiras') ? 'btn-light' : ''" (click)="setCardSelecionado('cadeiras')">
         <div class="card-header border-secondary">
           Cadeiras
         </div>
@@ -31,14 +31,18 @@
       </div>
 
 
-      <div class="card text-bg-dark border-secondary ingresso-card">
-        <div class="card-body">
+      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'ingressos') ? 'btn-light' : ''" (click)="setCardSelecionado('ingressos')">
+        <div class="card-header border-secondary">
           Ingressos
+        </div>
+        <div class="card-body">
+          <div>Inteira: </div>
+          <div>Meia: </div>
         </div>
       </div>
 
 
-      <div class="card text-bg-dark border-secondary ingresso-card">
+      <div class="card text-bg-dark border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'pagamento') ? 'btn-light' : ''" (click)="setCardSelecionado('pagamento')">
         <div class="card-header border-secondary">
           Formas de pagamento
         </div>
@@ -61,16 +65,33 @@
     </div>
   </div>
 
-  <div class="sala">
-
-    <div class="fileiras" *ngFor="let f of getFileiras()">
-      <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
-        <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-padrao' : 'btn btn-outline-light cadeira-padrao'" *ngIf="c?.tipoCadeira === 'Padrão'" (click)="onClick(c!)"></button>
-        <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-vip' : 'btn btn-outline-light cadeira-vip'" *ngIf="c?.tipoCadeira === 'VIP'" (click)="onClick(c!)"></button>
-        <div class="corredor" *ngIf="c?.codigo === 'Corredor'"></div>
+  <div *ngIf="cardSelecionado === 'cadeiras'" class="sala">
+    <h3>{{ sessao.sala.nome }}</h3>
+    <div>
+      <div class="fileiras" *ngFor="let f of getFileiras()">
+        <div class="cadeiras" *ngFor="let c of getCadeirasByFileira(f)">
+          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-padrao' : 'btn btn-outline-light cadeira-padrao'" *ngIf="c?.tipoCadeira === 'Padrão'" (click)="onClick(c!)"></button>
+          <button type="button" [ngClass]="cadeirasSelecionadas.includes(c!) ? 'btn btn-light cadeira-vip' : 'btn btn-outline-light cadeira-vip'" *ngIf="c?.tipoCadeira === 'VIP'" (click)="onClick(c!)"></button>
+          <div class="corredor" *ngIf="c?.codigo === 'Corredor'"></div>
+        </div>
       </div>
     </div>
     <div class="tela">Tela</div>
 
   </div>
+
+  <div *ngIf="cardSelecionado === 'ingressos'" class="sala">
+
+    <div class="card text-bg-dark border-secondary ingresso-card btn">
+      <div class="card-header border-secondary">
+        Cadeiras Padrão:
+      </div>
+      <div class="card-body">
+        Cartão de crédito
+      </div>
+    </div>
+
+  </div>
+
+  
 </div>

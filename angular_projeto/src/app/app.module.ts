@@ -25,6 +25,7 @@ import { CinemasPageModule } from './cinemas-page/cinemas-page.module';
 import { CinemaPageModule } from './cinema-page/cinema-page.module';
 import { SalasPageModule } from './salas-page/salas-page.module';
 import { SalaPageModule } from './sala-page/sala-page.module';
+import { SessoesAdmPageModule } from './sessoes-adm-page/sessoes-adm-page.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { SalaPageModule } from './sala-page/sala-page.module';
     CinemasPageModule,
     CinemaPageModule,
     SalasPageModule,
-    SalaPageModule
+    SalaPageModule,
+    SessoesAdmPageModule
   ],
   exports: [
     FooterComponent

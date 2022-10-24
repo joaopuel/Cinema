@@ -89,7 +89,18 @@ a:hover {
   height: 50px;
   width: 50px;
   margin: 5px;
-  background-image: url(imagens/vip-chair.gif);
+  background-image: url(imagens/chair2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.65;
+}
+
+.logo {
+  height: 60px;
+  width: 200px;
+  margin: 5px;
+  background-image: url(imagens/LogoVariacao2.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

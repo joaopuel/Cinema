@@ -1,21 +1,24 @@
 <div class="my-list">
-    <a class="my-card" *ngFor="let filme of (show === 'emCartaz') ? listaEmCartaz : ( show === 'emBreve') ? listaEmBreve : listaFilmes">
-        <div class="card poster-container">
-            <img routerLink="/filme/{{filme.nome}}" class="poster-img" src="{{ filme.cartaz }}">
 
-            <span *ngIf="show === 'todos'" class="position-absolute top-0 start-100 translate-middle p-1">
-              <div class="btn-group bg-light rounded-circle">
-                <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false" (click)="setFilme(filme)"></i>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><button class="dropdown-item" type="button">Editar</button></li>
-                  <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
-                </ul>
-              </div>
-            </span>
-
+  <div class="card my-card" *ngFor="let filme of (show === 'emCartaz') ? listaEmCartaz : ( show === 'emBreve') ? listaEmBreve : listaFilmes">
+    <a>
+        <div class="poster-container">
+            <img *ngIf="show !== 'todos'" routerLink="/filme/{{filme.nome}}" class="poster-img" src="{{ filme.cartaz }}">
+            <img *ngIf="show === 'todos'" routerLink="/sessoes/filme/{{ filme.nome }}" class="poster-img" src="{{ filme.cartaz }}">
         </div>
         <span class="title my-light-text">{{ filme.nome }}</span>
     </a>
+    <span *ngIf="show === 'todos'" class="position-absolute top-0 start-100 translate-middle p-1">
+      <div class="btn-group bg-light rounded-circle">
+        <i class="bi bi-gear-fill my-dark-text" data-bs-toggle="dropdown" aria-expanded="false" (click)="setFilme(filme)"></i>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button class="dropdown-item" type="button">Editar</button></li>
+          <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-bs-whatever="@mdo">Excluir</button></li>
+        </ul>
+      </div>
+    </span>
+  </div>
+
     <div class="my-card" *ngIf="show === 'todos'">
         <div class="card my-light-text add-new my-dark-bg" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">
           <i class="bi bi-plus-circle icon"></i>
