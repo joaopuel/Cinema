@@ -52,6 +52,8 @@ public class SessaoEntity {
         sessaoDTO.setNomeSala(this.getSala().getNome());
         sessaoDTO.setIdCinema(this.getSala().getCinema().getId());
         sessaoDTO.setNomeCinema(this.getSala().getCinema().getNome());
+        sessaoDTO.setLogradouroCinema(this.getSala().getCinema().getLogradouro());
+        sessaoDTO.setNumeroCinema(this.getSala().getCinema().getNumero());
         return sessaoDTO;
     }
 

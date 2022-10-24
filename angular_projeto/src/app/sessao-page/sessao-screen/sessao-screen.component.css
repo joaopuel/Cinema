@@ -72,9 +72,26 @@
   align-items: center;
 }
 
-.corredor{
-  height: 60px;
-  width: 60px;
+.lista-cadeiras{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  font-size: 15px;
+  margin: 0 10px;
+}
+
+.desocupado{
+  border: solid 1px whitesmoke;
+  color: whitesmoke;
+}
+
+.ocupado{
+  border: solid 1px black;
+  color: black;
+  background-color: whitesmoke;
 }
 
 .tela {
@@ -87,4 +104,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.select-number{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 10px 0;
+}
+
+.tipo-entrada{
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.div-pagamento{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: large;
+  width: 100%;
 }

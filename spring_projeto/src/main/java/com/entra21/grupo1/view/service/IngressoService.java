@@ -48,7 +48,7 @@ public class IngressoService {
     /**Adiciona ingresso ao banco de dados, vinculando à uma pessoa, uma sessão, e uma cadeira.
      * @param newIngresso IngressoPayloadDTO - Dados de um novo ingresso.
      */
-    public IngressoDTO saveIngresso(@NotNull IngressoPayloadDTO newIngresso) {
+    public void saveIngresso(@NotNull IngressoPayloadDTO newIngresso) {
         if(!(pessoaService.getUser().getLogin().equalsIgnoreCase("admin"))){
             pessoaService.checkNullField(newIngresso);
             SessaoEntity sessao = sessaoRepository.findById(newIngresso.getIdSessao()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sessão não encontrada!"));
@@ -71,7 +71,7 @@ public class IngressoService {
                                 pessoaService.movimentacao(-(ingressoDTO.getValorIngresso()));
                             }
                     );
-                    return ingressoRepository.findByCadeiraBySessao(cadeira.getId(), sessao.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingresso não encontrado!")).toDTO();
+//                    return ingressoRepository.findByCadeiraBySessao(cadeira.getId(), sessao.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingresso não encontrado!")).toDTO();
                 } else {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cadeira e sessão são de salas diferentes!");
                 }

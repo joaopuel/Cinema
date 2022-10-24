@@ -1,24 +1,37 @@
-<!-- <div *ngIf="user != null">
-    <div *ngFor="let i of listaIngressos">
-        <div class="card">
-            <div class="card-header">
-              {{ i.nomeFilme }}
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Ingresso</h5>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
+<div class="full-page">
+  <div class="full-ingresso" *ngFor="let i of listaIngressos">
+    <div class="ingresso">
+      <div class="tituloingresso">
+        <h3 class="tamanho">Número do ingresso</h3>
+      </div>
+      <div class="numeroingresso">
+        <h3 class="tamanho">{{ i.id }}</h3>
+      </div>
     </div>
-</div> -->
-
-<div class="card">
-  <div class="card-header">
-    Nome nomeFilme
+    <div class="corpo">
+        <div>
+            <img class="cartazfoto" src="{{ i.cartazFilme }}" width="80px 120px" routerLink="/filme/{{i.nomeFilme}}">
+        </div>
+        <div class="primeiraparte">
+            <h3>{{ i.nomeFilme }}</h3>
+            <h6 routerLink="/cinema/{{i.sessao.idCinema}}">{{ i.nomeCinema }}</h6>
+            <h6 routerLink="/sessao/{{i.sessao.id}}">{{ getData(i.sessao.dataSessao).getDate().toString().padStart(2, '0') + "/" + getData(i.sessao.dataSessao).getMonth().toString().padStart(2, '0') + "/" + getData(i.sessao.dataSessao).getFullYear() + " - " + getData(i.sessao.dataSessao).getHours() + ":" + getData(i.sessao.dataSessao).getMinutes() }}</h6>
+            <h6 routerLink="/sessao/{{i.sessao.id}}">{{ i.sessao.nomeSala }} - {{ i.cadeira.codigo }}</h6>
+                <div class="estilofilme">
+                    <div class="dub-leg">
+                        {{ i.sessao.tipoSessao }}
+                    </div>
+                </div>
+        </div>
+        <div class="segundaparte">
+          <h6 routerLink="/cinema/{{i.sessao.idCinema}}" class="textin">{{ i.sessao.logradouroCinema }}, {{ i.sessao.numeroCinema }}</h6>
+          <!-- <h6 class="textin">Centro, Blumenau</h6> -->
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <h5 class="card-title">Ingresso</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="full-ingresso" *ngIf="listaIngressos.length === 0">
+    <div class="corpo my-light-text" style="display: flex; justify-content: center; border-color: white;">
+      <h3>Você não possui ingressos!</h3>
+    </div>
   </div>
+</div>

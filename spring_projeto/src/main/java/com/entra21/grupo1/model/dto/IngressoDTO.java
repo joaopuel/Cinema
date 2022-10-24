@@ -10,6 +10,7 @@ public class IngressoDTO {
     private LocalDateTime dataCompra;
     private Long idPessoa;
     private String nomeFilme;
+    private String cartazFilme;
     private String nomeCinema;
     private Double valorIngresso;
     private Boolean meiaEntrada;
