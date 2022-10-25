@@ -6,12 +6,12 @@
     margin: 5px 15% 5px 15%;
     min-height: 400px;
   }
-  
+
   .div {
     display: flex;
     justify-content: center;
   }
-  
+
   .div1 {
     display: flex;
     flex-direction: row;
@@ -19,7 +19,7 @@
     justify-content: flex-start;
     width: 804px;
   }
-  
+
   .div2 {
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@
     align-items: center;
     margin: 12px 0 12px 0px;
   }
-  
+
   .div3 {
     min-width: 250px;
     color: whitesmoke;
@@ -37,42 +37,42 @@
     justify-content: center;
     min-height: 80px;
   }
-  
+
   .div4 {
     border: 0;
     text-align: start;
     word-break: break-all;
   }
-  
+
   .header{
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .btn-group{
     cursor: pointer;
     width: 20px;
     height: 20px;
   }
-  
+
   .bi-gear-fill{
     display: flex!important;
     align-items: center!important;
     justify-content: center!important;
   }
-  
+
   .bi {
     width: 100%;
     height: 100%;
     align-self: center;
-  
+
   }
-  
+
   .card {
     margin: 0 8px;
   }
-  
+
   .add-new{
     margin: 0 8px;
     display: flex;
@@ -80,22 +80,23 @@
     justify-content: center;
     min-height: 82px;
     min-width: 252px;
-    border: solid 1px white;
+    border: solid 1px gray;
+    color: gray;
     font-size: 30px;
     cursor: pointer;
   }
-  
+
   .add-new:hover{
-    color: red;
-    border: solid 1px red;
+    color: white;
+    border: solid 1px white;
   }
-  
+
   .icon {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   .total-card{
     width: 100%;
     text-align: end;

@@ -2,9 +2,11 @@
 
   <div class="info">
 
+
+    <!-- INFORMAÇÕES DO FILME -->
     <div class="info-filme">
       <img class="poster" src="{{sessao.cartazFilme}}">
-      <div class="card border-secondary" style="width: 100%; margin: 5px;">
+      <div class="card border-secondary" style="width: 100%; margin-left: 5px;">
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-bg-dark border-secondary">Filme: {{ sessao.nomeFilme }}</li>
           <li class="list-group-item text-bg-dark border-secondary">Cinema: {{ sessao.nomeCinema }}</li>
@@ -18,24 +20,25 @@
 
     <div class="ingresso-info">
 
-
-      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'cadeiras') ? 'btn-light' : ''" (click)="setCardSelecionado('cadeiras')">
-        <div class="card-header border-secondary">
+      <!-- CADEIRAS SELECIONADAS -->
+      <div class="btn btn-dark border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'cadeiras') ? 'btn-light' : ''" (click)="setCardSelecionado('cadeiras')">
+        <div class="border-secondary">
           Cadeiras
         </div>
-
-        <div class="card-header cadeiras-selecionadas">
+        <hr style="margin: 5px">
+        <div class="cadeiras-selecionadas">
           <div class="cadeira-individual" *ngFor="let c of getCadeirasSelecionadas()">{{ c.codigo }}, </div>
         </div>
 
       </div>
 
-
-      <div class="card border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'ingressos') ? 'btn-light' : ''" (click)="(getCadeirasSelecionadas().length !== 0) ? setCardSelecionado('ingressos'): {}">
-        <div class="card-header border-secondary">
+      <!-- TIPO DOS INGRESSOS -->
+      <div class="btn btn-dark border-secondary ingresso-card" [ngClass]="(cardSelecionado === 'ingressos') ? 'btn-light' : ''" (click)="(getCadeirasSelecionadas().length !== 0) ? setCardSelecionado('ingressos'): {}">
+        <div class="border-secondary">
           Ingressos
         </div>
-        <div class="card-body">
+        <hr style="margin: 5px;">
+        <div>
           <div>Inteira: {{ (numInteiraPadrao + numInteiraVIP)}}</div>
           <div>Meia: {{ (numMeiaPadrao + numMeiaVIP)}}</div>
           <div>VIP: {{ getCadeirasSelecionadasPeloTipo("VIP").length}}</div>
@@ -43,16 +46,18 @@
       </div>
 
 
-      <div class="card text-bg-dark border-secondary ingresso-card btn" [ngClass]="(cardSelecionado === 'pagamento') ? 'btn-light' : ''" (click)="(getIngressos().length !== 0 && getIngressos().length === getCadeirasSelecionadas().length)? setCardSelecionado('pagamento'): {}">
-        <div class="card-header border-secondary">
+      <!-- FORMAS DE PAGAMENTO -->
+      <div class="btn btn-dark border-secondary ingresso-card" [ngClass]="(cardSelecionado === 'pagamento') ? 'btn-light' : ''" (click)="(getIngressos().length !== 0 && getIngressos().length === getCadeirasSelecionadas().length)? setCardSelecionado('pagamento'): {}">
+        <div class="border-secondary">
           Formas de pagamento
         </div>
-        <div class="card-body">
+        <hr style="margin: 5px;">
+        <div style="margin: 9px 5px 6px 6px">
           {{ (formaPagamento === '') ? 'Ainda não foi escolhida a forma de pagamento' : formaPagamento }}
         </div>
       </div>
 
-
+      <!-- TOTAL DA COMPRA -->
       <div class="card text-bg-dark border-secondary ingresso-card">
         <div class="card-header border-secondary">
           Total do Pedido
@@ -66,6 +71,7 @@
     </div>
   </div>
 
+  <!-- TELA DE CADEIRAS -->
   <div *ngIf="cardSelecionado === 'cadeiras'" class="sala">
     <h3>{{ sessao.sala.nome }}</h3>
     <div>
@@ -82,9 +88,10 @@
 
   </div>
 
+  <!-- TELA DE INGRESSOS -->
   <div *ngIf="cardSelecionado === 'ingressos'" class="sala">
     <h3>Defina os Tipos de Ingressos</h3>
-    <div *ngIf="getCadeirasSelecionadasPeloTipo('Padrão').length !== 0" class="card text-bg-dark border-secondary ingresso-card">
+    <div *ngIf="getCadeirasSelecionadasPeloTipo('Padrão').length !== 0" class="card text-bg-dark border-secondary ingresso-card" style="width: fit-content;">
       <div class="card-header border-secondary cadeiras-selecionadas">
         <div *ngFor="let c of getCadeirasSelecionadasPeloTipo('Padrão')">
           <div class="lista-cadeiras" [ngClass]="(c.ocupado) ? 'ocupado':'desocupado'">
@@ -99,8 +106,8 @@
             <button type="button" class="btn btn-secondary">Inteira</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('Padrão', false, n)">{{ n }}</a></li>
+            <ul class="dropdown-menu text-bg-dark border-secondary">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item my-light-text" (click)="setQtdTipoEntrada('Padrão', false, n)">{{ n }}</a></li>
             </ul>
           </div>
         </div>
@@ -109,16 +116,16 @@
             <button type="button" class="btn btn-secondary">Meia</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('Padrão', true, n)">{{ n }}</a></li>
+            <ul class="dropdown-menu text-bg-dark border-secondary">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('Padrão').length - (numInteiraPadrao + numMeiaPadrao), 0).reverse()"><a class="dropdown-item my-light-text" (click)="setQtdTipoEntrada('Padrão', true, n)">{{ n }}</a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 
-    <div *ngIf="getCadeirasSelecionadasPeloTipo('VIP').length !== 0" class="card text-bg-dark border-secondary ingresso-card">
-      <div class="card-header border-secondary cadeiras-selecionadas">
+    <div *ngIf="getCadeirasSelecionadasPeloTipo('VIP').length !== 0" class="card text-bg-dark border-secondary ingresso-card" style="width: fit-content;">
+      <div class="card-header">
         <div *ngFor="let c of getCadeirasSelecionadasPeloTipo('VIP')">
           <div class="lista-cadeiras" [ngClass]="(c.ocupado) ? 'ocupado':'desocupado'">
             <span>{{ c.codigo }}</span>
@@ -132,8 +139,8 @@
             <button type="button" class="btn btn-secondary">Inteira</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('VIP', false, n)">{{ n }}</a></li>
+            <ul class="dropdown-menu text-bg-dark border-secondary">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item my-light-text" (click)="setQtdTipoEntrada('VIP', false, n)">{{ n }}</a></li>
             </ul>
           </div>
         </div>
@@ -142,8 +149,8 @@
             <button type="button" class="btn btn-secondary">Meia</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
             </button>
-            <ul class="dropdown-menu">
-              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item" (click)="setQtdTipoEntrada('VIP', true, n)">{{ n }}</a></li>
+            <ul class="dropdown-menu text-bg-dark border-secondary">
+              <li *ngFor="let n of range(getCadeirasSelecionadasPeloTipo('VIP').length - (numInteiraVIP + numMeiaVIP), 0).reverse()"><a class="dropdown-item my-light-text" (click)="setQtdTipoEntrada('VIP', true, n)">{{ n }}</a></li>
             </ul>
           </div>
         </div>
@@ -153,33 +160,34 @@
     <div *ngIf="getCadeirasSelecionadasPeloTipo('Padrão').length === 0 || getCadeirasSelecionadasPeloTipo('VIP').length === 0"></div>
   </div>
 
+  <!-- TELA DE FORMAS DE PAGAMENTO -->
   <div *ngIf="cardSelecionado === 'pagamento'" class="sala">
     <h3>Escolha a Forma de Pagamento</h3>
     <div class="div-pagamento">
-      <button type="button" class="btn btn-secondary" (click)="setPagamento('Cartão de Débito')">Cartão de Débito</button>
-      <button type="button" class="btn btn-secondary" (click)="setPagamento('Cartão de Crédito')">Cartão de Crédito</button>
-      <button type="button" class="btn btn-secondary" (click)="setPagamento('Pix')">Pix</button>
+      <button type="button" class="btn btn-secondary" style="margin: 5px;" (click)="setPagamento('Cartão de Débito')">Cartão de Débito</button>
+      <button type="button" class="btn btn-secondary" style="margin: 5px;" (click)="setPagamento('Cartão de Crédito')">Cartão de Crédito</button>
+      <button type="button" class="btn btn-secondary" style="margin: 5px;" (click)="setPagamento('Pix')">Pix</button>
     </div>
     <div *ngIf="(formaPagamento !== '')">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Finalizar Compra</button>
+      <button type="button" class="btn btn-primary" style="margin: 10px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Finalizar Compra</button>
     </div>
     <div *ngIf="(formaPagamento === '')"></div>
   </div>
 
-  
+
 </div>
 
-
+<!-- CONFIRMAR COMPRA -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-content text-bg-dark">
+      <div class="modal-header border-secondary" style="padding: 10px 16px;">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar Pedido</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="comprarIngressos()" data-bs-dismiss="modal">Confirmar</button>
+      <div class="modal-body border-secondary">
+        <button type="button" class="btn btn-secondary" style="margin: 0 10px 0 0;" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary"(click)="comprarIngressos()" data-bs-dismiss="modal">Confirmar</button>
       </div>
     </div>
   </div>
