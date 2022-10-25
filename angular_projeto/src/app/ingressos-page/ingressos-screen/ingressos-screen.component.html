@@ -7,7 +7,7 @@
         <div class="card-header border-secondary">Ingresso n°{{ i.id }}</div>
 
         <div class="col-md-4" style="width: fit-content;">
-          <img src="{{ i.cartazFilme }}" width="130px" class="img-fluid rounded-start ppp" routerLink="/filme/{{i.nomeFilme}}">
+          <img src="{{ i.cartazFilme }}" style="border-radius: 8px;" width="145.2px" height="210.6px" class="img-fluid rounded-start ppp" routerLink="/filme/{{i.nomeFilme}}">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div class="full-ingresso">
+  <div class="full-ingresso" *ngIf="listaIngressos.length === 0">
     <div class="card text-bg-dark border-secondary">
       <h2 style="margin: 0; display: flex; justify-content: center; align-items: center;">
         Você não possui ingressos!

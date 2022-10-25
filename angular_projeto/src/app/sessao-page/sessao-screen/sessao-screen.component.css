@@ -23,6 +23,7 @@
 .poster {
     height: 200px;
     width: auto;
+    border-radius: 8px;
 }
 
 .ingresso-card {
