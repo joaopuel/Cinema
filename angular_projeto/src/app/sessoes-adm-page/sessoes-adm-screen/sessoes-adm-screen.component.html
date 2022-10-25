@@ -2,7 +2,7 @@
 
 
 <!------ Include the above in your HEAD tag ---------->
-	
+
 <div class="container">
     <div class="row row-striped">
         <div class="col-2 text-right">
@@ -42,26 +42,25 @@
     <div class="poster-container">
         <img class="poster-img" src="{{ filme?.cartaz }}">
     </div>
-  
+
     <div class="calendar-container">
       <div *ngFor="let nomeCinema of listaCinemas()">
-  
-  
+
+
         <div class="card text-bg-dark border-secondary calendar-subcontainer">
-  
+
           <div class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</div>
-  
+
           <ul class="list-group list-group-flush lista-horas">
             <li class="list-group-item text-bg-dark hora" *ngFor="let s of sessoesPorCinema(nomeCinema)">
               <button class="btn btn-dark border-secondary" routerLink="/sessao/{{s.id}}">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
             </li>
           </ul>
-  
+
         </div>
-  
-  
+
+
       </div>
     </div>
-  
+
   </div> -->
-  

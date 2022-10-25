@@ -34,9 +34,9 @@
 
     </div>
 
-    <div>
-      <button *ngIf="mudanca" class="btn btn-secondary" (click)="cancelChanges()">Cancelar</button>
-      <button *ngIf="mudanca" class="btn btn-primary" (click)="saveChanges()">Salvar</button>
+    <div style="margin: 5px">
+      <button *ngIf="mudanca" class="btn btn-secondary" style="margin: 5px;" (click)="cancelChanges()">Cancelar</button>
+      <button *ngIf="mudanca" class="btn btn-primary" style="margin: 5px;" (click)="saveChanges()">Salvar</button>
     </div>
 
   </div>
@@ -46,7 +46,7 @@
       <div class="modal-content text-bg-dark border-secondary">
         <div class="modal-header border-secondary">
           <h1 class="modal-title fs-5" id="cadastro">Adicionar Cadeiras</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body border-secondary">
           <form [formGroup]="cadeirasSalaForm">
@@ -73,7 +73,7 @@
       <div class="modal-content text-bg-dark border-secondary">
         <div class="modal-header border-secondary">
           <h5 class="modal-title">Excluir Todas as Cadeiras da {{ sala.nome }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body border-secondary">
           <p>Você está prestes a excluir todas as cadeiras desta sala da sua conta.</p>

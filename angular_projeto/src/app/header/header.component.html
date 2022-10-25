@@ -31,8 +31,8 @@
               <li *ngIf="user.login === 'admin'"><a class="dropdown-item my-light-text" routerLink="/filmes">Meus Filmes</a></li>
               <li *ngIf="user.login === 'admin'"><a class="dropdown-item my-light-text" routerLink="/cinemas">Meus cinemas</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li>
-                <a class="dropdown-item my-light-text" href="#" (click)="logout()">Logout</a>
+              <li style="margin: auto 10px;">
+                <a class="dropdown-item text-bg-danger" style="border-radius: 4px;" href="#" (click)="logout()">Logout</a>
               </li>
             </ul>
           </div>
