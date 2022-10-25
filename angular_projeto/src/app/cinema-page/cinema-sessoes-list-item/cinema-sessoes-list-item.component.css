@@ -39,7 +39,8 @@
 
 .poster-img {
   height: 400px;
-  width: auto;
+  width: 275.78px;
+  border-radius: 8px;
 }
 
 .hora {

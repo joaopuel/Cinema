@@ -1,15 +1,15 @@
 .fundo{
-    width: 100vw;
-    height: 68vh;
+    width: max-content;
+    height: 400px;
 
     display: inline-block;
-    
+
 }
 
 .seja{
     font-family: 'Poppins';
     font-size: 85px;
-    color: white; 
+    color: white;
     display: flex;
     align-items: center;
     align-items: flex-end;
@@ -31,7 +31,7 @@
     margin-top: 20px;
     margin-left: 55px;
     margin-right: 500px;
- 
+
 }
 
 .ong{
@@ -55,7 +55,7 @@
     margin-top: 30px;
     margin-bottom: 75px;
  }
-    
+
 
 .edit-index a{
     display: inline;
@@ -97,7 +97,7 @@
     font-family: 'Poppins';
     font-size: 45px;
     /* background-color: rgb(254, 226, 255); */
-    color: rgb(0, 255, 242) ;
+    color: whitesmoke;
     border-radius: 15px;
     padding: 16px 30px;
     text-align: right;
@@ -108,7 +108,7 @@
 .sobre{
     font-family: 'Poppins';
     font-size: 21px;
-    color: rgb(5, 105, 136);
+    color: whitesmoke;
     margin: 60px;
     margin-top: 60px;
 }
@@ -125,7 +125,7 @@
 .para2{
     font-family: 'Poppins';
     font-size: 21px;
-    color: rgb(29, 172, 216);
+    color: whitesmoke;
     margin-left: 30px;
     margin-right: 50px;
     margin-top: 50px;
@@ -145,7 +145,7 @@
     font-family: 'Poppins';
     font-size: 45px;
     /* background-color: rgb(254, 226, 255); */
-    color: rgb(0, 255, 242);
+    color: whitesmoke;
     border-radius: 15px;
     padding: 16px 30px;
     align-items: center;
@@ -167,7 +167,7 @@
 .paratres{
     font-family: 'Poppins';
     font-size: 22px;
-    color:rgb(0, 255, 170);
+    color:whitesmoke;
     margin-top: 70px;
     margin-bottom: 90px;
     text-align: center;

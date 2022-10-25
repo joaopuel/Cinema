@@ -1,7 +1,7 @@
 .full-body {
-  width: 1400px;
+  width: 1200px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 20px 0 40px 0;
 }
 
@@ -15,6 +15,7 @@
 .poster-img {
   height: 400px;
   width: auto;
+  border-radius: 8px;
 }
 
 .calendar-container {
@@ -26,7 +27,7 @@
 .calendar-subcontainer {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
 }
 
 .nome-cinema {

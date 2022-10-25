@@ -94,22 +94,22 @@
     height: 50px;
     width: 50px;
     background-color: transparent;
-    border: solid 1px whitesmoke;
+    border: solid 1px gray;
     font-size: 20px;
-    color: whitesmoke;
+    color: gray;
 }
 
 .corredor:hover{
-    color: red;
-    border: solid 1px red;
+    color: white;
+    border: solid 1px white;
   }
-  
+
   .icon {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
 
 .tela {
   height: 30px;
@@ -130,13 +130,14 @@
     min-height: 200px;
     min-width: 252px;
     border: solid 1px white;
+    color: gray;
     font-size: 30px;
     cursor: pointer;
   }
-  
+
   .add-new:hover{
-    color: red;
-    border: solid 1px red;
+    color: white;
+    border: solid 1px white;
   }
 
   .icon {
@@ -148,16 +149,16 @@
     width: 20px;
     height: 20px;
   }
-  
+
   .bi-gear-fill{
     display: flex!important;
     align-items: center!important;
     justify-content: center!important;
   }
-  
+
   .bi {
     width: 100%;
     height: 100%;
     align-self: center;
-  
+
   }
