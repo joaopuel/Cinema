@@ -108,6 +108,15 @@ export type SessaoInfo = {
     nomeCinema: string
 }
 
+export type SessaoPayload = {
+    dataSessao: Date,
+    idFilme: number;
+    idSala: number,
+    valorInteira: number,
+    taxaVip: number,
+    tipoSessao: string
+}
+
 export type Filme = {
     id: number,
     nome: string,

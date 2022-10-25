@@ -1,66 +1,103 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
-
-<!------ Include the above in your HEAD tag ---------->
-
-<div class="container">
-    <div class="row row-striped">
-        <div class="col-2 text-right">
-            <h1 class="display-4"><span class="badge badge-secondary">23</span></h1>
-            <h2>OCT</h2>
-        </div>
-        <div class="col-10">
-            <h3 class="text-uppercase"><strong>Ice Cream Social</strong></h3>
-            <ul class="list-inline">
-                <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> Monday</li>
-                <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> 12:30 PM - 2:00 PM</li>
-                <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> Cafe</li>
-            </ul>
-            <p>Lorem ipsum dolsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-    </div>
-    <div class="row row-striped">
-        <div class="col-2 text-right">
-            <h1 class="display-4"><span class="badge badge-secondary">27</span></h1>
-            <h2>OCT</h2>
-        </div>
-        <div class="col-10">
-            <h3 class="text-uppercase"><strong>Operations Meeting</strong></h3>
-            <ul class="list-inline">
-                <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> Friday</li>
-                <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> 2:30 PM - 4:00 PM</li>
-                <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> Room 4019</li>
-            </ul>
-            <p>Lorem ipsum dolsit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-    </div>
-</div>
-
-<!-- <div class="full-body">
+<div class="full-body">
 
 
     <div class="poster-container">
-        <img class="poster-img" src="{{ filme?.cartaz }}">
+      <button type="button" class="btn btn-primary" style="margin: 10px 0;" data-bs-toggle="modal" data-bs-target="#cadastro" data-bs-whatever="@mdo">Adicionar Sessões</button>
+      <img class="poster-img" src="{{ filme?.cartaz }}">
     </div>
 
     <div class="calendar-container">
-      <div *ngFor="let nomeCinema of listaCinemas()">
+      <div *ngFor="let nomeCinema of listaCinemas()" class="card text-bg-dark border-secondary calendar-subcontainer">
+  
+        <h3 class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</h3>
 
-
-        <div class="card text-bg-dark border-secondary calendar-subcontainer">
-
-          <div class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</div>
-
-          <ul class="list-group list-group-flush lista-horas">
-            <li class="list-group-item text-bg-dark hora" *ngFor="let s of sessoesPorCinema(nomeCinema)">
-              <button class="btn btn-dark border-secondary" routerLink="/sessao/{{s.id}}">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
-            </li>
-          </ul>
-
-        </div>
-
+        <hr style="margin: 0;">
+        
+        <!-- separar horários por sala -->
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-bg-dark hora" *ngFor="let d of getDias(nomeCinema)">
+            <div class="dia btn btn-dark border-secondary disabled my-light-text">
+              <h5>{{ diaSemana[getMyDate(d).getDay()] }}</h5>
+              <hr style="margin: 0;">
+              <div class="card-body">
+                <div class="card-title">{{ getMyDate(d).toLocaleDateString('pt-br', {day: 'numeric', month:'numeric'}) }}</div>
+              </div>
+            </div>
+          <div class="vr"></div>
+          <button *ngFor="let s of sessoesPorCinemaPorDia(nomeCinema, d)" class="btn btn-dark border-secondary">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
+          </li>
+        </ul>
 
       </div>
     </div>
+  
+  </div>
+  
+  <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
+          <h1 class="modal-title fs-5" id="cadastro">Adicionar Sessões</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body border-secondary">
+          <form [formGroup]="sessaoForm">
+            <div class="mb-3">
+              <label for="dataInicio" class="col-form-label">Data de Inicial:</label>
+              <input type="date" class="form-control" id="dataInicio" formControlName="dataInicio">
+            </div>
+            <div class="mb-3">
+              <label for="dataFim" class="col-form-label">Data de Final:</label>
+              <input type="date" class="form-control" id="dataFim" formControlName="dataFim">
+            </div>
+            <div class="mb-3">
+              <label for="horario" class="col-form-label">Horário:</label>
+              <input type="time" class="form-control" id="horario" formControlName="horario">
+            </div>
+            <div class="mb-3">
+              <label for="valorInteira" class="col-form-label">Valor da entrada:</label>
+              <input type="text" class="form-control" id="valorInteira" formControlName="valorInteira">
+            </div>
+            <div class="mb-3">
+              <label for="taxaVip" class="col-form-label">Taxa VIP:</label>
+              <input type="text" class="form-control" id="taxaVip" formControlName="taxaVip">
+            </div>
+            <div class="mb-3">
+              <label for="tipoSessao" class="col-form-label">Tipo Sessao:</label>
+              <input type="text" class="form-control" id="tipoSessao" formControlName="tipoSessao">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!sessaoForm.valid" data-bs-toggle="modal" data-bs-target="#cadastro1" data-bs-whatever="@mdo">Próximo</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  </div> -->
+  <div class="modal fade" id="cadastro1" tabindex="-1" aria-labelledby="cadastro1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-bg-dark border-secondary">
+        <div class="modal-header border-secondary">
+          <h1 class="modal-title fs-5" id="cadastro1">Adicionar Cadeiras</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body border-secondary">
+          <div class="salas mb-3" *ngFor="let c of cinemas">
+            <div class="dia" *ngFor="let s of getSalas(c)" (click)="addSala(s.id)" [ngClass]="(salasSelecionadas.includes(s.id) ? 'btn btn-light':'btn btn-dark border-secondary my-light-text')">
+              <h5>{{ s.nome }}</h5>
+              <hr style="margin: 0;">
+              <div class="card-body">
+                <div class="card-title">{{ c.nome }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" (click)="addSessoes()" data-bs-dismiss="modal" [ngClass]="(salasSelecionadas.length === 0) ? 'disabled':''">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
