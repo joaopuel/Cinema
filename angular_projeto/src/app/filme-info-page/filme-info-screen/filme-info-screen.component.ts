@@ -22,4 +22,5 @@ export class FilmeInfoScreenComponent implements OnInit {
     this.http.get<FilmeInfo>(`/filmes/${this.nomeFilme}`).subscribe((filme) => this.filme = filme);
   }
 
+
 }

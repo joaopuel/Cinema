@@ -30,6 +30,10 @@ html, body{
   height: 100%;
   background-color: rgb(40, 40, 40);
   margin: 0;
+
+  background-image: url(imagens/background.png);
+  background-position: center;
+  background-size: cover;
 }
 
 a {
@@ -107,7 +111,7 @@ a:hover {
 }
 
 .a-black-bg {
-  background-color: rgb(10, 10, 10);
+  background-color: rgb(17, 17, 17);
 }
 
 .hvr-grow-shadow {
