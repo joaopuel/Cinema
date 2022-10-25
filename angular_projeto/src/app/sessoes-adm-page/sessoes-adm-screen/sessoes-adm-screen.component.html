@@ -8,37 +8,35 @@
 
     <div class="calendar-container">
       <div *ngFor="let nomeCinema of listaCinemas()" class="card text-bg-dark border-secondary calendar-subcontainer">
-  
+
         <h3 class="list-group-item text-bg-dark nome-cinema">{{nomeCinema}}</h3>
 
-        <hr style="margin: 0;">
-        
+
         <!-- separar horários por sala -->
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" style="margin: 5px 0;">
           <li class="list-group-item text-bg-dark hora" *ngFor="let d of getDias(nomeCinema)">
-            <div class="dia btn btn-dark border-secondary disabled my-light-text">
+            <div class="dia btn btn-dark border-secondary disabled my-light-text" style="margin: 5px 0 0 5px;">
               <h5>{{ diaSemana[getMyDate(d).getDay()] }}</h5>
               <hr style="margin: 0;">
               <div class="card-body">
                 <div class="card-title">{{ getMyDate(d).toLocaleDateString('pt-br', {day: 'numeric', month:'numeric'}) }}</div>
               </div>
             </div>
-          <div class="vr"></div>
           <button *ngFor="let s of sessoesPorCinemaPorDia(nomeCinema, d)" class="btn btn-dark border-secondary">{{ s.dataSessao.toString().split('T')[1].substring(0, 5) }}</button>
           </li>
         </ul>
 
       </div>
     </div>
-  
+
   </div>
-  
+
   <div class="modal fade" id="cadastro" tabindex="-1" aria-labelledby="cadastro" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-bg-dark border-secondary">
         <div class="modal-header border-secondary">
           <h1 class="modal-title fs-5" id="cadastro">Adicionar Sessões</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body border-secondary">
           <form [formGroup]="sessaoForm">
@@ -69,8 +67,8 @@
           </form>
         </div>
         <div class="modal-footer border-secondary">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!sessaoForm.valid" data-bs-toggle="modal" data-bs-target="#cadastro1" data-bs-whatever="@mdo">Próximo</button>
+          <button type="button" class="btn btn-secondary" style="padding: 10px;" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" style="padding: 10px;" [disabled]="!sessaoForm.valid" data-bs-toggle="modal" data-bs-target="#cadastro1" data-bs-whatever="@mdo">Próximo</button>
         </div>
       </div>
     </div>

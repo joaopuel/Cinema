@@ -10,13 +10,13 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  padding-top: 40px;
+  padding: 10px;
   width: 24%;
 }
 
 .poster-img {
-  height: 400px;
-  width: auto;
+  max-width: 270px;
+  align-self: center;
 }
 
 .calendar-container {
@@ -28,6 +28,7 @@
 .calendar-subcontainer {
   display: flex;
   flex-direction: column;
+  margin: 10px;
 }
 
 .nome-cinema {
