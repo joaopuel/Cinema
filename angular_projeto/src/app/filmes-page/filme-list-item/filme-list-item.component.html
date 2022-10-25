@@ -5,8 +5,8 @@
   <div class="card my-card" *ngFor="let filme of (show === 'emCartaz') ? listaEmCartaz : ( show === 'emBreve') ? listaEmBreve : listaFilmes">
     <a>
         <div class="poster-container">
-            <img *ngIf="show !== 'todos'" routerLink="/filme/{{filme.nome}}" class="poster-img" src="{{ filme.cartaz }}">
-            <img *ngIf="show === 'todos'" routerLink="/sessoes/filme/{{ filme.nome }}" class="poster-img" src="{{ filme.cartaz }}">
+            <img *ngIf="show !== 'todos'" routerLink="/filme/{{filme.nome}}" class="poster-img hvr-grow-shadow" src="{{ filme.cartaz }}">
+            <img *ngIf="show === 'todos'" routerLink="/sessoes/filme/{{ filme.nome }}" class="poster-img hvr-grow-shadow" src="{{ filme.cartaz }}">
         </div>
         <span class="title my-light-text">{{ filme.nome }}</span>
     </a>
