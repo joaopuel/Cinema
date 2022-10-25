@@ -30,6 +30,10 @@ html, body{
   height: 100%;
   background-color: rgb(40, 40, 40);
   margin: 0;
+
+  background-image: url(imagens/background.png);
+  background-position: center;
+  background-size: cover;
 }
 
 a {
@@ -107,5 +111,22 @@ a:hover {
 }
 
 .a-black-bg {
-  background-color: rgb(10, 10, 10);
+  background-color: rgb(17, 17, 17);
+}
+
+.hvr-grow-shadow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow, transform;
+  transition-property: box-shadow, transform;
+}
+.hvr-grow-shadow:hover, .hvr-grow-shadow:focus, .hvr-grow-shadow:active {
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
