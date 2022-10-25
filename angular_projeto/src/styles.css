@@ -51,7 +51,7 @@ a:hover {
 }
 
 .my-light-bg {
-  background-color: #e7e7e7;
+  background-color: #e7e7e7!important;
 }
 
 .my-dark-text {

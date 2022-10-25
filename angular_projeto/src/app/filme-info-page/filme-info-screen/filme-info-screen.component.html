@@ -21,7 +21,15 @@
                             Gênero: <span *ngFor="let g of filme?.generos">{{ g.nome }}, </span>
                         </li>
                         <li class="list-group-item text-bg-dark border-secondary">Duração: {{filme?.duracao}}</li>
-                        <li class="list-group-item text-bg-dark border-secondary">Nota: {{filme?.mediaNotas}}</li>
+                        <li *ngIf="(filme != undefined && filme != null) && (filme?.mediaNotas != undefined && filme?.mediaNotas != null)" class="list-group-item text-bg-dark border-secondary">
+                            <div class="rating-nota">
+                                <input type="radio" [checked]="(filme.mediaNotas.toFixed() === '5')? 'true': ''" ><label class="nota">☆</label>
+                                <input type="radio" [checked]="(filme.mediaNotas.toFixed() === '4') ? 'true': ''" ><label class="nota">☆</label>
+                                <input type="radio" [checked]="(filme.mediaNotas.toFixed() === '3') ? 'true': ''" ><label class="nota">☆</label>
+                                <input type="radio" [checked]="(filme.mediaNotas.toFixed() === '2') ? 'true': ''" ><label class="nota">☆</label>
+                                <input type="radio" [checked]="(filme.mediaNotas.toFixed() === '1') ? 'true': ''" ><label class="nota">☆</label>
+                            </div>
+                        </li>
                         <li class="list-group-item text-bg-dark border-secondary"></li>
                     </ul>
             </div>
@@ -64,6 +72,45 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-bg-dark" style="text-align: justify; text-justify: inter-word;">
 
+                    <div *ngIf="user == null || user == undefined" class="card text-bg-dark border-dark" style="width: 100%;">
+                        <ul class="list-group list-group-flush">
+                            <div class="card-header text-bg-secondary border-secondary">
+                                <li class="list-group-item text-bg-dark nota">Nota:</li>
+                            </div>
+                            <div class="card-footer">
+                                <div></div>
+                                <button type="button" class="btn btn-secondary" routerLink="/login">Deixe Sua Avaliação</button>
+                            </div>
+                        </ul>
+                        <hr style="width: 100%;">
+                    </div>
+
+                    <div *ngIf="user != null && user != undefined" class="card text-bg-dark border-dark" style="width: 100%;">
+                        <ul class="list-group list-group-flush">
+                            <form [formGroup]="avaliacaoForm">
+                                <div class="card-header text-bg-secondary border-secondary">
+                                    
+                                    <div class="rating">
+                                        <input type="radio" name="rating" value="5" id="5" (click)="setNota(5)"><label for="5">☆</label>
+                                        <input type="radio" name="rating" value="4" id="4" (click)="setNota(4)"><label for="4">☆</label>
+                                        <input type="radio" name="rating" value="3" id="3" (click)="setNota(3)"><label for="3">☆</label>
+                                        <input type="radio" name="rating" value="2" id="2" (click)="setNota(2)"><label for="2">☆</label>
+                                        <input type="radio" name="rating" value="1" id="1" (click)="setNota(1)"><label for="1">☆</label>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <textarea type="text" class="form-control" id="comentario" formControlName="comentario"></textarea>
+                                </div>
+                                <div class="card-footer">
+                                    <div></div>
+                                    <button type="button" class="btn btn-secondary" [ngClass]="(nota !== 0) ? '':'disabled'" (click)="saveAvaliacao()">Salvar Avaliação</button>
+                                </div>
+                            </form>
+                        </ul>
+                        <hr style="width: 100%;">
+                    </div>
+
                     <div *ngIf="filme!.avaliacoes.length === 0" style="display: flex; justify-content: center">
                         <div >Esse filme ainda não possui avaliações</div>
                     </div>
@@ -73,10 +120,24 @@
 
                         <div class="card text-bg-dark border-dark" style="width: 100%;">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item text-bg-dark border-dark">Usuário: {{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</li>
-                                <li class="list-group-item text-bg-dark border-dark">Comentário: {{ av.comentario }}</li>
-                                <li class="list-group-item text-bg-dark border-dark">Nota: {{av.nota}}</li>
-                                <!-- <li class="list-group-item text-bg-dark border-dark">{{av.dataAvaliacao}}</li> -->
+                                <div class="card-header text-bg-secondary border-secondary">
+                                    <li class="list-group-item text-bg-dark nota">
+                                        <div class="rating-nota">
+                                            <input type="radio" [checked]="(av.nota === 5 ) ? 'true': ''" ><label class="nota">☆</label>
+                                            <input type="radio" [checked]="(av.nota === 4 ) ? 'true': ''" ><label class="nota">☆</label>
+                                            <input type="radio" [checked]="(av.nota === 3 ) ? 'true': ''" ><label class="nota">☆</label>
+                                            <input type="radio" [checked]="(av.nota === 2 ) ? 'true': ''" ><label class="nota">☆</label>
+                                            <input type="radio" [checked]="(av.nota === 1 ) ? 'true': ''" ><label class="nota">☆</label>
+                                        </div>
+                                    </li>
+                                </div>
+                                <div *ngIf="av.comentario != null || av.comentario != undefined" class="card-body">
+                                    <li class="list-group-item text-bg-dark border-dark">{{ av.comentario }}</li>
+                                </div>
+                                <div class="card-footer">
+                                    <li class="list-group-item text-bg-dark border-dark">{{ av.nomeUsuario }} {{ av.sobrenomeUsuario }}</li>
+                                    <li class="list-group-item text-bg-dark border-dark">{{ getMyDate(av.dataAvaliacao).getDate().toString().padStart(2, "0") + "/" + (getMyDate(av.dataAvaliacao).getMonth()+1).toString().padStart(2, "0") + " - " + av.dataAvaliacao.toString().split("T")[1].substring(0,5) }}</li>
+                                </div>
                             </ul>
                             <hr style="width: 100%;">
                         </div>

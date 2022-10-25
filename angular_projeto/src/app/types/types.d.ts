@@ -34,9 +34,16 @@ export type Avaliacao = {
     nomeUsuario: string,
     sobrenomeUsuario: string,
     nota: number,
-    comentario: string,
+    comentario: string | null,
     dataAvaliacao: Date
 }
+
+export type AvaliacaoPayload = {
+    idFilme: number,
+    nota: number,
+    comentario: string | null
+}
+
 
 export type Cadeira = {
     id: number | null,

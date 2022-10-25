@@ -33,18 +33,10 @@ public class AvaliacaoService {
     public void saveAvaliacao(@NotNull AvaliacaoPayloadDTO newAvaliacao) {
         this.checkNullField(newAvaliacao);
         FilmeEntity filme = filmeRepository.findById(newAvaliacao.getIdFilme()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Filme não encontrado!"));
-        if(pessoaService.getUser().getIngressos().stream().anyMatch((i) -> i.getSessao().getFilme() == filme)){
-            if(pessoaService.getUser().getAvaliacoes().stream().noneMatch((a) -> a.getFilme() == filme)){
-                avaliacaoRepository.save(newAvaliacao.toEntity(
-                        pessoaService.getUser(),
-                        filme
-                ));
-            } else {
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Você já avaliou esse filme!");
-            }
-        } else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Você deve ter um ingresso para avaliar esse filme!");
-        }
+        avaliacaoRepository.save(newAvaliacao.toEntity(
+                pessoaService.getUser(),
+                filme
+        ));
     }
 
     /**Atualiza avaliação de um filme no banco de dados.
