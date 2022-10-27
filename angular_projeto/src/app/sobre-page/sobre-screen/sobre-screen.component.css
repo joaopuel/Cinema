@@ -1,3 +1,12 @@
+.full-page{
+    display: flex;
+    justify-content: center;
+}
+
+.page{
+    width: 1400px;
+}
+
 .fundo{
     width: max-content;
     height: 400px;
@@ -249,4 +258,23 @@ font-family: 'Poppins';
     height: 47px;
     width: 47px;
     margin: 5px;
+}
+
+.src{
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    min-width: 510px;
+    min-height: 430px;
+    flex: 1;
+}
+
+#imagem{
+    background-image: url('../../../imagens/sobre.jpeg');
+    background-size: cover;
+}
+
+#imagem2{
+    background-image: url('../../../imagens/AdobeStock_424517526.jpeg');
 }

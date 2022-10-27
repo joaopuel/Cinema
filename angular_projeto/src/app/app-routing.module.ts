@@ -17,7 +17,7 @@ import { SessoesScreenComponent } from "./sessoes-page/sessoes-screen/sessoes-sc
 import { SobreScreenComponent } from "./sobre-page/sobre-screen/sobre-screen.component";
 
 const routes: Routes = [
-    { path: '', component: FilmesScreenComponent },
+    { path: '', component: LandingPageScreenComponent },
     { path: 'login', component: LoginScreenComponent },
     { path: 'cadastro', component:  CadastroScreenComponent},
     { path: 'filmes', component: FilmesScreenComponent },
