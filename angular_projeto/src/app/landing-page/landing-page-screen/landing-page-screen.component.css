@@ -1,0 +1,23 @@
+.src{
+    background-repeat: no-repeat;
+    background-position: center;
+    width: auto;
+    height: 708.48px;
+    flex: 1;
+}
+
+.src1{
+    background-image: url('../../../imagens/carrossel1.gif');
+}
+
+.src2{
+    background-image: url('../../../imagens/carrossel2.gif');
+}
+
+.src3{
+    background-image: url('../../../imagens/carrossel3.gif');
+}
+
+.src4{
+    background-image: url('../../../imagens/carrossel4.gif');
+}
